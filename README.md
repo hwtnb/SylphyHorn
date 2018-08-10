@@ -41,7 +41,7 @@ Please download from [Windows app store](https://www.microsoft.com/store/apps/9n
 
 ## Credits
 
-* Manato KAMEYA [@Grabacr07](https://twitter.com/Grabacr07) (Auther, Developer)
+* Manato KAMEYA [@Grabacr07](https://twitter.com/Grabacr07) (Author, Developer)
 * Yutaka TSUMORI [@tmyt](https://twitter.com/tmyt) (Developer)
 
 
