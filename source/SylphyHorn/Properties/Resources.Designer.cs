@@ -19,7 +19,7 @@ namespace SylphyHorn.Properties {
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
     // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -47,7 +47,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+        ///   すべてについて、現在のスレッドの CurrentUICulture プロパティをオーバーライドします
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -543,6 +543,24 @@ namespace SylphyHorn.Properties {
         public static string Settings_Startup_Automaticaly {
             get {
                 return ResourceManager.GetString("Settings_Startup_Automaticaly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Task View に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_TaskView {
+            get {
+                return ResourceManager.GetString("Settings_TaskView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show Task View: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_TaskView_ShowTaskView {
+            get {
+                return ResourceManager.GetString("Settings_TaskView_ShowTaskView", resourceCulture);
             }
         }
         

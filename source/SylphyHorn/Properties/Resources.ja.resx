@@ -190,7 +190,7 @@
     <value>左へ移動して切り替え:</value>
   </data>
   <data name="Settings_MoveWindowToAdjacentDesktop_Right" xml:space="preserve">
-    <value>右へ移動</value>
+    <value>右へ移動:</value>
   </data>
   <data name="Settings_MoveWindowToAdjacentDesktop_RightAndSwitch" xml:space="preserve">
     <value>右へ移動して切り替え:</value>
@@ -278,6 +278,12 @@
   </data>
   <data name="Settings_Startup_Automaticaly" xml:space="preserve">
     <value>ログオン時に自動的に起動する</value>
+  </data>
+  <data name="Settings_TaskView" xml:space="preserve">
+    <value>タスク ビュー</value>
+  </data>
+  <data name="Settings_TaskView_ShowTaskView" xml:space="preserve">
+    <value>タスク ビューを表示:</value>
   </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>設定</value>

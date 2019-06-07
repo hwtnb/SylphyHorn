@@ -89,7 +89,7 @@ namespace SylphyHorn.UI.Controls
 					this._pressedKey = key;
 				}
 
-				this.CurrentAsKeys = this._pressedModifiers.Any() && this._pressedKey != Key.None
+				this.CurrentAsKeys = /*this._pressedModifiers.Any() && */this._pressedKey != Key.None
 					? this.GetShortcutKey()
 					: (ShortcutKey?)null;
 
