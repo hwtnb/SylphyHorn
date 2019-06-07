@@ -145,7 +145,7 @@ namespace SylphyHorn.Services
 
 			ushort desktop = 0;
 			ushort monitor = 0;
-			var position = WallpaperPosition.Fit;
+			var position = WallpaperPosition.Fill;
 
 			if (identifiers.Length > 0 && ushort.TryParse(identifiers[0], out desktop))
 			{
@@ -170,7 +170,7 @@ namespace SylphyHorn.Services
 			if (options2[0] == 'f') return WallpaperPosition.Fit;
 			if (options2.StartsWith("fil")) return WallpaperPosition.Fill;
 			if (options2.StartsWith("sp")) return WallpaperPosition.Span;
-			return WallpaperPosition.Fit;
+			return WallpaperPosition.Fill;
 		}
 	}
 }
