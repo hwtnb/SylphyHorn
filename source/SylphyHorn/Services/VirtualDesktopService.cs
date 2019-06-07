@@ -11,6 +11,8 @@ namespace SylphyHorn.Services
 	{
 		#region Get
 
+		public static int Count => VirtualDesktop.GetDesktops().Length;
+
 		public static VirtualDesktop GetLeft()
 		{
 			var current = VirtualDesktop.Current;
@@ -29,6 +31,13 @@ namespace SylphyHorn.Services
 			return desktops.Length >= 2 && current.Id == desktops.Last().Id
 				? Settings.General.LoopDesktop ? desktops.First() : null
 				: current.GetRight();
+		}
+
+		public static VirtualDesktop GetByIndex(int index)
+		{
+			var desktops = VirtualDesktop.GetDesktops();
+
+			return (index >= 0) && (index < desktops.Length) ? desktops[index] : null;
 		}
 
 		#endregion
@@ -78,6 +87,23 @@ namespace SylphyHorn.Services
 				{
 					VirtualDesktopHelper.MoveToDesktop(hWnd, right);
 					return right;
+				}
+			}
+
+			SystemSounds.Asterisk.Play();
+			return null;
+		}
+
+		public static VirtualDesktop MoveToIndex(this IntPtr hWnd, int i)
+		{
+			var current = VirtualDesktop.FromHwnd(hWnd);
+			if (current != null)
+			{
+				var target = GetByIndex(i);
+				if (target != null)
+				{
+					VirtualDesktopHelper.MoveToDesktop(hWnd, target);
+					return target;
 				}
 			}
 
