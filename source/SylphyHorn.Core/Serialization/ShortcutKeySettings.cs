@@ -27,9 +27,49 @@ namespace SylphyHorn.Serialization
 
 		public ShortcutkeyProperty MoveNewAndSwitch => this.Cache(key => new ShortcutkeyProperty(key, this._provider, MoveNewAndSwitchDefaultValue));
 
+		public ShortcutkeyProperty MoveToIndex0 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex1 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex2 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex3 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex4 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex5 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex6 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex7 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex8 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToIndex9 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
 		public ShortcutkeyProperty SwitchToLeft => this.Cache(key => new ShortcutkeyProperty(key, this._provider, SwitchToLeftDefaultValue));
 
 		public ShortcutkeyProperty SwitchToRight => this.Cache(key => new ShortcutkeyProperty(key, this._provider, SwitchToRightDefaultValue));
+
+		public ShortcutkeyProperty SwitchToIndex0 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex1 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex2 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex3 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex4 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex5 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex6 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex7 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex8 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToIndex9 => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
 
 		public ShortcutkeyProperty CloseAndSwitchLeft => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
 

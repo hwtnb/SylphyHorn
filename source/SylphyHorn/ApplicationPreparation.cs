@@ -111,6 +111,40 @@ namespace SylphyHorn
 			this._hookService
 				.Register(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
 				.AddTo(this._disposable);
+
+			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut) {
+				this._hookService
+					.Register(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
+					.AddTo(this._disposable);
+			};
+			var keyIndex = 0;
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex0.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex1.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex2.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex3.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex4.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex5.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex6.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex7.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex8.ToShortcutKey());
+			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex9.ToShortcutKey());
+
+			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut) {
+				this._hookService
+					.Register(() => shortcut, hWnd => hWnd.MoveToIndex(i))
+					.AddTo(this._disposable);
+			};
+			keyIndex = 0;
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex0.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex1.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex2.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex3.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex4.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex5.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex6.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex7.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex8.ToShortcutKey());
+			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex9.ToShortcutKey());
 		}
 
 		public TaskTrayIcon CreateTaskTrayIcon()

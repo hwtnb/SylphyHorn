@@ -153,6 +153,9 @@
   <data name="Settings_CloseDesktop_CloseAndSwitchRight" xml:space="preserve">
     <value>Close and switch right:</value>
   </data>
+  <data name="Settings_Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
   <data name="Settings_DesktopSwitching" xml:space="preserve">
     <value>Desktop switching</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="Settings_MoveWindowToCreatedDesktop_MoveAndSwitch" xml:space="preserve">
     <value>Move (Switch):</value>
+  </data>
+  <data name="Settings_MoveWindowToSpecifiedDesktop" xml:space="preserve">
+    <value>Move active window to specified desktop</value>
   </data>
   <data name="Settings_MultipleDisplays" xml:space="preserve">
     <value>Destination displays</value>
@@ -278,6 +284,9 @@
   </data>
   <data name="Settings_Startup_Automaticaly" xml:space="preserve">
     <value>Automaticaly start at logon</value>
+  </data>
+  <data name="Settings_SwitchSpecifiedDesktop" xml:space="preserve">
+    <value>Switch specified desktop</value>
   </data>
   <data name="Settings_TaskView" xml:space="preserve">
     <value>Task View</value>
