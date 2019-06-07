@@ -85,6 +85,10 @@ namespace SylphyHorn
 				.AddTo(this._disposable);
 
 			this._hookService
+				.Register(() => settings.ShowTaskView.ToShortcutKey(), _ => VirtualDesktopService.ShowTaskView())
+				.AddTo(this._disposable);
+
+			this._hookService
 				.Register(() => settings.Pin.ToShortcutKey(), hWnd => hWnd.Pin())
 				.AddTo(this._disposable);
 

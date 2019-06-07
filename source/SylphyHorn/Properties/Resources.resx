@@ -279,6 +279,12 @@
   <data name="Settings_Startup_Automaticaly" xml:space="preserve">
     <value>Automaticaly start at logon</value>
   </data>
+  <data name="Settings_TaskView" xml:space="preserve">
+    <value>Task View</value>
+  </data>
+  <data name="Settings_TaskView_ShowTaskView" xml:space="preserve">
+    <value>Show Task View:</value>
+  </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>Settings</value>
   </data>

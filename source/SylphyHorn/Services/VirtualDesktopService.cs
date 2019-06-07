@@ -3,6 +3,7 @@ using System.Linq;
 using System.Media;
 using SylphyHorn.Serialization;
 using WindowsDesktop;
+using WindowsInput.Native;
 
 namespace SylphyHorn.Services
 {
@@ -123,6 +124,20 @@ namespace SylphyHorn.Services
 				GetRight()?.Switch();
 				current.Remove();
 			}
+		}
+
+		#endregion
+
+		#region Task View
+
+		private static readonly WindowsInput.InputSimulator Input = new WindowsInput.InputSimulator();
+
+		public static void ShowTaskView()
+		{
+			Input.Keyboard.KeyUp(VirtualKeyCode.CONTROL);
+			Input.Keyboard.KeyUp(VirtualKeyCode.SHIFT);
+			Input.Keyboard.KeyUp(VirtualKeyCode.MENU);
+			Input.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
 		}
 
 		#endregion
