@@ -15,6 +15,7 @@ namespace SylphyHorn.Services
 		public HookService()
 		{
 			this._detector.Pressed += this.KeyHookOnPressed;
+			this._detector.Up += this.KeyHookOnUp;
 			this._detector.Start();
 		}
 
@@ -54,6 +55,17 @@ namespace SylphyHorn.Services
 			if (target != null && target.CanExecute())
 			{
 				VisualHelper.InvokeOnUIDispatcher(() => target.Action(InteropHelper.GetForegroundWindowEx()));
+				args.Handled = true;
+			}
+		}
+
+		private void KeyHookOnUp(object sender, ShortcutKeyPressedEventArgs args)
+		{
+			if (args.ShortcutKey == ShortcutKey.None) return;
+
+			var target = this._hookActions.FirstOrDefault(x => x.GetShortcutKey() == args.ShortcutKey);
+			if (target != null && target.CanExecute())
+			{
 				args.Handled = true;
 			}
 		}

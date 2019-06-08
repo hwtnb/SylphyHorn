@@ -21,6 +21,7 @@ namespace SylphyHorn.Services
 		/// Occurs when detects a shortcut key.
 		/// </summary>
 		public event EventHandler<ShortcutKeyPressedEventArgs> Pressed;
+		public event EventHandler<ShortcutKeyPressedEventArgs> Up;
 
 		public ShortcutKeyDetector()
 		{
@@ -65,11 +66,17 @@ namespace SylphyHorn.Services
 		{
 			if (this._suspended) return;
 
-			if (this._pressedModifiers.Count == 0) return;
+			//if (this._pressedModifiers.Count == 0) return;
 
 			if (args.KeyCode.IsModifyKey())
 			{
 				this._pressedModifiers.Remove(args.KeyCode);
+			}
+			else
+			{
+				var pressedEventArgs = new ShortcutKeyPressedEventArgs(args.KeyCode, this._pressedModifiers);
+				this.Up?.Invoke(this, pressedEventArgs);
+				if (pressedEventArgs.Handled) args.SuppressKeyPress = true;
 			}
 		}
 	}
