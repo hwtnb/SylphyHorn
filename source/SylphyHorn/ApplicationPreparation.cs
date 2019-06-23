@@ -32,6 +32,11 @@ namespace SylphyHorn
 			this._hookService = hookService;
 			this._shutdownAction = shutdownAction;
 			this._disposable = disposable;
+
+			this._hookService.Reload = () =>
+			{
+				this.RegisterActions();
+			};
 		}
 
 		public void RegisterActions()
@@ -40,7 +45,7 @@ namespace SylphyHorn
 			RegisterActions(Settings.MouseShortcut);
 		}
 
-		public void RegisterActions(ShortcutKeySettings settings)
+		private void RegisterActions(ShortcutKeySettings settings)
 		{
 			this._hookService
 				.Register(() => settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
