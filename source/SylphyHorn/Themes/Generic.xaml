@@ -1,8 +1,9 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/SylphyHorn;component/Themes/Generic.ShortcutKeyBox.xaml" />
+		<ResourceDictionary Source="/SylphyHorn;component/Themes/Generic.MouseShortcutBox.xaml" />
 		<ResourceDictionary Source="/SylphyHorn;component/Themes/Generic.Keytop.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 

@@ -36,10 +36,14 @@ namespace SylphyHorn
 
 		public void RegisterActions()
 		{
-			var settings = Settings.ShortcutKey;
+			RegisterActions(Settings.ShortcutKey);
+			RegisterActions(Settings.MouseShortcut);
+		}
 
+		public void RegisterActions(ShortcutKeySettings settings)
+		{
 			this._hookService
-				.Register(()=>settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
+				.Register(() => settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
 				.AddTo(this._disposable);
 
 			this._hookService
@@ -112,7 +116,8 @@ namespace SylphyHorn
 				.Register(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
 				.AddTo(this._disposable);
 
-			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut) {
+			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
+			{
 				this._hookService
 					.Register(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
 					.AddTo(this._disposable);
@@ -129,7 +134,8 @@ namespace SylphyHorn
 			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex8.ToShortcutKey());
 			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex9.ToShortcutKey());
 
-			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut) {
+			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut)
+			{
 				this._hookService
 					.Register(() => shortcut, hWnd => hWnd.MoveToIndex(i))
 					.AddTo(this._disposable);

@@ -183,6 +183,9 @@
   <data name="Settings_LogViewer_Description" xml:space="preserve">
     <value>Events that occurred during execution are displayed here.</value>
   </data>
+  <data name="Settings_MouseShortcut" xml:space="preserve">
+    <value>Mouse shortcut</value>
+  </data>
   <data name="Settings_MoveWindowToAdjacentDesktop" xml:space="preserve">
     <value>Move active window to adjacent desktop</value>
   </data>
@@ -202,7 +205,7 @@
     <value>Move active window to created new desktop</value>
   </data>
   <data name="Settings_MoveWindowToCreatedDesktop_CreateOnly" xml:space="preserve">
-    <value>Switch only</value>
+    <value>Switch only:</value>
   </data>
   <data name="Settings_MoveWindowToCreatedDesktop_Move" xml:space="preserve">
     <value>Move:</value>
