@@ -11,6 +11,26 @@ namespace SylphyHorn.Services
 		private readonly ShortcutKeyDetector _detector = new ShortcutKeyDetector();
 		private readonly List<HookAction> _hookActions = new List<HookAction>();
 		private int _suspendRequestCount;
+		private Action _reloadAction;
+
+		public Action Reload
+		{
+			get
+			{
+				return () =>
+				{
+					if (_reloadAction != null)
+					{
+						_hookActions.Clear();
+						_reloadAction();
+					}
+				};
+			}
+			set
+			{
+				_reloadAction = value;
+			}
+		}
 
 		public HookService()
 		{
@@ -29,6 +49,7 @@ namespace SylphyHorn.Services
 				this._suspendRequestCount--;
 				if (this._suspendRequestCount == 0)
 				{
+					this.Reload();
 					this._detector.Start();
 				}
 			});
