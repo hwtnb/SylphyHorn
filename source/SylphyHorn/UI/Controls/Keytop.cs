@@ -126,6 +126,36 @@ namespace SylphyHorn.UI.Controls
 					kind = KeyKind.Normal;
 					break;
 
+				case VirtualKey.LButton:
+					// Mouse Button
+					text = "Left Button";
+					kind = KeyKind.Normal;
+					break;
+
+				case VirtualKey.RButton:
+					// Mouse Button
+					text = "Right Button";
+					kind = KeyKind.Normal;
+					break;
+
+				case VirtualKey.MButton:
+					// Mouse Button
+					text = "Middle Button";
+					kind = KeyKind.Normal;
+					break;
+
+				case VirtualKey.XButton1:
+					// Mouse Button
+					text = "XButton 1";
+					kind = KeyKind.Normal;
+					break;
+
+				case VirtualKey.XButton2:
+					// Mouse Button
+					text = "XButton 2";
+					kind = KeyKind.Normal;
+					break;
+
 				default:
 					text = key.ToString();
 					kind = KeyKind.Normal;

@@ -1,0 +1,130 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:controls="clr-namespace:SylphyHorn.UI.Controls">
+
+	<Style TargetType="{x:Type controls:MouseShortcutBox}">
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="BorderBrush"
+				Value="Transparent" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+		<Setter Property="BorderThickness"
+				Value="1" />
+		<Setter Property="Padding"
+				Value="3" />
+		<Setter Property="Margin"
+				Value="0,2" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="Text"
+				Value="" />
+		<Setter Property="FocusVisualStyle"
+				Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:MouseShortcutBox}">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="0">
+						<Grid Margin="{TemplateBinding Padding}">
+							<controls:Keytop x:Name="Dummy"
+											 Visibility="Hidden" />
+							<DockPanel>
+								<ItemsControl x:Name="PART_SubButtons"
+											  Foreground="{TemplateBinding Foreground}">
+									<ItemsControl.Template>
+										<ControlTemplate TargetType="{x:Type ItemsControl}">
+											<DockPanel>
+												<Path DockPanel.Dock="Right"
+													  Data="M6.09375,0 L6.90625,0 L13,6.5 L6.90625,13 L6.09375,13 L12.1875,6.90625 L0,6.90625 L0,6.09375 L12.1875,6.09375 L6.09375,0 z"
+													  Fill="{TemplateBinding Foreground}"
+													  VerticalAlignment="Center"
+													  Margin="4" />
+												<StackPanel IsItemsHost="True"
+															Orientation="Horizontal" />
+											</DockPanel>
+										</ControlTemplate>
+									</ItemsControl.Template>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<controls:Keytop Key="{Binding}" />
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+								<controls:Keytop x:Name="PART_MainButton" />
+
+								<ScrollViewer x:Name="PART_ContentHost"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
+											  Background="Transparent" />
+							</DockPanel>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Validation.ErrorTemplate">
+			<Setter.Value>
+				<ControlTemplate>
+					<DockPanel>
+						<StackPanel DockPanel.Dock="Bottom"
+									HorizontalAlignment="Left">
+							<Path Data="M35.749999,0.5 L70.999998,48.5 L0.49999973,48.5 z"
+								  Fill="{DynamicResource ValidationErrorBrushKey}"
+								  Stretch="Fill"
+								  Width="10"
+								  Height="10"
+								  HorizontalAlignment="Left"
+								  Margin="10,0,0,0" />
+							<Border Background="{DynamicResource ValidationErrorBrushKey}"
+									Padding="3">
+								<ItemsControl ItemsSource="{Binding ElementName=Placeholder, Path=AdornedElement.(Validation.Errors)}">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding ErrorContent}"
+													   Margin="2"
+													   Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</Border>
+						</StackPanel>
+						<Border BorderThickness="1"
+								BorderBrush="{DynamicResource ValidationErrorBrushKey}"
+								HorizontalAlignment="Left">
+							<AdornedElementPlaceholder x:Name="Placeholder" />
+						</Border>
+					</DockPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver"
+					 Value="True">
+				<Setter Property="Background"
+						Value="{DynamicResource ActiveBackgroundBrushKey}" />
+				<Setter Property="BorderBrush"
+						Value="{DynamicResource ActiveBorderBrushKey}" />
+			</Trigger>
+
+			<Trigger Property="IsKeyboardFocusWithin"
+					 Value="True">
+				<Setter Property="Background"
+						Value="{DynamicResource ActiveBackgroundBrushKey}" />
+				<Setter Property="BorderBrush"
+						Value="{DynamicResource AccentBrushKey}" />
+			</Trigger>
+
+			<Trigger Property="IsEnabled"
+					 Value="False">
+				<Setter Property="Foreground"
+						Value="{DynamicResource InactiveForegroundBrushKey}" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+</ResourceDictionary>

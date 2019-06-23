@@ -183,6 +183,9 @@
   <data name="Settings_LogViewer_Description" xml:space="preserve">
     <value>アプリ実行中に発生したイベントが表示されます。</value>
   </data>
+  <data name="Settings_MouseShortcut" xml:space="preserve">
+    <value>マウス操作</value>
+  </data>
   <data name="Settings_MoveWindowToAdjacentDesktop" xml:space="preserve">
     <value>アクティブ ウィンドウを隣接した仮想デスクトップへ移動</value>
   </data>
@@ -202,13 +205,13 @@
     <value>アクティブ ウィンドウを新しく作成した仮想デスクトップへ移動</value>
   </data>
   <data name="Settings_MoveWindowToCreatedDesktop_CreateOnly" xml:space="preserve">
-    <value>切り替えのみ</value>
+    <value>切り替えのみ:</value>
   </data>
   <data name="Settings_MoveWindowToCreatedDesktop_Move" xml:space="preserve">
-    <value>移動</value>
+    <value>移動:</value>
   </data>
   <data name="Settings_MoveWindowToCreatedDesktop_MoveAndSwitch" xml:space="preserve">
-    <value>移動して切り替え</value>
+    <value>移動して切り替え:</value>
   </data>
   <data name="Settings_MoveWindowToSpecifiedDesktop" xml:space="preserve">
     <value>アクティブ ウィンドウを指定の仮想デスクトップへ移動</value>

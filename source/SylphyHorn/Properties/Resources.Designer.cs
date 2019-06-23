@@ -259,6 +259,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Mouse shortcut に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_MouseShortcut {
+            get {
+                return ResourceManager.GetString("Settings_MouseShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Move active window to adjacent desktop に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_MoveWindowToAdjacentDesktop {
@@ -313,7 +322,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Switch only に類似しているローカライズされた文字列を検索します。
+        ///   Switch only: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_MoveWindowToCreatedDesktop_CreateOnly {
             get {

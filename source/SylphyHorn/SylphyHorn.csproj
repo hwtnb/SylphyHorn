@@ -18,6 +18,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -244,6 +244,7 @@
     <Compile Include="Interop\IDesktopWallpaper.cs" />
     <Compile Include="Interop\LayeredWindowAttributes.cs" />
     <Compile Include="Interop\MonitorInfoEx.cs" />
+    <Compile Include="Interop\MsLLHookStruct.cs" />
     <Compile Include="Interop\PhysicalMonitor.cs" />
     <Compile Include="Interop\Platform.cs" />
     <Compile Include="Interop\SystemEnvironment.cs" />
@@ -257,11 +258,14 @@
     <Compile Include="UI\Bindings\BindableTextViewModel.cs" />
     <Compile Include="UI\Bindings\HeaderContentViewModel.cs" />
     <Compile Include="UI\Bindings\WindowPlacement.cs" />
+    <Compile Include="Services\IMouseInterceptor.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\MonitorService.cs" />
+    <Compile Include="Services\MouseInterceptor.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UI\Controls\Keytop.cs" />
+    <Compile Include="UI\Controls\MouseShortcutBox.cs" />
     <Compile Include="UI\Controls\UnlockImageConverter.cs" />
     <Compile Include="UI\DynamicInfoTrayIcon.cs" />
     <Compile Include="UI\NotificationWindow.cs" />
@@ -301,6 +305,11 @@
       <DependentUpon>Generic.xaml</DependentUpon>
     </Page>
     <Page Include="Themes\Generic.ShortcutKeyBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Page>
+    <Page Include="Themes\Generic.MouseShortcutBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Generic.xaml</DependentUpon>

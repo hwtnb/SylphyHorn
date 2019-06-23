@@ -10,5 +10,6 @@ namespace SylphyHorn.Serialization
 		public static GeneralSettings General { get; } = new GeneralSettings(LocalSettingsProvider.Instance);
 
 		public static ShortcutKeySettings ShortcutKey { get; } = new ShortcutKeySettings(LocalSettingsProvider.Instance);
+		public static MouseShortcutSettings MouseShortcut { get; } = new MouseShortcutSettings(LocalSettingsProvider.Instance);
 	}
 }

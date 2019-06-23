@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Open.WinKeyboardHook;
+using SylphyHorn.Services.Mouse;
 
 namespace SylphyHorn.Services
 {
@@ -12,7 +13,9 @@ namespace SylphyHorn.Services
 	public class ShortcutKeyDetector
 	{
 		private readonly HashSet<Keys> _pressedModifiers = new HashSet<Keys>();
-		private readonly IKeyboardInterceptor _interceptor = new KeyboardInterceptor();
+		private readonly HashSet<Keys> _pressedMouseButtons = new HashSet<Keys>();
+		private readonly IKeyboardInterceptor _keyInterceptor = new KeyboardInterceptor();
+		private readonly IMouseInterceptor _mouseInterceptor = new MouseInterceptor();
 
 		private bool _started;
 		private bool _suspended;
@@ -25,15 +28,18 @@ namespace SylphyHorn.Services
 
 		public ShortcutKeyDetector()
 		{
-			this._interceptor.KeyDown += this.InterceptorOnKeyDown;
-			this._interceptor.KeyUp += this.InterceptorOnKeyUp;
+			this._keyInterceptor.KeyDown += this.InterceptorOnKeyDown;
+			this._keyInterceptor.KeyUp += this.InterceptorOnKeyUp;
+			this._mouseInterceptor.MouseDown += this.InterceptorOnMouseDown;
+			this._mouseInterceptor.MouseUp += this.InterceptorOnMouseUp;
 		}
 
 		public void Start()
 		{
 			if (!this._started)
 			{
-				this._interceptor.StartCapturing();
+				this._keyInterceptor.StartCapturing();
+				this._mouseInterceptor.StartCapturing();
 				this._started = true;
 			}
 
@@ -44,6 +50,7 @@ namespace SylphyHorn.Services
 		{
 			this._suspended = true;
 			this._pressedModifiers.Clear();
+			this._pressedMouseButtons.Clear();
 		}
 
 		private void InterceptorOnKeyDown(object sender, KeyEventArgs args)
@@ -78,6 +85,34 @@ namespace SylphyHorn.Services
 				this.Up?.Invoke(this, pressedEventArgs);
 				if (pressedEventArgs.Handled) args.SuppressKeyPress = true;
 			}
+		}
+
+		private void InterceptorOnMouseDown(ref MouseState state)
+		{
+			if (this._suspended) return;
+
+			var keyCode = state.KeyCode;
+			if (keyCode < Keys.LButton || keyCode > Keys.XButton2 || keyCode == Keys.Cancel) return;
+
+			var pressedEventArgs = new ShortcutKeyPressedEventArgs(keyCode, this._pressedMouseButtons);
+			this.Pressed?.Invoke(this, pressedEventArgs);
+			state.Handled = pressedEventArgs.Handled;
+
+			this._pressedMouseButtons.Add(keyCode);
+		}
+
+		private void InterceptorOnMouseUp(ref MouseState state)
+		{
+			if (this._suspended) return;
+
+			var keyCode = state.KeyCode;
+			if (keyCode < Keys.LButton || keyCode > Keys.XButton2 || keyCode == Keys.Cancel) return;
+
+			this._pressedMouseButtons.Remove(keyCode);
+
+			var pressedEventArgs = new ShortcutKeyPressedEventArgs(keyCode, this._pressedMouseButtons);
+			this.Up?.Invoke(this, pressedEventArgs);
+			state.Handled = pressedEventArgs.Handled;
 		}
 	}
 }
