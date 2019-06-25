@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using VirtualKey = System.Windows.Forms.Keys;
+using MouseStroke = SylphyHorn.Services.Mouse.Stroke;
 
 namespace SylphyHorn.UI.Controls
 {
@@ -153,6 +154,18 @@ namespace SylphyHorn.UI.Controls
 				case VirtualKey.XButton2:
 					// Mouse Button
 					text = "XButton 2";
+					kind = KeyKind.Normal;
+					break;
+
+				case (VirtualKey)MouseStroke.WheelDown:
+					// Wheel Down (private extension)
+					text = "Wheel Down";
+					kind = KeyKind.Normal;
+					break;
+
+				case (VirtualKey)MouseStroke.WheelUp:
+					// Wheel Up (private extension)
+					text = "Wheel Up";
 					kind = KeyKind.Normal;
 					break;
 

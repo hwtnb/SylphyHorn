@@ -16,6 +16,8 @@ namespace SylphyHorn.Services.Mouse
 		//public event HookHandler MouseMove;
 		public event HookHandler MouseDown;
 		public event HookHandler MouseUp;
+		public event HookHandler WheelDown;
+		public event HookHandler WheelUp;
 
 		public bool IsHooking
 		{
@@ -107,7 +109,15 @@ namespace SylphyHorn.Services.Mouse
 				CaptureOnMouseMove(ref state);
 			}
 			else */
-			if (state.Direction == StrokeDirection.Down)
+			if (state.Stroke == Stroke.WheelDown)
+			{
+				CaptureOnMouseWheelDown(ref state);
+			}
+			else if (state.Stroke == Stroke.WheelUp)
+			{
+				CaptureOnMouseWheelUp(ref state);
+			}
+			else if (state.Direction == StrokeDirection.Down)
 			{
 				CaptureOnMouseDown(ref state);
 			}
@@ -123,6 +133,16 @@ namespace SylphyHorn.Services.Mouse
 			this.MouseMove?.Invoke(ref state);
 		}
 		*/
+
+		private void CaptureOnMouseWheelDown(ref MouseState state)
+		{
+			this.WheelDown?.Invoke(ref state);
+		}
+
+		private void CaptureOnMouseWheelUp(ref MouseState state)
+		{
+			this.WheelUp?.Invoke(ref state);
+		}
 
 		private void CaptureOnMouseDown(ref MouseState state)
 		{
@@ -178,8 +198,7 @@ namespace SylphyHorn.Services.Mouse
 			{
 				var stroke = GetStroke(msg, ref s);
 				// Skip unused events
-				if (stroke == Stroke.Move || stroke == Stroke.Unknown ||
-					stroke == Stroke.WheelDown || stroke == Stroke.WheelUp)
+				if (stroke == Stroke.Move || stroke == Stroke.Unknown)
 				{
 					return NativeMethods.CallNextHookEx(this._handle, nCode, msg, ref s);
 				}
@@ -193,14 +212,18 @@ namespace SylphyHorn.Services.Mouse
 				this._state.Handled = false;
 
 				// Skip unused events
-				/*if (stroke == Stroke.Move || stroke == Stroke.Unknown ||
-					stroke == Stroke.WheelDown || stroke == Stroke.WheelUp)
+				/*if (stroke == Stroke.Move || stroke == Stroke.Unknown)
 				{
 					this._state.KeyCode = Keys.None;
 					this._state.Direction = StrokeDirection.None;
 				}
 				else */
-				if ((int)stroke % 2 != 0)
+				if (stroke == Stroke.WheelDown || stroke == Stroke.WheelUp)
+				{
+					this._state.KeyCode = (Keys)stroke;
+					this._state.Direction = StrokeDirection.None;
+				}
+				else if((int)stroke % 2 != 0)
 				{
 					this._state.KeyCode = (Keys)(((int)stroke >> 1) + 1);
 					this._state.Direction = StrokeDirection.Down;

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using SylphyHorn.Serialization;
 using SylphyHorn.Services;
 using VirtualKey = System.Windows.Forms.Keys;
+using MouseStroke = SylphyHorn.Services.Mouse.Stroke;
 
 namespace SylphyHorn.UI.Controls
 {
@@ -75,48 +76,9 @@ namespace SylphyHorn.UI.Controls
 
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
-			if (e.LeftButton == MouseButtonState.Pressed)
-			{
-				AddKeyCode(VirtualKey.LButton);
-			}
-			else
-			{
-				RemoveKeyCode(VirtualKey.LButton);
-			}
-			if (e.RightButton == MouseButtonState.Pressed)
-			{
-				AddKeyCode(VirtualKey.RButton);
-			}
-			else
-			{
-				RemoveKeyCode(VirtualKey.RButton);
-			}
-			if (e.MiddleButton == MouseButtonState.Pressed)
-			{
-				AddKeyCode(VirtualKey.MButton);
-			}
-			else
-			{
-				RemoveKeyCode(VirtualKey.MButton);
-			}
-			if (e.XButton1 == MouseButtonState.Pressed)
-			{
-				AddKeyCode(VirtualKey.XButton1);
-			}
-			else
-			{
-				RemoveKeyCode(VirtualKey.XButton1);
-			}
-			if (e.XButton2 == MouseButtonState.Pressed)
-			{
-				AddKeyCode(VirtualKey.XButton2);
-			}
-			else
-			{
-				RemoveKeyCode(VirtualKey.XButton2);
-			}
+			this.UpdateKeyCode(e);
 
-			this.CurrentAsKeys = ValidateKeyCode()
+			this.CurrentAsKeys = this.ValidateKeyCode()
 				? this.GetShortcutKey()
 				: (ShortcutKey?)null;
 
@@ -128,13 +90,41 @@ namespace SylphyHorn.UI.Controls
 
 		protected override void OnMouseUp(MouseButtonEventArgs e)
 		{
-			if (!ValidateKeyCode())
+			if (!this.ValidateKeyCode())
 			{
 				this.UpdateText();
 			}
 
 			e.Handled = true;
 			base.OnMouseUp(e);
+		}
+
+		protected override void OnMouseWheel(MouseWheelEventArgs e)
+		{
+			this.UpdateKeyCode(e);
+
+			var current = this._pressedButton;
+			if (this._pressedSubs.Count > 0 ||
+				(VirtualKey.LButton <= current && current <= VirtualKey.XButton2 && current != VirtualKey.Cancel))
+			{
+				if (e.Delta < 0)
+				{
+					this.AddKeyCode((VirtualKey)MouseStroke.WheelDown);
+				}
+				else
+				{
+					this.AddKeyCode((VirtualKey)MouseStroke.WheelUp);
+				}
+
+				this.CurrentAsKeys = this.ValidateKeyCode()
+					? this.GetShortcutKey()
+					: (ShortcutKey?)null;
+
+				this.UpdateText();
+			}
+
+			e.Handled = true;
+			base.OnMouseWheel(e);
 		}
 
 		private void UpdateText()
@@ -159,6 +149,50 @@ namespace SylphyHorn.UI.Controls
 				this._mainPresenter.Visibility = currentKey.Key == VirtualKey.None
 					? Visibility.Collapsed
 					: Visibility.Visible;
+			}
+		}
+
+		private void UpdateKeyCode(MouseEventArgs e)
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				this.AddKeyCode(VirtualKey.LButton);
+			}
+			else
+			{
+				this.RemoveKeyCode(VirtualKey.LButton);
+			}
+			if (e.RightButton == MouseButtonState.Pressed)
+			{
+				this.AddKeyCode(VirtualKey.RButton);
+			}
+			else
+			{
+				this.RemoveKeyCode(VirtualKey.RButton);
+			}
+			if (e.MiddleButton == MouseButtonState.Pressed)
+			{
+				this.AddKeyCode(VirtualKey.MButton);
+			}
+			else
+			{
+				this.RemoveKeyCode(VirtualKey.MButton);
+			}
+			if (e.XButton1 == MouseButtonState.Pressed)
+			{
+				this.AddKeyCode(VirtualKey.XButton1);
+			}
+			else
+			{
+				this.RemoveKeyCode(VirtualKey.XButton1);
+			}
+			if (e.XButton2 == MouseButtonState.Pressed)
+			{
+				this.AddKeyCode(VirtualKey.XButton2);
+			}
+			else
+			{
+				this.RemoveKeyCode(VirtualKey.XButton2);
 			}
 		}
 
@@ -193,8 +227,19 @@ namespace SylphyHorn.UI.Controls
 			if (count == 0)
 			{
 				var button = this._pressedButton;
-				if (button == VirtualKey.LButton || button == VirtualKey.RButton)
+				if (button == VirtualKey.LButton || button == VirtualKey.RButton ||
+					button == (VirtualKey)MouseStroke.WheelDown || button == (VirtualKey)MouseStroke.WheelUp)
 				{
+					this._pressedButton = VirtualKey.None;
+					return false;
+				}
+			}
+			else
+			{
+				var firstSub = this._pressedSubs[0];
+				if (firstSub == (VirtualKey)MouseStroke.WheelDown || firstSub == (VirtualKey)MouseStroke.WheelUp)
+				{
+					this._pressedSubs.Clear();
 					this._pressedButton = VirtualKey.None;
 					return false;
 				}

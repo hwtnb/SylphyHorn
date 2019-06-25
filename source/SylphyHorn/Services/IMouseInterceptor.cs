@@ -14,6 +14,8 @@ namespace SylphyHorn.Services.Mouse
 		//event HookHandler MouseMove;
 		event HookHandler MouseDown;
 		event HookHandler MouseUp;
+		event HookHandler WheelDown;
+		event HookHandler WheelUp;
 
 		bool IsHooking
 		{
@@ -51,20 +53,20 @@ namespace SylphyHorn.Services.Mouse
 
 	public enum Stroke
 	{
-		Move = 0,
-		LeftDown = 1,
-		LeftUp = 2,
-		RightDown = 3,
-		RightUp = 4,
-		WheelDown = 5,
-		WheelUp = 6,
+		Move       = 0,
+		LeftDown   = 1,
+		LeftUp     = 2,
+		RightDown  = 3,
+		RightUp    = 4,
+		WheelDown  = Keys.Alt * 2 + 1,
+		WheelUp    = Keys.Alt * 2 + 2,
 		MiddleDown = 7,
-		MiddleUp = 8,
-		X1Down = 9,
-		X1Up = 10,
-		X2Down = 11,
-		X2Up = 12,
-		Unknown = 13,
+		MiddleUp   = 8,
+		X1Down     = 9,
+		X1Up       = 10,
+		X2Down     = 11,
+		X2Up       = 12,
+		Unknown    = 13,
 	}
 
 	public enum StrokeDirection

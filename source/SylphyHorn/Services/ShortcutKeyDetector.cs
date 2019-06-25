@@ -32,6 +32,8 @@ namespace SylphyHorn.Services
 			this._keyInterceptor.KeyUp += this.InterceptorOnKeyUp;
 			this._mouseInterceptor.MouseDown += this.InterceptorOnMouseDown;
 			this._mouseInterceptor.MouseUp += this.InterceptorOnMouseUp;
+			this._mouseInterceptor.WheelDown += this.InterceptorOnMouseWheel;
+			this._mouseInterceptor.WheelUp += this.InterceptorOnMouseWheel;
 		}
 
 		public void Start()
@@ -113,6 +115,29 @@ namespace SylphyHorn.Services
 			var pressedEventArgs = new ShortcutKeyPressedEventArgs(keyCode, this._pressedMouseButtons);
 			this.Up?.Invoke(this, pressedEventArgs);
 			state.Handled = pressedEventArgs.Handled;
+
+			if (this._pressedMouseButtons.Count > 0)
+			{
+				this._pressedMouseButtons.Remove((Keys)Stroke.WheelDown);
+				this._pressedMouseButtons.Remove((Keys)Stroke.WheelUp);
+			}
+		}
+
+		private void InterceptorOnMouseWheel(ref MouseState state)
+		{
+			if (this._suspended) return;
+
+			if (this._pressedMouseButtons.Count == 0) return;
+
+			var stroke = state.Stroke;
+			if (stroke != Stroke.WheelDown && stroke != Stroke.WheelUp) return;
+
+			var keyCode = state.KeyCode;
+			var pressedEventArgs = new ShortcutKeyPressedEventArgs(keyCode, this._pressedMouseButtons);
+			this.Pressed?.Invoke(this, pressedEventArgs);
+			state.Handled = pressedEventArgs.Handled;
+
+			this._pressedMouseButtons.Add(keyCode);
 		}
 	}
 }
