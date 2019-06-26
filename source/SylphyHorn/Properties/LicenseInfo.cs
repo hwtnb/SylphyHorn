@@ -12,6 +12,7 @@ namespace SylphyHorn.Properties
 		{
 			new LicenseInfo("VirtualDesktop"),
 			new LicenseInfo("Open.WinKeyboardHook"),
+			new LicenseInfo("InputSimulatorPlus"),
 			new LicenseInfo("Livet"),
 			new LicenseInfo("StatefulModel"),
 			new LicenseInfo("MetroRadiance"),

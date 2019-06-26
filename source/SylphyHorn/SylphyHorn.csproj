@@ -389,6 +389,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include=".licenses\InputSimulatorPlus.txt" />
     <EmbeddedResource Include=".licenses\MetroTrilithon.txt" />
     <EmbeddedResource Include=".licenses\MetroRadiance.txt" />
     <EmbeddedResource Include=".licenses\Livet.txt" />
