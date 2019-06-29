@@ -28,6 +28,7 @@ namespace SylphyHorn.UI.Controls
 		private VirtualKey _pressedButton = VirtualKey.None;
 		private ItemsControl _subPresneter;
 		private Keytop _mainPresenter;
+		private bool _focus;
 
 		#region Current 依存関係プロパティ
 
@@ -64,21 +65,19 @@ namespace SylphyHorn.UI.Controls
 			this.UpdateText();
 		}
 
-		protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
-		{
-			base.OnGotKeyboardFocus(e);
-
-			this.Current = new int[0];
-			this._pressedButton = VirtualKey.None;
-			this._pressedSubs.Clear();
-			this.UpdateText();
-		}
-
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
+			if (!this._focus)
+			{
+				this.CurrentAsKeys = null;
+				this._pressedButton = VirtualKey.None;
+				this._pressedSubs.Clear();
+				this._focus = true;
+			}
+
 			this.UpdateKeyCode(e);
 
-			this.CurrentAsKeys = this.ValidateKeyCode()
+			this.CurrentAsKeys = this._pressedButton != VirtualKey.None
 				? this.GetShortcutKey()
 				: (ShortcutKey?)null;
 
@@ -92,8 +91,11 @@ namespace SylphyHorn.UI.Controls
 		{
 			if (!this.ValidateKeyCode())
 			{
+				this.CurrentAsKeys = null;
 				this.UpdateText();
 			}
+
+			this._focus = false;
 
 			e.Handled = true;
 			base.OnMouseUp(e);
