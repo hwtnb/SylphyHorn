@@ -23,8 +23,10 @@ namespace SylphyHorn.Services
 		/// <summary>
 		/// Occurs when detects a shortcut key.
 		/// </summary>
-		public event EventHandler<ShortcutKeyPressedEventArgs> Pressed;
-		public event EventHandler<ShortcutKeyPressedEventArgs> Up;
+		public event EventHandler<ShortcutKeyPressedEventArgs> KeyPressed;
+		public event EventHandler<ShortcutKeyPressedEventArgs> KeyUp;
+		public event EventHandler<ShortcutKeyPressedEventArgs> ButtonPressed;
+		public event EventHandler<ShortcutKeyPressedEventArgs> ButtonUp;
 
 		public ShortcutKeyDetector()
 		{
@@ -66,7 +68,7 @@ namespace SylphyHorn.Services
 			else
 			{
 				var pressedEventArgs = new ShortcutKeyPressedEventArgs(args.KeyCode, this._pressedModifiers);
-				this.Pressed?.Invoke(this, pressedEventArgs);
+				this.KeyPressed?.Invoke(this, pressedEventArgs);
 				if (pressedEventArgs.Handled) args.SuppressKeyPress = true;
 			}
 		}
@@ -84,7 +86,7 @@ namespace SylphyHorn.Services
 			else
 			{
 				var pressedEventArgs = new ShortcutKeyPressedEventArgs(args.KeyCode, this._pressedModifiers);
-				this.Up?.Invoke(this, pressedEventArgs);
+				this.KeyUp?.Invoke(this, pressedEventArgs);
 				if (pressedEventArgs.Handled) args.SuppressKeyPress = true;
 			}
 		}
@@ -97,7 +99,7 @@ namespace SylphyHorn.Services
 			if (keyCode < Keys.LButton || keyCode > Keys.XButton2 || keyCode == Keys.Cancel) return;
 
 			var pressedEventArgs = new ShortcutKeyPressedEventArgs(keyCode, this._pressedMouseButtons);
-			this.Pressed?.Invoke(this, pressedEventArgs);
+			this.ButtonPressed?.Invoke(this, pressedEventArgs);
 			state.Handled = pressedEventArgs.Handled;
 
 			this._pressedMouseButtons.Add(keyCode);
@@ -113,7 +115,7 @@ namespace SylphyHorn.Services
 			this._pressedMouseButtons.Remove(keyCode);
 
 			var pressedEventArgs = new ShortcutKeyPressedEventArgs(keyCode, this._pressedMouseButtons);
-			this.Up?.Invoke(this, pressedEventArgs);
+			this.ButtonUp?.Invoke(this, pressedEventArgs);
 			state.Handled = pressedEventArgs.Handled;
 
 			if (this._pressedMouseButtons.Count > 0)
@@ -134,7 +136,7 @@ namespace SylphyHorn.Services
 
 			var keyCode = state.KeyCode;
 			var pressedEventArgs = new ShortcutKeyPressedEventArgs(keyCode, this._pressedMouseButtons);
-			this.Pressed?.Invoke(this, pressedEventArgs);
+			this.ButtonPressed?.Invoke(this, pressedEventArgs);
 			state.Handled = pressedEventArgs.Handled;
 
 			this._pressedMouseButtons.Add(keyCode);
