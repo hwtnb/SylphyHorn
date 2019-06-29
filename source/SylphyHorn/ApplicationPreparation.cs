@@ -14,6 +14,9 @@ using SylphyHorn.UI.Bindings;
 
 namespace SylphyHorn
 {
+	using ActionRegister1 = Func<Func<ShortcutKey>, Action<IntPtr>, IDisposable>;
+	using ActionRegister2 = Func<Func<ShortcutKey>, Action<IntPtr>, Func<bool>, IDisposable>;
+
 	public class ApplicationPreparation
 	{
 		private readonly HookService _hookService;
@@ -41,90 +44,72 @@ namespace SylphyHorn
 
 		public void RegisterActions()
 		{
-			RegisterActions(Settings.ShortcutKey);
-			RegisterActions(Settings.MouseShortcut);
+			RegisterActions(Settings.ShortcutKey, this._hookService.RegisterKeyAction, this._hookService.RegisterKeyAction);
+			RegisterActions(Settings.MouseShortcut, this._hookService.RegisterMouseAction, this._hookService.RegisterMouseAction);
 		}
 
-		private void RegisterActions(ShortcutKeySettings settings)
+		private void RegisterActions(ShortcutKeySettings settings, ActionRegister1 register1, ActionRegister2 register2)
 		{
-			this._hookService
-				.Register(() => settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
+			register1(() => settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.MoveLeftAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToLeft()?.Switch())
+			register1(() => settings.MoveLeftAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToLeft()?.Switch())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.MoveRight.ToShortcutKey(), hWnd => hWnd.MoveToRight())
+			register1(() => settings.MoveRight.ToShortcutKey(), hWnd => hWnd.MoveToRight())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.MoveRightAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToRight()?.Switch())
+			register1(() => settings.MoveRightAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToRight()?.Switch())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.MoveNew.ToShortcutKey(), hWnd => hWnd.MoveToNew())
+			register1(() => settings.MoveNew.ToShortcutKey(), hWnd => hWnd.MoveToNew())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.MoveNewAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToNew()?.Switch())
+			register1(() => settings.MoveNewAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToNew()?.Switch())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(
+			register2(
 					() => settings.SwitchToLeft.ToShortcutKey(),
 					_ => VirtualDesktopService.GetLeft()?.Switch(),
 					() => Settings.General.OverrideWindowsDefaultKeyCombination || Settings.General.ChangeBackgroundEachDesktop)
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(
+			register2(
 					() => settings.SwitchToRight.ToShortcutKey(),
 					_ => VirtualDesktopService.GetRight()?.Switch(),
 					() => Settings.General.OverrideWindowsDefaultKeyCombination || Settings.General.ChangeBackgroundEachDesktop)
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.CloseAndSwitchLeft.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchLeft())
+			register1(() => settings.CloseAndSwitchLeft.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchLeft())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.CloseAndSwitchRight.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchRight())
+			register1(() => settings.CloseAndSwitchRight.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchRight())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.ShowTaskView.ToShortcutKey(), _ => VirtualDesktopService.ShowTaskView())
+			register1(() => settings.ShowTaskView.ToShortcutKey(), _ => VirtualDesktopService.ShowTaskView())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.Pin.ToShortcutKey(), hWnd => hWnd.Pin())
+			register1(() => settings.Pin.ToShortcutKey(), hWnd => hWnd.Pin())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.Unpin.ToShortcutKey(), hWnd => hWnd.Unpin())
+			register1(() => settings.Unpin.ToShortcutKey(), hWnd => hWnd.Unpin())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.TogglePin.ToShortcutKey(), hWnd => hWnd.TogglePin())
+			register1(() => settings.TogglePin.ToShortcutKey(), hWnd => hWnd.TogglePin())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.PinApp.ToShortcutKey(), hWnd => hWnd.PinApp())
+			register1(() => settings.PinApp.ToShortcutKey(), hWnd => hWnd.PinApp())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.UnpinApp.ToShortcutKey(), hWnd => hWnd.UnpinApp())
+			register1(() => settings.UnpinApp.ToShortcutKey(), hWnd => hWnd.UnpinApp())
 				.AddTo(this._disposable);
 
-			this._hookService
-				.Register(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
+			register1(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
 				.AddTo(this._disposable);
 
 			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
 			{
-				this._hookService
-					.Register(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
+				register1(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
 					.AddTo(this._disposable);
 			};
 			var keyIndex = 0;
@@ -141,8 +126,7 @@ namespace SylphyHorn
 
 			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut)
 			{
-				this._hookService
-					.Register(() => shortcut, hWnd => hWnd.MoveToIndex(i))
+				register1(() => shortcut, hWnd => hWnd.MoveToIndex(i))
 					.AddTo(this._disposable);
 			};
 			keyIndex = 0;
