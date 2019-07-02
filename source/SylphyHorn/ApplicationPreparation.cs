@@ -68,17 +68,46 @@ namespace SylphyHorn
 			register1(() => settings.MoveNewAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToNew()?.Switch())
 				.AddTo(this._disposable);
 
-			register2(
-					() => settings.SwitchToLeft.ToShortcutKey(),
-					_ => VirtualDesktopService.GetLeft()?.Switch(),
-					() => Settings.General.OverrideWindowsDefaultKeyCombination || Settings.General.ChangeBackgroundEachDesktop)
-				.AddTo(this._disposable);
+			var isKeyboardSettings = settings as MouseShortcutSettings == null;
+			if (isKeyboardSettings)
+			{
+				if (Settings.General.OverrideWindowsDefaultKeyCombination)
+				{
+					register1(() => settings.SwitchToLeftWithDefault.ToShortcutKey(), _ => { })
+						.AddTo(this._disposable);
 
-			register2(
-					() => settings.SwitchToRight.ToShortcutKey(),
-					_ => VirtualDesktopService.GetRight()?.Switch(),
-					() => Settings.General.OverrideWindowsDefaultKeyCombination || Settings.General.ChangeBackgroundEachDesktop)
-				.AddTo(this._disposable);
+					register1(() => settings.SwitchToRightWithDefault.ToShortcutKey(), _ => { })
+						.AddTo(this._disposable);
+				}
+				else
+				{
+					register2(
+							() => settings.SwitchToLeftWithDefault.ToShortcutKey(),
+							_ => VirtualDesktopService.GetLeft()?.Switch(),
+							() => Settings.General.ChangeBackgroundEachDesktop)
+						.AddTo(this._disposable);
+
+					register2(
+							() => settings.SwitchToRightWithDefault.ToShortcutKey(),
+							_ => VirtualDesktopService.GetRight()?.Switch(),
+							() => Settings.General.ChangeBackgroundEachDesktop)
+						.AddTo(this._disposable);
+				}
+
+				register1(() => settings.SwitchToLeft.ToShortcutKey(), _ => VirtualDesktopService.GetLeft()?.Switch())
+					.AddTo(this._disposable);
+
+				register1(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
+					.AddTo(this._disposable);
+			}
+			else
+			{
+				register1(() => settings.SwitchToLeft.ToShortcutKey(), _ => VirtualDesktopService.GetLeft()?.Switch())
+					.AddTo(this._disposable);
+
+				register1(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
+					.AddTo(this._disposable);
+			}
 
 			register1(() => settings.CloseAndSwitchLeft.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchLeft())
 				.AddTo(this._disposable);
@@ -107,11 +136,6 @@ namespace SylphyHorn
 			register1(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
 				.AddTo(this._disposable);
 
-			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
-			{
-				register1(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
-					.AddTo(this._disposable);
-			};
 			var keyIndex = 0;
 			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex0.ToShortcutKey());
 			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex1.ToShortcutKey());
@@ -124,11 +148,6 @@ namespace SylphyHorn
 			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex8.ToShortcutKey());
 			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex9.ToShortcutKey());
 
-			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut)
-			{
-				register1(() => shortcut, hWnd => hWnd.MoveToIndex(i))
-					.AddTo(this._disposable);
-			};
 			keyIndex = 0;
 			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex0.ToShortcutKey());
 			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex1.ToShortcutKey());
@@ -140,6 +159,18 @@ namespace SylphyHorn
 			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex7.ToShortcutKey());
 			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex8.ToShortcutKey());
 			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex9.ToShortcutKey());
+
+			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
+			{
+				register1(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
+					.AddTo(this._disposable);
+			};
+
+			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut)
+			{
+				register1(() => shortcut, hWnd => hWnd.MoveToIndex(i))
+					.AddTo(this._disposable);
+			};
 		}
 
 		public TaskTrayIcon CreateTaskTrayIcon()

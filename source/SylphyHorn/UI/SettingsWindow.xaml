@@ -540,6 +540,157 @@
 					<StackPanel Margin="16,0,16,16"
 								Grid.IsSharedSizeScope="True"
 								Focusable="True">
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="2*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<TextBlock Grid.Row="0"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView_ShowTaskView}" />
+							</Grid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static services:KeyHelper.VirtualDesktopTaskViewKey}, Mode=OneWay}"
+														 Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_ProvidedByWinows, StringFormat=' ({0})', Mode=OneWay}"
+														 IsReadOnly="True"
+														 IsEnabled="False" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=ShowTaskView.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchAdjacentDesktop}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="2*" />
+									<RowDefinition Height="2*" />
+								</Grid.RowDefinitions>
+								<TextBlock Grid.Row="0"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchAdjacentDesktop_SwitchLeft}" />
+								<TextBlock Grid.Row="1"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchAdjacentDesktop_SwitchRight}" />
+							</Grid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static services:KeyHelper.VirtualDesktopSwitchLeftKey}, Mode=OneWay}"
+														 Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_ProvidedByWinows, StringFormat=' ({0})', Mode=OneWay}"
+														 IsReadOnly="True"
+														 IsEnabled="False" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToLeft.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static services:KeyHelper.VirtualDesktopSwitchRightKey}, Mode=OneWay}"
+														 Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_ProvidedByWinows, StringFormat=' ({0})', Mode=OneWay}"
+														 IsReadOnly="True"
+														 IsEnabled="False" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToRight.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 1:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 2:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 3:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 4:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 5:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 6:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 7:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 8:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 9:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 10:'}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex0.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex1.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex2.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex3.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex4.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex5.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex6.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex7.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex8.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex9.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktop}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 1:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 2:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 3:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 4:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 5:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 6:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 7:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 8:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 9:'}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 10:'}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex0.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex1.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex2.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex3.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex4.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex5.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex6.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex7.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex8.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex9.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+					</StackPanel>
+				</ScrollViewer>
+			</TabItem>
+
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ShortcutKey, StringFormat='{}{0} 2'}"
+							   Style="{DynamicResource TabitemStyleKey}" />
+				</TabItem.Header>
+
+				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+							  VerticalScrollBarVisibility="Auto">
+					<StackPanel Margin="16,0,16,16"
+								Grid.IsSharedSizeScope="True"
+								Focusable="True">
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToAdjacentDesktop}"
 								   Style="{DynamicResource HeaderStyleKey}"
 								   Margin="0,0,0,8" />
@@ -619,122 +770,6 @@
 														 IsEnabled="False" />
 								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=CloseAndSwitchLeft.Value, Mode=TwoWay}" />
 								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=CloseAndSwitchRight.Value, Mode=TwoWay}" />
-							</UniformGrid>
-						</Grid>
-					</StackPanel>
-				</ScrollViewer>
-			</TabItem>
-
-			<TabItem>
-				<TabItem.Header>
-					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ShortcutKey, StringFormat='{}{0} 2'}"
-							   Style="{DynamicResource TabitemStyleKey}" />
-				</TabItem.Header>
-
-				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
-							  VerticalScrollBarVisibility="Auto">
-					<StackPanel Margin="16,0,16,16"
-								Grid.IsSharedSizeScope="True"
-								Focusable="True">
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView}"
-								   Style="{DynamicResource HeaderStyleKey}" />
-						<Grid Margin="8,0,0,0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="KeyHeader" />
-								<ColumnDefinition Width="8" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
-							<Grid>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="2*" />
-									<RowDefinition Height="*" />
-								</Grid.RowDefinitions>
-								<TextBlock Grid.Row="0"
-										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView_ShowTaskView}" />
-							</Grid>
-							<UniformGrid Grid.Column="2"
-										 Columns="1">
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static services:KeyHelper.VirtualDesktopTaskViewKey}, Mode=OneWay}"
-														 Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_ProvidedByWinows, StringFormat=' ({0})', Mode=OneWay}"
-														 IsReadOnly="True"
-														 IsEnabled="False" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=ShowTaskView.Value, Mode=TwoWay}" />
-							</UniformGrid>
-						</Grid>
-						<Border Height="16" />
-
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop}"
-								   Style="{DynamicResource HeaderStyleKey}"
-								   Margin="0,0,0,8" />
-						<Grid Margin="8,0,0,0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="KeyHeader" />
-								<ColumnDefinition Width="8" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
-							<UniformGrid Columns="1">
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 1:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 2:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 3:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 4:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 5:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 6:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 7:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 8:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 9:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 10:'}" />
-							</UniformGrid>
-							<UniformGrid Grid.Column="2"
-										 Columns="1">
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex0.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex1.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex2.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex3.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex4.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex5.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex6.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex7.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex8.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndex9.Value, Mode=TwoWay}" />
-							</UniformGrid>
-						</Grid>
-						<Border Height="16" />
-
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktop}"
-								   Style="{DynamicResource HeaderStyleKey}" />
-						<Grid Margin="8,0,0,0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="KeyHeader" />
-								<ColumnDefinition Width="8" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
-							<UniformGrid Columns="1">
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 1:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 2:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 3:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 4:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 5:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 6:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 7:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 8:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 9:'}" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop, StringFormat='{}{0} 10:'}" />
-							</UniformGrid>
-							<UniformGrid Grid.Column="2"
-										 Columns="1">
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex0.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex1.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex2.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex3.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex4.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex5.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex6.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex7.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex8.Value, Mode=TwoWay}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndex9.Value, Mode=TwoWay}" />
 							</UniformGrid>
 						</Grid>
 					</StackPanel>
@@ -832,6 +867,33 @@
 							<UniformGrid Grid.Column="2"
 										 Columns="1">
 								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=ShowTaskView.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchAdjacentDesktop}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<TextBlock Grid.Row="0"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchAdjacentDesktop_SwitchLeft}" />
+								<TextBlock Grid.Row="1"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchAdjacentDesktop_SwitchRight}" />
+							</Grid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwitchToLeft.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwitchToRight.Value, Mode=TwoWay}" />
 							</UniformGrid>
 						</Grid>
 						<Border Height="16" />
