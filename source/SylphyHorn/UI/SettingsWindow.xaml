@@ -838,7 +838,7 @@
 
 			<TabItem>
 				<TabItem.Header>
-					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MouseShortcut, StringFormat='{}{0}'}"
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MouseShortcut, StringFormat='{}{0} 1'}"
 							   Style="{DynamicResource TabitemStyleKey}" />
 				</TabItem.Header>
 
@@ -969,6 +969,158 @@
 								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndex7.Value, Mode=TwoWay}" />
 								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndex8.Value, Mode=TwoWay}" />
 								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndex9.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+					</StackPanel>
+				</ScrollViewer>
+			</TabItem>
+
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MouseShortcut, StringFormat='{}{0} 2'}"
+							   Style="{DynamicResource TabitemStyleKey}" />
+				</TabItem.Header>
+
+				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+							  VerticalScrollBarVisibility="Auto">
+					<StackPanel Margin="16,0,16,16"
+								Grid.IsSharedSizeScope="True"
+								Focusable="True">
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToAdjacentDesktop}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToAdjacentDesktop_Left}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToAdjacentDesktop_LeftAndSwitch}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToAdjacentDesktop_Right}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToAdjacentDesktop_RightAndSwitch}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveLeft.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveLeftAndSwitch.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveRight.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveRightAndSwitch.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToCreatedDesktop}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<!--<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToCreatedDesktop_CreateOnly}" />-->
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToCreatedDesktop_Move}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToCreatedDesktop_MoveAndSwitch}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<!--<controls:MouseShortcutBox Current="{Binding Source={x:Static services:KeyHelper.VirtualDesktopCreationKey}, Mode=OneWay}"
+														   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_ProvidedByWinows, StringFormat=' ({0})', Mode=OneWay}"
+														   IsReadOnly="True"
+														   IsEnabled="False" />-->
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveNew.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveNewAndSwitch.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_CloseDesktop}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<TextBlock Grid.Row="0"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_CloseDesktop_CloseAndSwitchLeft}" />
+								<TextBlock Grid.Row="1"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_CloseDesktop_CloseAndSwitchRight}" />
+							</Grid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=CloseAndSwitchLeft.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=CloseAndSwitchRight.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+					</StackPanel>
+				</ScrollViewer>
+			</TabItem>
+
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MouseShortcut, StringFormat='{}{0} 3'}"
+							   Style="{DynamicResource TabitemStyleKey}" />
+				</TabItem.Header>
+
+				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+							  VerticalScrollBarVisibility="Auto">
+					<StackPanel Margin="16,0,16,16"
+								Focusable="True"
+								Grid.IsSharedSizeScope="True">
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_PinWindow}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Pin}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Unpin}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_PinToggle}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=Pin.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=Unpin.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=TogglePin.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_PinWindowFromApp}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Pin}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Unpin}" />
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_PinToggle}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=PinApp.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=UnpinApp.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=TogglePinApp.Value, Mode=TwoWay}" />
 							</UniformGrid>
 						</Grid>
 					</StackPanel>
