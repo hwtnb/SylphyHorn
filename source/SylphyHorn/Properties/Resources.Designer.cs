@@ -151,7 +151,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Close and switch left: に類似しているローカライズされた文字列を検索します。
+        ///   Close and switch to left: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_CloseDesktop_CloseAndSwitchLeft {
             get {
@@ -160,7 +160,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Close and switch right: に類似しているローカライズされた文字列を検索します。
+        ///   Close and switch to right: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_CloseDesktop_CloseAndSwitchRight {
             get {
@@ -574,7 +574,34 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Switch specified desktop に類似しているローカライズされた文字列を検索します。
+        ///   Switch to adjacent desktop に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwitchAdjacentDesktop {
+            get {
+                return ResourceManager.GetString("Settings_SwitchAdjacentDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Left: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwitchAdjacentDesktop_SwitchLeft {
+            get {
+                return ResourceManager.GetString("Settings_SwitchAdjacentDesktop_SwitchLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Right: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwitchAdjacentDesktop_SwitchRight {
+            get {
+                return ResourceManager.GetString("Settings_SwitchAdjacentDesktop_SwitchRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Switch to specified desktop に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_SwitchSpecifiedDesktop {
             get {

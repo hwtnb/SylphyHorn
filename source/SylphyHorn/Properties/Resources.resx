@@ -148,10 +148,10 @@
     <value>Close desktop</value>
   </data>
   <data name="Settings_CloseDesktop_CloseAndSwitchLeft" xml:space="preserve">
-    <value>Close and switch left:</value>
+    <value>Close and switch to left:</value>
   </data>
   <data name="Settings_CloseDesktop_CloseAndSwitchRight" xml:space="preserve">
-    <value>Close and switch right:</value>
+    <value>Close and switch to right:</value>
   </data>
   <data name="Settings_Desktop" xml:space="preserve">
     <value>Desktop</value>
@@ -288,8 +288,17 @@
   <data name="Settings_Startup_Automaticaly" xml:space="preserve">
     <value>Automaticaly start at logon</value>
   </data>
+  <data name="Settings_SwitchAdjacentDesktop" xml:space="preserve">
+    <value>Switch to adjacent desktop</value>
+  </data>
+  <data name="Settings_SwitchAdjacentDesktop_SwitchLeft" xml:space="preserve">
+    <value>Left:</value>
+  </data>
+  <data name="Settings_SwitchAdjacentDesktop_SwitchRight" xml:space="preserve">
+    <value>Right:</value>
+  </data>
   <data name="Settings_SwitchSpecifiedDesktop" xml:space="preserve">
-    <value>Switch specified desktop</value>
+    <value>Switch to specified desktop</value>
   </data>
   <data name="Settings_TaskView" xml:space="preserve">
     <value>Task View</value>

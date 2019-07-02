@@ -19,6 +19,10 @@ namespace SylphyHorn.Services
 
 		public static int[] VirtualDesktopDeletionKey { get; } = new ShortcutKey(VirtualKey.F4, VirtualKey.NoName, VirtualKey.Control).ToSerializable();
 
+		public static int[] VirtualDesktopSwitchLeftKey { get; } = new ShortcutKey(VirtualKey.Left, VirtualKey.NoName, VirtualKey.Control).ToSerializable();
+
+		public static int[] VirtualDesktopSwitchRightKey { get; } = new ShortcutKey(VirtualKey.Right, VirtualKey.NoName, VirtualKey.Control).ToSerializable();
+
 		public static int[] VirtualDesktopTaskViewKey { get; } = new ShortcutKey(VirtualKey.Tab, VirtualKey.LWin).ToSerializable();
 
 		public static bool IsModifyKey(this VirtualKey key)

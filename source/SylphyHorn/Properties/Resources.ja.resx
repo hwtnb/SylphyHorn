@@ -288,6 +288,15 @@
   <data name="Settings_Startup_Automaticaly" xml:space="preserve">
     <value>ログオン時に自動的に起動する</value>
   </data>
+  <data name="Settings_SwitchAdjacentDesktop" xml:space="preserve">
+    <value>隣接したデスクトップへ切り替え</value>
+  </data>
+  <data name="Settings_SwitchAdjacentDesktop_SwitchLeft" xml:space="preserve">
+    <value>左へ切り替え:</value>
+  </data>
+  <data name="Settings_SwitchAdjacentDesktop_SwitchRight" xml:space="preserve">
+    <value>右へ切り替え:</value>
+  </data>
   <data name="Settings_SwitchSpecifiedDesktop" xml:space="preserve">
     <value>指定のデスクトップへ切り替え</value>
   </data>
