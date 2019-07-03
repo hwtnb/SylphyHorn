@@ -42,6 +42,19 @@ namespace SylphyHorn.Serialization
 			return property;
 		}
 
+		protected ShortcutkeyPropertyList Cache(Func<string, ShortcutkeyPropertyList> create, [CallerMemberName] string propertyName = "")
+		{
+			var key = this.CategoryName + "." + propertyName;
+
+			object obj;
+			if (this._cachedProperties.TryGetValue(key, out obj) && obj is ShortcutkeyPropertyList) return (ShortcutkeyPropertyList)obj;
+
+			var property = create(key);
+			this._cachedProperties[key] = property;
+
+			return property;
+		}
+
 		public static T Instance<T>() where T : SettingsHost
 		{
 			SettingsHost host;
