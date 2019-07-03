@@ -552,7 +552,6 @@
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="2*" />
-									<RowDefinition Height="*" />
 								</Grid.RowDefinitions>
 								<TextBlock Grid.Row="0"
 										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView_ShowTaskView}" />
@@ -881,7 +880,6 @@
 							</Grid.ColumnDefinitions>
 							<Grid>
 								<Grid.RowDefinitions>
-									<RowDefinition Height="*" />
 									<RowDefinition Height="*" />
 								</Grid.RowDefinitions>
 								<TextBlock Grid.Row="0"
