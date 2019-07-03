@@ -35,6 +35,11 @@ namespace SylphyHorn.Services
 			}
 		}
 
+		/// <summary>
+		/// Occurs when a hook service is suspended.
+		/// </summary>
+		public event Action Suspended;
+
 		public HookService()
 		{
 			this._detector.KeyPressed += this.KeyHookOnPressed;
@@ -48,6 +53,8 @@ namespace SylphyHorn.Services
 		{
 			this._suspendRequestCount++;
 			this._detector.Stop();
+
+			this.Suspended?.Invoke();
 
 			return Disposable.Create(() =>
 			{

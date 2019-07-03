@@ -70,11 +70,14 @@ namespace SylphyHorn
 						LocalSettingsProvider.Instance.SaveAsync().Forget();
 					}
 
-					preparation.VirtualDesktopInitialized += () => this.TaskTrayIcon.Reload();
+					preparation.VirtualDesktopInitialized += () =>
+					{
+						preparation.RegisterActions();
+						this.TaskTrayIcon.Reload();
+					};
 					preparation.VirtualDesktopInitializationCanceled += () => { }; // ToDo
 					preparation.VirtualDesktopInitializationFailed += ex => LoggingService.Instance.Register(ex);
 					preparation.PrepareVirtualDesktop();
-					preparation.RegisterActions();
 
 					NotificationService.Instance.AddTo(this);
 					WallpaperService.Instance.AddTo(this);

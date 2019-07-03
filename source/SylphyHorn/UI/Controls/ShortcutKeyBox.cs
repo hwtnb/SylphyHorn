@@ -30,14 +30,14 @@ namespace SylphyHorn.UI.Controls
 
 		#region Current 依存関係プロパティ
 
-		public int[] Current
+		public IList<int> Current
 		{
-			get { return (int[])this.GetValue(CurrentProperty); }
+			get { return (IList<int>)this.GetValue(CurrentProperty); }
 			set { this.SetValue(CurrentProperty, value); }
 		}
 
 		public static readonly DependencyProperty CurrentProperty =
-			DependencyProperty.Register(nameof(Current), typeof(int[]), typeof(ShortcutKeyBox), new UIPropertyMetadata(null, CurrentPropertyChangedCallback));
+			DependencyProperty.Register(nameof(Current), typeof(IList<int>), typeof(ShortcutKeyBox), new UIPropertyMetadata(null, CurrentPropertyChangedCallback));
 
 		private static void CurrentPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs args)
 		{

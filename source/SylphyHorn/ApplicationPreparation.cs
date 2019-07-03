@@ -40,12 +40,100 @@ namespace SylphyHorn
 			{
 				this.RegisterActions();
 			};
+			this._hookService.Suspended += () =>
+			{
+				this.ResizePropertyList();
+			};
 		}
 
 		public void RegisterActions()
 		{
+			this.ResizePropertyList();
 			RegisterActions(Settings.ShortcutKey, this._hookService.RegisterKeyAction, this._hookService.RegisterKeyAction);
 			RegisterActions(Settings.MouseShortcut, this._hookService.RegisterMouseAction, this._hookService.RegisterMouseAction);
+		}
+
+		public TaskTrayIcon CreateTaskTrayIcon()
+		{
+			if (this._taskTrayIcon == null)
+			{
+				const string iconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray.ico";
+
+				if (!Uri.TryCreate(iconUri, UriKind.Absolute, out var uri)) return null;
+
+				var icon = IconHelper.GetIconFromResource(uri);
+				var menus = new[]
+				{
+					new TaskTrayIconItem(Resources.TaskTray_Menu_Settings, ShowSettings, () => Application.Args.CanSettings),
+					new TaskTrayIconItem(Resources.TaskTray_Menu_Exit, this._shutdownAction),
+				};
+
+				this._taskTrayIcon = new TaskTrayIcon(icon, menus);
+			}
+
+			return this._taskTrayIcon;
+
+			void ShowSettings()
+			{
+				using (this._hookService.Suspend())
+				{
+					if (SettingsWindow.Instance != null)
+					{
+						SettingsWindow.Instance.Activate();
+					}
+					else
+					{
+						SettingsWindow.Instance = new SettingsWindow
+						{
+							DataContext = new SettingsWindowViewModel(this._hookService),
+						};
+
+						SettingsWindow.Instance.ShowDialog();
+						SettingsWindow.Instance = null;
+					}
+				}
+			}
+		}
+
+		public TaskTrayBaloon CreateFirstTimeBaloon()
+		{
+			var baloon = this.CreateTaskTrayIcon().CreateBaloon();
+			baloon.Title = ProductInfo.Title;
+			baloon.Text = Resources.TaskTray_FirstTimeMessage;
+			baloon.Timespan = TimeSpan.FromMilliseconds(5000);
+
+			return baloon;
+		}
+
+		public void PrepareVirtualDesktop()
+		{
+			var provider = new VirtualDesktopProvider()
+			{
+				ComInterfaceAssemblyPath = Path.Combine(Directories.LocalAppData.FullName, "assemblies"),
+			};
+
+			VirtualDesktop.Provider = provider;
+			VirtualDesktop.Provider.Initialize().ContinueWith(Continue, TaskScheduler.FromCurrentSynchronizationContext());
+			VirtualDesktop.Created += (sender, args) => this.ResizePropertyList();
+			VirtualDesktop.Destroyed += (sender, args) => this.ResizePropertyList();
+
+			void Continue(Task t)
+			{
+				switch (t.Status)
+				{
+					case TaskStatus.RanToCompletion:
+						this.VirtualDesktopInitialized?.Invoke();
+						break;
+
+					case TaskStatus.Canceled:
+						this.VirtualDesktopInitializationCanceled?.Invoke();
+						break;
+
+					case TaskStatus.Faulted:
+						this.VirtualDesktopInitializationFailed?.Invoke(t.Exception);
+						break;
+				}
+			}
 		}
 
 		private void RegisterActions(ShortcutKeySettings settings, ActionRegister1 register1, ActionRegister2 register2)
@@ -136,29 +224,18 @@ namespace SylphyHorn
 			register1(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
 				.AddTo(this._disposable);
 
-			var keyIndex = 0;
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex0.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex1.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex2.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex3.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex4.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex5.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex6.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex7.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex8.ToShortcutKey());
-			RegisterSpecifiedDesktopSwitching(keyIndex++, settings.SwitchToIndex9.ToShortcutKey());
+			var desktopCount = VirtualDesktopService.Count;
+			var switchToIndices = settings.SwitchToIndices.Value;
+			for (var index = 0; index < desktopCount && index < switchToIndices.Count; ++index)
+			{
+				RegisterSpecifiedDesktopSwitching(index, switchToIndices[index].ToShortcutKey());
+			}
 
-			keyIndex = 0;
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex0.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex1.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex2.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex3.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex4.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex5.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex6.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex7.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex8.ToShortcutKey());
-			RegisterMovingToSpecifiedDesktop(keyIndex++, settings.MoveToIndex9.ToShortcutKey());
+			var moveToIndices = settings.MoveToIndices.Value;
+			for (var index = 0; index < desktopCount && index < moveToIndices.Count; ++index)
+			{
+				RegisterMovingToSpecifiedDesktop(index, moveToIndices[index].ToShortcutKey());
+			}
 
 			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
 			{
@@ -173,85 +250,13 @@ namespace SylphyHorn
 			};
 		}
 
-		public TaskTrayIcon CreateTaskTrayIcon()
+		private void ResizePropertyList()
 		{
-			if (this._taskTrayIcon == null)
-			{
-				const string iconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray.ico";
-
-				if (!Uri.TryCreate(iconUri, UriKind.Absolute, out var uri)) return null;
-
-				var icon = IconHelper.GetIconFromResource(uri);
-				var menus = new[]
-				{
-					new TaskTrayIconItem(Resources.TaskTray_Menu_Settings, ShowSettings, () => Application.Args.CanSettings),
-					new TaskTrayIconItem(Resources.TaskTray_Menu_Exit, this._shutdownAction),
-				};
-
-				this._taskTrayIcon = new TaskTrayIcon(icon, menus);
-			}
-
-			return this._taskTrayIcon;
-
-			void ShowSettings()
-			{
-				using (this._hookService.Suspend())
-				{
-					if (SettingsWindow.Instance != null)
-					{
-						SettingsWindow.Instance.Activate();
-					}
-					else
-					{
-						SettingsWindow.Instance = new SettingsWindow
-						{
-							DataContext = new SettingsWindowViewModel(this._hookService),
-						};
-
-						SettingsWindow.Instance.ShowDialog();
-						SettingsWindow.Instance = null;
-					}
-				}
-			}
-		}
-
-		public TaskTrayBaloon CreateFirstTimeBaloon()
-		{
-			var baloon = this.CreateTaskTrayIcon().CreateBaloon();
-			baloon.Title = ProductInfo.Title;
-			baloon.Text = Resources.TaskTray_FirstTimeMessage;
-			baloon.Timespan = TimeSpan.FromMilliseconds(5000);
-
-			return baloon;
-		}
-
-		public void PrepareVirtualDesktop()
-		{
-			var provider = new VirtualDesktopProvider()
-			{
-				ComInterfaceAssemblyPath = Path.Combine(Directories.LocalAppData.FullName, "assemblies"),
-			};
-
-			VirtualDesktop.Provider = provider;
-			VirtualDesktop.Provider.Initialize().ContinueWith(Continue, TaskScheduler.FromCurrentSynchronizationContext());
-
-			void Continue(Task t)
-			{
-				switch (t.Status)
-				{
-					case TaskStatus.RanToCompletion:
-						this.VirtualDesktopInitialized?.Invoke();
-						break;
-
-					case TaskStatus.Canceled:
-						this.VirtualDesktopInitializationCanceled?.Invoke();
-						break;
-
-					case TaskStatus.Faulted:
-						this.VirtualDesktopInitializationFailed?.Invoke(t.Exception);
-						break;
-				}
-			}
+			var desktopCount = VirtualDesktopService.Count;
+			Settings.ShortcutKey.SwitchToIndices.Resize(desktopCount);
+			Settings.ShortcutKey.MoveToIndices.Resize(desktopCount);
+			Settings.MouseShortcut.SwitchToIndices.Resize(desktopCount);
+			Settings.MouseShortcut.MoveToIndices.Resize(desktopCount);
 		}
 	}
 }
