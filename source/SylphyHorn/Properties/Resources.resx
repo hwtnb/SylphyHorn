@@ -156,6 +156,12 @@
   <data name="Settings_Desktop" xml:space="preserve">
     <value>Desktop</value>
   </data>
+  <data name="Settings_DesktopNames" xml:space="preserve">
+    <value>Desktop names</value>
+  </data>
+  <data name="Settings_DesktopNames_UseDesktopName" xml:space="preserve">
+    <value>Display a desktop name in notification window</value>
+  </data>
   <data name="Settings_DesktopSwitching" xml:space="preserve">
     <value>Desktop switching</value>
   </data>

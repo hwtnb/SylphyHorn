@@ -178,6 +178,24 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Desktop names に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_DesktopNames {
+            get {
+                return ResourceManager.GetString("Settings_DesktopNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Display a desktop name in notification window に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_DesktopNames_UseDesktopName {
+            get {
+                return ResourceManager.GetString("Settings_DesktopNames_UseDesktopName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Desktop switching に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_DesktopSwitching {

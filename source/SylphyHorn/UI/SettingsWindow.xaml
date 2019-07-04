@@ -531,6 +531,76 @@
 
 			<TabItem>
 				<TabItem.Header>
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
+							   Style="{DynamicResource TabitemStyleKey}" />
+				</TabItem.Header>
+
+				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+							  VerticalScrollBarVisibility="Auto">
+					<StackPanel Margin="16,0,16,16"
+								Focusable="True">
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
+						<StackPanel Margin="8,0,0,0">
+							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
+							</CheckBox>
+							<Border Height="16" />
+							<Grid Margin="8,0,0,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"
+													  SharedSizeGroup="KeyHeader" />
+									<ColumnDefinition Width="8" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.General}, Path=DesktopNames.Value, Mode=TwoWay}"
+											  Grid.Column="0"
+											  Visibility="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<UniformGrid Columns="1" />
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<TextBlock VerticalAlignment="Center"
+													   Foreground="{DynamicResource ForegroundBrushKey}">
+												<TextBlock.Text>
+													<MultiBinding StringFormat="{}{0} {1}:">
+														<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
+														<Binding Path="NumberText" />
+													</MultiBinding>
+												</TextBlock.Text>
+											</TextBlock>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+								<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.General}, Path=DesktopNames.Value, Mode=TwoWay}"
+											  Grid.Column="2"
+											  Visibility="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<UniformGrid Columns="1" />
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<metro:PromptTextBox Text="{Binding Path='Value', Mode=TwoWay}"
+																 Prompt=""
+																 Margin="2" />
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</Grid>
+						</StackPanel>
+						<Border Height="8" />
+					</StackPanel>
+				</ScrollViewer>
+			</TabItem>
+
+			<TabItem>
+				<TabItem.Header>
 					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ShortcutKey, StringFormat='{}{0} 1'}"
 							   Style="{DynamicResource TabitemStyleKey}" />
 				</TabItem.Header>
