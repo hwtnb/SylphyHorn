@@ -156,6 +156,12 @@
   <data name="Settings_Desktop" xml:space="preserve">
     <value>デスクトップ</value>
   </data>
+  <data name="Settings_DesktopNames" xml:space="preserve">
+    <value>デスクトップ名</value>
+  </data>
+  <data name="Settings_DesktopNames_UseDesktopName" xml:space="preserve">
+    <value>通知ウィンドウに設定したデスクトップ名を表示する</value>
+  </data>
   <data name="Settings_DesktopSwitching" xml:space="preserve">
     <value>デスクトップ切り替え</value>
   </data>

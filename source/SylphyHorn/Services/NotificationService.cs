@@ -51,7 +51,7 @@ namespace SylphyHorn.Services
 			{
 				Title = ProductInfo.Title,
 				Header = "Virtual Desktop Switched",
-				Body = "Current Desktop: Desktop " + index,
+				Body = CreateNotificationBodyText(index),
 			};
 			var source = new CancellationTokenSource();
 
@@ -87,6 +87,21 @@ namespace SylphyHorn.Services
 				.ContinueWith(_ => windows.ForEach(window => window.Close()), TaskScheduler.FromCurrentSynchronizationContext());
 
 			return Disposable.Create(() => source.Cancel());
+
+			string CreateNotificationBodyText(int number)
+			{
+				var generalSttings = Settings.General;
+				var desktopNames = generalSttings.DesktopNames.Value;
+				var i = number - 1;
+				if (!generalSttings.UseDesktopName || desktopNames.Count < number || desktopNames[i].Value.Length == 0)
+				{
+					return "Current Desktop: Desktop " + number.ToString();
+				}
+				else
+				{
+					return $"Desktop {number.ToString()}: {desktopNames[i].Value}";
+				}
+			};
 		}
 
 		private static IDisposable ShowPinWindow(IntPtr hWnd, PinOperations operation)

@@ -253,6 +253,7 @@ namespace SylphyHorn
 		private void ResizePropertyList()
 		{
 			var desktopCount = VirtualDesktopService.Count;
+			Settings.General.DesktopNames.Resize(desktopCount);
 			Settings.ShortcutKey.SwitchToIndices.Resize(desktopCount);
 			Settings.ShortcutKey.MoveToIndices.Resize(desktopCount);
 			Settings.MouseShortcut.SwitchToIndices.Resize(desktopCount);

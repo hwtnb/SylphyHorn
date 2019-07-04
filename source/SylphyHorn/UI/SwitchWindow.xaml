@@ -15,6 +15,8 @@
 					   Title="{Binding Title}"
 					   Width="500"
 					   Height="100"
+					   MinWidth="500"
+					   SizeToContent="Width"
 					   ResizeMode="NoResize"
 					   Topmost="True"
 					   ShowInTaskbar="False"
@@ -65,7 +67,7 @@
 	</i:Interaction.Triggers>
 
 	<DockPanel VerticalAlignment="Center"
-			   Margin="16,12">
+			   Margin="16,12,24,12">
 		<TextBlock DockPanel.Dock="Top"
 				   Text="{Binding Header}"
 				   FontFamily="Segoe UI Light, Meiryo UI"
