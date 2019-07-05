@@ -1314,6 +1314,7 @@
 							<LineBreak />
 							<Run Text="version" />
 							<Run Text="{x:Static properties:ProductInfo.VersionString}" />
+							<Run Text="{x:Static properties:ProductInfo.ExtraVersionString}" />
 						</TextBlock>
 
 						<TextBlock Text="Built using the Desktop Bridge."
@@ -1326,13 +1327,20 @@
 								   FontFamily="Segoe UI, Meiryo UI"
 								   Margin="2,6">
 							<Run Text="Source code:" />
+							<metro2:HyperlinkEx Uri="https://github.com/HaijinW/SylphyHorn">
+								<Run Text="https://github.com/HaijinW/SylphyHorn" />
+							</metro2:HyperlinkEx>
+
+							<LineBreak />
+
+							<Run Text="Original source code:" />
 							<metro2:HyperlinkEx Uri="https://github.com/Grabacr07/SylphyHorn">
 								<Run Text="https://github.com/Grabacr07/SylphyHorn" />
 							</metro2:HyperlinkEx>
 
 							<LineBreak />
 
-							<Run Text="Developer:" />
+							<Run Text="Original developer:" />
 							<metro2:HyperlinkEx Uri="https://twitter.com/Grabacr07">
 								<Run Text="@Grabacr07" />
 							</metro2:HyperlinkEx>

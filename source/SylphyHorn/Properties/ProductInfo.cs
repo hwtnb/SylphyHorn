@@ -13,6 +13,7 @@ namespace SylphyHorn.Properties
 		private static readonly Lazy<string> _copyrightLazy = new Lazy<string>(() => ((AssemblyCopyrightAttribute)Attribute.GetCustomAttribute(_assembly, typeof(AssemblyCopyrightAttribute))).Copyright);
 		private static readonly Lazy<string> _trademarkLazy = new Lazy<string>(() => ((AssemblyTrademarkAttribute)Attribute.GetCustomAttribute(_assembly, typeof(AssemblyTrademarkAttribute))).Trademark);
 		private static readonly Lazy<string> _versionLazy = new Lazy<string>(() => $"{Version.ToString(3)}{(IsBetaRelease ? " β" : "")}{(Version.Revision == 0 ? "" : " rev." + Version.Revision)}");
+		private static readonly Lazy<string> _extraVersionLazy = new Lazy<string>(() => $" ex {((AssemblyMetadataAttribute)Attribute.GetCustomAttribute(_assembly, typeof(AssemblyMetadataAttribute))).Value}");
 
 
 		public static string Title => _titleLazy.Value;
@@ -30,6 +31,8 @@ namespace SylphyHorn.Properties
 		public static Version Version => _assembly.GetName().Version;
 
 		public static string VersionString => _versionLazy.Value;
+
+		public static string ExtraVersionString => _extraVersionLazy.Value;
 
 
 		public static bool IsBetaRelease
