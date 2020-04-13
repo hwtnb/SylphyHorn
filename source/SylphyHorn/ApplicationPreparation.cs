@@ -15,7 +15,7 @@ using SylphyHorn.UI.Bindings;
 namespace SylphyHorn
 {
 	using ActionRegister1 = Func<Func<ShortcutKey>, Action<IntPtr>, IDisposable>;
-	using ActionRegister2 = Func<Func<ShortcutKey>, Action<IntPtr>, Func<bool>, IDisposable>;
+	//using ActionRegister2 = Func<Func<ShortcutKey>, Action<IntPtr>, Func<bool>, IDisposable>;
 
 	public class ApplicationPreparation
 	{
@@ -49,8 +49,8 @@ namespace SylphyHorn
 		public void RegisterActions()
 		{
 			this.ResizePropertyList();
-			RegisterActions(Settings.ShortcutKey, this._hookService.RegisterKeyAction, this._hookService.RegisterKeyAction);
-			RegisterActions(Settings.MouseShortcut, this._hookService.RegisterMouseAction, this._hookService.RegisterMouseAction);
+			RegisterActions(Settings.ShortcutKey, this._hookService.RegisterKeyAction);
+			RegisterActions(Settings.MouseShortcut, this._hookService.RegisterMouseAction);
 		}
 
 		public TaskTrayIcon CreateTaskTrayIcon()
@@ -136,7 +136,7 @@ namespace SylphyHorn
 			}
 		}
 
-		private void RegisterActions(ShortcutKeySettings settings, ActionRegister1 register1, ActionRegister2 register2)
+		private void RegisterActions(ShortcutKeySettings settings, ActionRegister1 register1)
 		{
 			register1(() => settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
 				.AddTo(this._disposable);
@@ -167,18 +167,16 @@ namespace SylphyHorn
 					register1(() => settings.SwitchToRightWithDefault.ToShortcutKey(), _ => { })
 						.AddTo(this._disposable);
 				}
-				else
+				else if (Settings.General.LoopDesktop)
 				{
-					register2(
+					register1(
 							() => settings.SwitchToLeftWithDefault.ToShortcutKey(),
-							_ => VirtualDesktopService.GetLeft()?.Switch(),
-							() => Settings.General.ChangeBackgroundEachDesktop)
+							_ => VirtualDesktopService.GetLeft()?.Switch())
 						.AddTo(this._disposable);
 
-					register2(
+					register1(
 							() => settings.SwitchToRightWithDefault.ToShortcutKey(),
-							_ => VirtualDesktopService.GetRight()?.Switch(),
-							() => Settings.General.ChangeBackgroundEachDesktop)
+							_ => VirtualDesktopService.GetRight()?.Switch())
 						.AddTo(this._disposable);
 				}
 
