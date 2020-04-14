@@ -49,8 +49,8 @@ namespace SylphyHorn
 		public void RegisterActions()
 		{
 			this.ResizePropertyList();
-			RegisterActions(Settings.ShortcutKey, this._hookService.RegisterKeyAction);
-			RegisterActions(Settings.MouseShortcut, this._hookService.RegisterMouseAction);
+			this.RegisterActions(Settings.ShortcutKey, this._hookService.RegisterKeyAction);
+			this.RegisterActions(Settings.MouseShortcut, this._hookService.RegisterMouseAction);
 		}
 
 		public TaskTrayIcon CreateTaskTrayIcon()
