@@ -592,6 +592,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Automaticaly start as administrator at logon (from Task Scheduler) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Startup_Automaticaly_As_Admin {
+            get {
+                return ResourceManager.GetString("Settings_Startup_Automaticaly_As_Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Switch to adjacent desktop に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_SwitchAdjacentDesktop {

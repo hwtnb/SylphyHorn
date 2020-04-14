@@ -193,6 +193,11 @@
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Startup_Automaticaly}" />
 							</CheckBox>
 						</StackPanel>
+						<StackPanel Margin="8,0,0,0">
+							<CheckBox IsChecked="{Binding HasStartupScheduler, Mode=TwoWay}" IsEnabled="{Binding IsStartupSchedulerEnabled}">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Startup_Automaticaly_As_Admin}" />
+							</CheckBox>
+						</StackPanel>
 						<Border Height="8" />
 
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Language}"

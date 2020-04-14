@@ -22,6 +22,7 @@ namespace SylphyHorn.UI.Bindings
 
 		private readonly HookService _hookService;
 		private readonly Startup _startup;
+		private readonly StartupScheduler _startupScheduler;
 
 		public IReadOnlyCollection<DisplayViewModel<string>> Cultures { get; }
 
@@ -48,6 +49,14 @@ namespace SylphyHorn.UI.Bindings
 				{
 					if (value)
 					{
+						if (this.HasStartupScheduler == value)
+						{
+							this.HasStartupScheduler = !value;
+							if (this.HasStartupScheduler)
+							{
+								return;
+							}
+						}
 						this._startup.Create();
 					}
 					else
@@ -59,6 +68,60 @@ namespace SylphyHorn.UI.Bindings
 					this.RaisePropertyChanged();
 				}
 			}
+		}
+
+		#endregion
+
+		#region HasStartupScheduler notification property
+
+		private bool _HasStartupScheduler;
+
+		public bool HasStartupScheduler
+		{
+			get => this._HasStartupScheduler;
+			set
+			{
+				if (this._HasStartupScheduler != value)
+				{
+					try
+					{
+						if (value)
+						{
+							this._startupScheduler.Register();
+							if (!this._startupScheduler.IsExists)
+							{
+								return;
+							}
+							else if (this.HasStartupLink == value)
+							{
+								this.HasStartupLink = !value;
+							}
+						}
+						else
+						{
+							this._startupScheduler.Unregister();
+						}
+					}
+					catch (UnauthorizedAccessException)
+					{
+						return;
+					}
+					finally
+					{
+						this._HasStartupScheduler = this._startupScheduler.IsExists;
+						this.RaisePropertyChanged();
+					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region IsStartupSchedulerEnabled notification property
+
+		public bool IsStartupSchedulerEnabled
+		{
+			get => this._startupScheduler.IsEnabled;
 		}
 
 		#endregion
@@ -199,6 +262,7 @@ namespace SylphyHorn.UI.Bindings
 		{
 			this._hookService = hookService;
 			this._startup = new Startup();
+			this._startupScheduler = new StartupScheduler();
 
 			this.Cultures = new[] { new DisplayViewModel<string> { Display = "(auto)", } }
 				.Concat(ResourceService.Current.SupportedCultures
@@ -238,6 +302,7 @@ namespace SylphyHorn.UI.Bindings
 			this.Licenses = LicenseInfo.All.Select(x => new LicenseViewModel(x)).ToArray();
 
 			this._HasStartupLink = this._startup.IsExists;
+			this._HasStartupScheduler = this._startupScheduler.IsExists;
 
 			Settings.General.DesktopBackgroundFolderPath
 				.Subscribe(path => this.Backgrounds = WallpaperService.Instance.GetWallpaperFiles(path))
