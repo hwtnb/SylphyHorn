@@ -294,6 +294,9 @@
   <data name="Settings_Startup_Automaticaly" xml:space="preserve">
     <value>ログオン時に自動的に起動する</value>
   </data>
+  <data name="Settings_Startup_Automaticaly_As_Admin" xml:space="preserve">
+    <value>ログオン時に管理者として自動的に起動する (タスク スケジューラを使用)</value>
+  </data>
   <data name="Settings_SwitchAdjacentDesktop" xml:space="preserve">
     <value>隣接した仮想デスクトップへ切り替え</value>
   </data>

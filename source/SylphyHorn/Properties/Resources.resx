@@ -294,6 +294,9 @@
   <data name="Settings_Startup_Automaticaly" xml:space="preserve">
     <value>Automaticaly start at logon</value>
   </data>
+  <data name="Settings_Startup_Automaticaly_As_Admin" xml:space="preserve">
+    <value>Automaticaly start as administrator at logon (from Task Scheduler)</value>
+  </data>
   <data name="Settings_SwitchAdjacentDesktop" xml:space="preserve">
     <value>Switch to adjacent desktop</value>
   </data>

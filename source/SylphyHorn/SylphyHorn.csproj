@@ -264,6 +264,7 @@
     <Compile Include="Services\MouseInterceptor.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="StartupScheduler.cs" />
     <Compile Include="UI\Controls\Keytop.cs" />
     <Compile Include="UI\Controls\MouseShortcutBox.cs" />
     <Compile Include="UI\Controls\UnlockImageConverter.cs" />
@@ -433,6 +434,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx">
       <DependentUpon>Resources.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
