@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Security.Principal;
 using SylphyHorn.Interop;
@@ -9,9 +10,9 @@ namespace SylphyHorn
 	public class StartupScheduler
 	{
 		private const string _managerName = "SchedulerManager";
-		private const string _managerPath = ".\\" + StartupScheduler._managerName + ".exe";
 		private const int _waitingTime = 20000;
 		private readonly string _appPath;
+		private readonly string _managerPath;
 		private readonly WindowsPrincipal _principal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
 
 		public bool IsExists => this.HasStartupTask();
@@ -28,6 +29,7 @@ namespace SylphyHorn
 		public StartupScheduler(string appPath)
 		{
 			this._appPath = appPath;
+			this._managerPath = Path.Combine(Path.GetDirectoryName(appPath), _managerName + ".exe");
 		}
 
 		public void Register()
