@@ -47,6 +47,9 @@
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 			<BeginStoryboard Storyboard="{StaticResource FadeIn}" />
 		</EventTrigger>
+		<EventTrigger RoutedEvent="FrameworkElement.MouseDown">
+			<BeginStoryboard Storyboard="{StaticResource FadeOut}" />
+		</EventTrigger>
 	</Window.Triggers>
 
 	<i:Interaction.Behaviors>
@@ -62,6 +65,12 @@
 		</i:EventTrigger>
 		<i:EventTrigger EventName="Closed">
 			<livet:DataContextDisposeAction />
+		</i:EventTrigger>
+		<i:EventTrigger EventName="MouseEnter">
+			<i:ChangePropertyAction TargetName="Window" PropertyName="NativeOpacity" Value="0.5" />
+		</i:EventTrigger>
+		<i:EventTrigger EventName="MouseLeave">
+			<i:ChangePropertyAction TargetName="Window" PropertyName="NativeOpacity" Value="1.0" />
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
 

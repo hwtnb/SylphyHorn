@@ -37,7 +37,7 @@ namespace SylphyHorn.UI
 			if (source == null) throw new InvalidOperationException();
 
 			var style = User32.GetWindowLongEx(source.Handle);
-			style |= WindowExStyles.WS_EX_TOOLWINDOW | WindowExStyles.WS_EX_NOACTIVATE | WindowExStyles.WS_EX_TRANSPARENT;
+			style |= WindowExStyles.WS_EX_TOOLWINDOW | WindowExStyles.WS_EX_NOACTIVATE;
 			User32.SetWindowLongEx(source.Handle, style);
 		}
 
