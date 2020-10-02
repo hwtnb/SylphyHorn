@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using MetroRadiance.Interop.Win32;
 using SylphyHorn.Interop;
+using MONITORINFOEX = SylphyHorn.Interop.MONITORINFOEX;
 
 namespace SylphyHorn.Services
 {
