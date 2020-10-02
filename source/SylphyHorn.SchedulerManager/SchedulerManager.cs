@@ -184,7 +184,7 @@ namespace SylphyHorn
 			principal.RunLevel = _TASK_RUNLEVEL.TASK_RUNLEVEL_HIGHEST;
 			taskSettings.DisallowStartIfOnBatteries = false;
 			taskSettings.ExecutionTimeLimit = "PT0S";
-			taskSettings.Compatibility = _TASK_COMPATIBILITY.TASK_COMPATIBILITY_V2_4;
+			taskSettings.Compatibility = _TASK_COMPATIBILITY.TASK_COMPATIBILITY_V2;
 			taskSettings.Hidden = false;
 			taskSettings.Priority = 6;
 
