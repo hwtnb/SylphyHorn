@@ -33,12 +33,19 @@ namespace SylphyHorn.UI
 		{
 			base.OnSourceInitialized(e);
 
+			this.ThemeMode = BlurWindowThemeMode.System;
+
 			var source = PresentationSource.FromVisual(this) as HwndSource;
 			if (source == null) throw new InvalidOperationException();
 
 			var style = User32.GetWindowLongEx(source.Handle);
 			style |= WindowExStyles.WS_EX_TOOLWINDOW | WindowExStyles.WS_EX_NOACTIVATE;
 			User32.SetWindowLongEx(source.Handle, style);
+		}
+
+		protected override void OnThemeModeChanged(DependencyPropertyChangedEventArgs e)
+		{
+			this.ThemeMode = BlurWindowThemeMode.System;
 		}
 
 		private void ChangeOpacity(double opacity)
