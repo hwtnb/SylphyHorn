@@ -520,6 +520,60 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Notification window style に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowStyle {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Accent に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowStyle_Accent {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowStyle_Accent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Match to Apps に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowStyle_Apps {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowStyle_Apps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Dark に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowStyle_Dark {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowStyle_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Light に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowStyle_Light {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowStyle_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Match to System に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowStyle_System {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowStyle_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Pin window: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Pin {

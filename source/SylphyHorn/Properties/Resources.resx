@@ -261,6 +261,24 @@
   <data name="Settings_NotificationWindowPlacement_TopRight" xml:space="preserve">
     <value>Top right</value>
   </data>
+  <data name="Settings_NotificationWindowStyle" xml:space="preserve">
+    <value>Notification window style</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Accent" xml:space="preserve">
+    <value>Accent</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Apps" xml:space="preserve">
+    <value>Match to Apps</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_System" xml:space="preserve">
+    <value>Match to System</value>
+  </data>
   <data name="Settings_Notification_Display" xml:space="preserve">
     <value>Display a notification when switched virtual desktop</value>
   </data>

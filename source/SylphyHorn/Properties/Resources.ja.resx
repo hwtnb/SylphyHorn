@@ -261,6 +261,24 @@
   <data name="Settings_NotificationWindowPlacement_TopRight" xml:space="preserve">
     <value>右上</value>
   </data>
+  <data name="Settings_NotificationWindowStyle" xml:space="preserve">
+    <value>通知ウィンドウのスタイル</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Accent" xml:space="preserve">
+    <value>アクセント</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Apps" xml:space="preserve">
+    <value>アプリに合わせる</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Dark" xml:space="preserve">
+    <value>黒</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_Light" xml:space="preserve">
+    <value>白</value>
+  </data>
+  <data name="Settings_NotificationWindowStyle_System" xml:space="preserve">
+    <value>システムに合わせる</value>
+  </data>
   <data name="Settings_Notification_Display" xml:space="preserve">
     <value>仮想デスクトップ切り替え時に通知を表示する</value>
   </data>

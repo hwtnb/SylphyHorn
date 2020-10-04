@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Livet;
 using Livet.Messaging.IO;
 using MetroRadiance.Platform;
+using MetroRadiance.UI.Controls;
 using MetroTrilithon.Lifetime;
 using MetroTrilithon.Mvvm;
 using SylphyHorn.Properties;
@@ -27,6 +28,8 @@ namespace SylphyHorn.UI.Bindings
 		public IReadOnlyCollection<DisplayViewModel<string>> Cultures { get; }
 
 		public IReadOnlyCollection<DisplayViewModel<WindowPlacement>> Placements { get; }
+
+		public IReadOnlyCollection<DisplayViewModel<BlurWindowThemeMode>> NotificationWindowStyles { get; }
 
 		public bool IsDisplayEnabled { get; }
 
@@ -182,6 +185,23 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		#region NotificationWindowStyle notification property
+
+		public BlurWindowThemeMode NotificationWindowStyle
+		{
+			get => (BlurWindowThemeMode)Settings.General.NotificationWindowStyle.Value;
+			set
+			{
+				if ((BlurWindowThemeMode)Settings.General.NotificationWindowStyle.Value != value) {
+					Settings.General.NotificationWindowStyle.Value = (uint)value;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
 		#region Backgrounds notification property
 
 		private WallpaperFile[] _Backgrounds;
@@ -279,6 +299,15 @@ namespace SylphyHorn.UI.Bindings
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_BottomLeft, Value = WindowPlacement.BottomLeft, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_BottomCenter, Value = WindowPlacement.BottomCenter, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_BottomRight, Value = WindowPlacement.BottomRight, },
+			}.ToList();
+
+			this.NotificationWindowStyles = new[]
+			{
+				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_Apps, Value = BlurWindowThemeMode.Default, },
+				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_Light, Value = BlurWindowThemeMode.Light, },
+				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_Dark, Value = BlurWindowThemeMode.Dark, },
+				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_Accent, Value = BlurWindowThemeMode.Accent, },
+				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_System, Value = BlurWindowThemeMode.System, },
 			}.ToList();
 
 			this.Displays = new[] { new DisplayViewModel<uint> { Display = Resources.Settings_MultipleDisplays_CurrentDisplay, Value = 0, } }

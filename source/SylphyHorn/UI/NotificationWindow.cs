@@ -6,6 +6,7 @@ using System.Windows.Interop;
 using MetroRadiance.Interop.Win32;
 using MetroRadiance.UI.Controls;
 using SylphyHorn.Interop;
+using SylphyHorn.Serialization;
 
 namespace SylphyHorn.UI
 {
@@ -33,7 +34,8 @@ namespace SylphyHorn.UI
 		{
 			base.OnSourceInitialized(e);
 
-			this.ThemeMode = BlurWindowThemeMode.System;
+			var settings = Settings.General.NotificationWindowStyle.Value;
+			this.ThemeMode = (BlurWindowThemeMode)settings;
 
 			var source = PresentationSource.FromVisual(this) as HwndSource;
 			if (source == null) throw new InvalidOperationException();
@@ -45,7 +47,8 @@ namespace SylphyHorn.UI
 
 		protected override void OnThemeModeChanged(DependencyPropertyChangedEventArgs e)
 		{
-			this.ThemeMode = BlurWindowThemeMode.System;
+			var settings = Settings.General.NotificationWindowStyle.Value;
+			this.ThemeMode = (BlurWindowThemeMode)settings;
 		}
 
 		private void ChangeOpacity(double opacity)
