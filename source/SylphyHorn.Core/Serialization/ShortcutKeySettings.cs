@@ -45,6 +45,8 @@ namespace SylphyHorn.Serialization
 
 		public ShortcutkeyProperty ShowTaskView => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
 
+		public ShortcutkeyProperty ShowWindowSwitch => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
 		public ShortcutkeyProperty Pin => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
 
 		public ShortcutkeyProperty Unpin => this.Cache(key => new ShortcutkeyProperty(key, this._provider));

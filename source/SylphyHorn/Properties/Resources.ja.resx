@@ -315,6 +315,9 @@
   <data name="Settings_TaskView_ShowTaskView" xml:space="preserve">
     <value>タスク ビューを表示:</value>
   </data>
+  <data name="Settings_TaskView_ShowWindowSwitch" xml:space="preserve">
+    <value>ウィンドウの切り替え:</value>
+  </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>設定</value>
   </data>

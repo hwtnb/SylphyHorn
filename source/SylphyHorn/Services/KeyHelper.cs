@@ -25,6 +25,8 @@ namespace SylphyHorn.Services
 
 		public static IList<int> VirtualDesktopTaskViewKey { get; } = new ShortcutKey(VirtualKey.Tab, VirtualKey.LWin).ToSerializable();
 
+		public static IList<int> VirtualDesktopWindowSwitcherKey { get; } = new ShortcutKey(VirtualKey.Tab, VirtualKey.Control, VirtualKey.Alt).ToSerializable();
+
 		public static bool IsModifyKey(this VirtualKey key)
 		{
 			return IsModifyKey((uint)key);

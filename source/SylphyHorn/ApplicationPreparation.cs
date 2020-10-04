@@ -204,6 +204,9 @@ namespace SylphyHorn
 			register1(() => settings.ShowTaskView.ToShortcutKey(), _ => VirtualDesktopService.ShowTaskView())
 				.AddTo(this._disposable);
 
+			register1(() => settings.ShowWindowSwitch.ToShortcutKey(), _ => VirtualDesktopService.ShowWindowSwitch())
+				.AddTo(this._disposable);
+
 			register1(() => settings.Pin.ToShortcutKey(), hWnd => hWnd.Pin())
 				.AddTo(this._disposable);
 

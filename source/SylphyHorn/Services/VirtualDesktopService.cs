@@ -160,10 +160,12 @@ namespace SylphyHorn.Services
 
 		public static void ShowTaskView()
 		{
-			Input.Keyboard.KeyUp(VirtualKeyCode.CONTROL);
-			Input.Keyboard.KeyUp(VirtualKeyCode.SHIFT);
-			Input.Keyboard.KeyUp(VirtualKeyCode.MENU);
 			Input.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
+		}
+
+		public static void ShowWindowSwitch()
+		{
+			Input.Keyboard.ModifiedKeyStroke(new[] {VirtualKeyCode.CONTROL, VirtualKeyCode.MENU}, VirtualKeyCode.TAB);
 		}
 
 		#endregion

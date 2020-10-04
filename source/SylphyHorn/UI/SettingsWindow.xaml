@@ -627,9 +627,12 @@
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="2*" />
+									<RowDefinition Height="2*" />
 								</Grid.RowDefinitions>
 								<TextBlock Grid.Row="0"
 										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView_ShowTaskView}" />
+								<TextBlock Grid.Row="1"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView_ShowWindowSwitch}" />
 							</Grid>
 							<UniformGrid Grid.Column="2"
 										 Columns="1">
@@ -638,6 +641,11 @@
 														 IsReadOnly="True"
 														 IsEnabled="False" />
 								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=ShowTaskView.Value, Mode=TwoWay}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static services:KeyHelper.VirtualDesktopWindowSwitcherKey}, Mode=OneWay}"
+														 Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_ProvidedByWinows, StringFormat=' ({0})', Mode=OneWay}"
+														 IsReadOnly="True"
+														 IsEnabled="False" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=ShowWindowSwitch.Value, Mode=TwoWay}" />
 							</UniformGrid>
 						</Grid>
 						<Border Height="16" />
@@ -956,13 +964,17 @@
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
 								</Grid.RowDefinitions>
 								<TextBlock Grid.Row="0"
 										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView_ShowTaskView}" />
+								<TextBlock Grid.Row="1"
+										   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TaskView_ShowWindowSwitch}" />
 							</Grid>
 							<UniformGrid Grid.Column="2"
 										 Columns="1">
 								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=ShowTaskView.Value, Mode=TwoWay}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=ShowWindowSwitch.Value, Mode=TwoWay}" />
 							</UniformGrid>
 						</Grid>
 						<Border Height="16" />

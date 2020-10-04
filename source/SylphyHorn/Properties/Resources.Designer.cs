@@ -655,6 +655,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Switch Window: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_TaskView_ShowWindowSwitch {
+            get {
+                return ResourceManager.GetString("Settings_TaskView_ShowWindowSwitch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Settings に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Title {
