@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SylphyHorn", "SylphyHorn\Sy
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VirtualDesktop", "VirtualDesktop", "{65847316-DFF7-497E-8542-B1F5E75803A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDesktop", "VirtualDesktop\source\VirtualDesktop\VirtualDesktop.csproj", "{AB848ECD-76AA-41C0-B63D-86A8591B25AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualDesktop", "VirtualDesktop\source\VirtualDesktop\VirtualDesktop.csproj", "{AB848ECD-76AA-41C0-B63D-86A8591B25AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDesktop.WPF", "VirtualDesktop\source\VirtualDesktop.WPF\VirtualDesktop.WPF.csproj", "{9DD597C6-065A-4764-A96C-1B18C4EDED78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualDesktop.WPF", "VirtualDesktop\source\VirtualDesktop.WPF\VirtualDesktop.WPF.csproj", "{9DD597C6-065A-4764-A96C-1B18C4EDED78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SylphyHorn.Core", "SylphyHorn.Core\SylphyHorn.Core.csproj", "{9F0EB092-DDFC-492E-9266-EF208C8E4D83}"
 EndProject
@@ -112,8 +112,8 @@ Global
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|ARM.ActiveCfg = Release|Any CPU
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|ARM.Build.0 = Release|Any CPU
-		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x64.ActiveCfg = Release|x64
-		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x64.Build.0 = Release|x64
+		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x64.Build.0 = Release|Any CPU
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x86.ActiveCfg = Release|x86
 		{AB848ECD-76AA-41C0-B63D-86A8591B25AA}.Release|x86.Build.0 = Release|x86
 		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Debug (AppX)|Any CPU.ActiveCfg = Debug|Any CPU
@@ -144,8 +144,8 @@ Global
 		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|ARM.ActiveCfg = Release|Any CPU
 		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|ARM.Build.0 = Release|Any CPU
-		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|x64.ActiveCfg = Release|x64
-		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|x64.Build.0 = Release|x64
+		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|x64.ActiveCfg = Release|Any CPU
+		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|x64.Build.0 = Release|Any CPU
 		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|x86.ActiveCfg = Release|x86
 		{9DD597C6-065A-4764-A96C-1B18C4EDED78}.Release|x86.Build.0 = Release|x86
 		{9F0EB092-DDFC-492E-9266-EF208C8E4D83}.Debug (AppX)|Any CPU.ActiveCfg = Debug|Any CPU
