@@ -93,7 +93,8 @@ namespace SylphyHorn.Services
 				var generalSttings = Settings.General;
 				var desktopNames = generalSttings.DesktopNames.Value;
 				var i = number - 1;
-				if (!generalSttings.UseDesktopName || desktopNames.Count < number || desktopNames[i].Value.Length == 0)
+				if (!generalSttings.UseDesktopName || desktopNames.Count < number ||
+					desktopNames[i].Value == null || desktopNames[i].Value.Length == 0)
 				{
 					return "Current Desktop: Desktop " + number.ToString();
 				}
