@@ -68,6 +68,32 @@ namespace SylphyHorn.Serialization
 			return property;
 		}
 
+		protected WallpaperPathPropertyList Cache(Func<string, WallpaperPathPropertyList> create, [CallerMemberName] string propertyName = "")
+		{
+			var key = this.CategoryName + "." + propertyName;
+
+			object obj;
+			if (this._cachedProperties.TryGetValue(key, out obj) && obj is WallpaperPathPropertyList) return (WallpaperPathPropertyList)obj;
+
+			var property = create(key);
+			this._cachedProperties[key] = property;
+
+			return property;
+		}
+
+		protected WallpaperPositionsPropertyList Cache(Func<string, WallpaperPositionsPropertyList> create, [CallerMemberName] string propertyName = "")
+		{
+			var key = this.CategoryName + "." + propertyName;
+
+			object obj;
+			if (this._cachedProperties.TryGetValue(key, out obj) && obj is WallpaperPositionsPropertyList) return (WallpaperPositionsPropertyList)obj;
+
+			var property = create(key);
+			this._cachedProperties[key] = property;
+
+			return property;
+		}
+
 		public static T Instance<T>() where T : SettingsHost
 		{
 			SettingsHost host;

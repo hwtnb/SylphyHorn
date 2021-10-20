@@ -58,5 +58,10 @@ namespace SylphyHorn.Properties
 #endif
 			}
 		}
+
+
+		internal static int OSBuild => Environment.OSVersion.Version.Build;
+
+		internal static bool IsWindows11OrLater => ProductInfo.OSBuild >= 22000;
 	}
 }

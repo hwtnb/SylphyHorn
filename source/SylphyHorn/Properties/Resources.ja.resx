@@ -132,14 +132,41 @@
   <data name="Settings_Background_Desktop" xml:space="preserve">
     <value>デスクトップの背景</value>
   </data>
+  <data name="Settings_Background_Image" xml:space="preserve">
+    <value>背景画像</value>
+  </data>
   <data name="Settings_Background_Note1" xml:space="preserve">
     <value>サポートされている画像形式: JPG, PNG, BMP</value>
   </data>
   <data name="Settings_Background_Note2" xml:space="preserve">
     <value>メモ: 仮想デスクトップ番号をファイル名とした画像ファイルを用意してください (例: "1.png", "2.png", ...)。</value>
   </data>
+  <data name="Settings_Background_Position" xml:space="preserve">
+    <value>背景の配置</value>
+  </data>
+  <data name="Settings_Background_Position_Center" xml:space="preserve">
+    <value>中央に表示</value>
+  </data>
+  <data name="Settings_Background_Position_Fill" xml:space="preserve">
+    <value>ページ幅に合わせる</value>
+  </data>
+  <data name="Settings_Background_Position_Fit" xml:space="preserve">
+    <value>画面のサイズに合わせる</value>
+  </data>
+  <data name="Settings_Background_Position_Span" xml:space="preserve">
+    <value>スパン</value>
+  </data>
+  <data name="Settings_Background_Position_Stretch" xml:space="preserve">
+    <value>拡大して表示</value>
+  </data>
+  <data name="Settings_Background_Position_Tile" xml:space="preserve">
+    <value>並べて表示</value>
+  </data>
   <data name="Settings_Background_SelectionDialog" xml:space="preserve">
-    <value>背景画像フォルダーを選択</value>
+    <value>背景画像を選択</value>
+  </data>
+  <data name="Settings_Background_SourceImageFile" xml:space="preserve">
+    <value>画像ファイル パス</value>
   </data>
   <data name="Settings_Background_SourceImageFolder" xml:space="preserve">
     <value>画像フォルダー パス</value>
@@ -170,6 +197,12 @@
   </data>
   <data name="Settings_DesktopSwitching_OverrideOS" xml:space="preserve">
     <value>OS 既定のキー コンビネーションを上書きする (Ctrl+Win+Left および Right)</value>
+  </data>
+  <data name="Settings_Desktop_OverrideSettingsOnStartup" xml:space="preserve">
+    <value>起動時に保存されている設定で仮想デスクトップを上書きする</value>
+  </data>
+  <data name="Settings_Desktop_Settings" xml:space="preserve">
+    <value>デスクトップの設定</value>
   </data>
   <data name="Settings_General" xml:space="preserve">
     <value>一般</value>

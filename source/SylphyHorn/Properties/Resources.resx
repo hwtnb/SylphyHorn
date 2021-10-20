@@ -132,14 +132,41 @@
   <data name="Settings_Background_Desktop" xml:space="preserve">
     <value>Desktop background</value>
   </data>
+  <data name="Settings_Background_Image" xml:space="preserve">
+    <value>Wallpaper</value>
+  </data>
   <data name="Settings_Background_Note1" xml:space="preserve">
     <value>Supported image formats: JPEG, PNG, BMP</value>
   </data>
   <data name="Settings_Background_Note2" xml:space="preserve">
     <value>Note: Please prepare image files with the virtual desktop number as filename (e.g. "1.png", "2.png", ...).</value>
   </data>
+  <data name="Settings_Background_Position" xml:space="preserve">
+    <value>Fit</value>
+  </data>
+  <data name="Settings_Background_Position_Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Settings_Background_Position_Fill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="Settings_Background_Position_Fit" xml:space="preserve">
+    <value>Fit</value>
+  </data>
+  <data name="Settings_Background_Position_Span" xml:space="preserve">
+    <value>Span</value>
+  </data>
+  <data name="Settings_Background_Position_Stretch" xml:space="preserve">
+    <value>Stretch</value>
+  </data>
+  <data name="Settings_Background_Position_Tile" xml:space="preserve">
+    <value>Tile</value>
+  </data>
   <data name="Settings_Background_SelectionDialog" xml:space="preserve">
-    <value>Select Background Images Folder</value>
+    <value>Select Background Image</value>
+  </data>
+  <data name="Settings_Background_SourceImageFile" xml:space="preserve">
+    <value>Source image file path</value>
   </data>
   <data name="Settings_Background_SourceImageFolder" xml:space="preserve">
     <value>Source image folder path</value>
@@ -170,6 +197,12 @@
   </data>
   <data name="Settings_DesktopSwitching_OverrideOS" xml:space="preserve">
     <value>Override OS default key combination (Ctrl+Win+Left and Right)</value>
+  </data>
+  <data name="Settings_Desktop_OverrideSettingsOnStartup" xml:space="preserve">
+    <value>Override virtual desktops with settings of SylphyHorn on startup</value>
+  </data>
+  <data name="Settings_Desktop_Settings" xml:space="preserve">
+    <value>Desktop settings</value>
   </data>
   <data name="Settings_General" xml:space="preserve">
     <value>General</value>

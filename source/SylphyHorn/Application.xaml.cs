@@ -70,11 +70,7 @@ namespace SylphyHorn
 						LocalSettingsProvider.Instance.SaveAsync().Forget();
 					}
 
-					preparation.VirtualDesktopInitialized += () =>
-					{
-						preparation.RegisterActions();
-						this.TaskTrayIcon.Reload();
-					};
+					preparation.VirtualDesktopInitialized += () => this.TaskTrayIcon.Reload();
 					preparation.VirtualDesktopInitializationCanceled += () => { }; // ToDo
 					preparation.VirtualDesktopInitializationFailed += ex => LoggingService.Instance.Register(ex);
 					preparation.PrepareVirtualDesktop();
@@ -94,7 +90,7 @@ namespace SylphyHorn
 				}
 				else
 				{
-					MessageBox.Show("This applications is supported only Windows 10 Anniversary Update (build 14393).", "Not supported", MessageBoxButton.OK, MessageBoxImage.Stop);
+					MessageBox.Show("This applications is supported on Windows 10 Anniversary Update (build 14393) or later.", "Not supported", MessageBoxButton.OK, MessageBoxImage.Stop);
 					this.Shutdown();
 				}
 			}

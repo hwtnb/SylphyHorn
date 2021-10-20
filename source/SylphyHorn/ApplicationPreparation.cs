@@ -14,8 +14,7 @@ using SylphyHorn.UI.Bindings;
 
 namespace SylphyHorn
 {
-	using ActionRegister1 = Func<Func<ShortcutKey>, Action<IntPtr>, IDisposable>;
-	//using ActionRegister2 = Func<Func<ShortcutKey>, Action<IntPtr>, Func<bool>, IDisposable>;
+	using ActionRegister = Func<Func<ShortcutKey>, Action<IntPtr>, IDisposable>;
 
 	public class ApplicationPreparation
 	{
@@ -48,7 +47,6 @@ namespace SylphyHorn
 
 		public void RegisterActions()
 		{
-			this.ResizePropertyList();
 			this.RegisterActions(Settings.ShortcutKey, this._hookService.RegisterKeyAction);
 			this.RegisterActions(Settings.MouseShortcut, this._hookService.RegisterMouseAction);
 		}
@@ -114,14 +112,15 @@ namespace SylphyHorn
 
 			VirtualDesktop.Provider = provider;
 			VirtualDesktop.Provider.Initialize().ContinueWith(Continue, TaskScheduler.FromCurrentSynchronizationContext());
-			VirtualDesktop.Created += (sender, args) => this.ResizePropertyList();
-			VirtualDesktop.Destroyed += (sender, args) => this.ResizePropertyList();
 
 			void Continue(Task t)
 			{
 				switch (t.Status)
 				{
 					case TaskStatus.RanToCompletion:
+						this.OverrideVirtualDesktopsIfNeeded();
+						this.RegisterActions();
+						this.RegisterVirtualDesktopEvents();
 						this.VirtualDesktopInitialized?.Invoke();
 						break;
 
@@ -136,24 +135,94 @@ namespace SylphyHorn
 			}
 		}
 
-		private void RegisterActions(ShortcutKeySettings settings, ActionRegister1 register1)
+		private void OverrideVirtualDesktopsIfNeeded()
 		{
-			register1(() => settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
+			if (ProductInfo.IsWindows11OrLater)
+			{
+				var generalSettings = Settings.General;
+				var hasSettings = generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0;
+				if (hasSettings && generalSettings.OverrideDesktopsOnStartup)
+				{
+					this.FitDesktopsWithPropertyList();
+					this.UpdateDesktopSettingsByPropertyList();
+				}
+				else
+				{
+					this.ResizePropertyList();
+					this.ApplyDesktopSettingsToPropertyList();
+				}
+			}
+			else
+			{
+				this.ResizePropertyList();
+			}
+			WallpaperService.SetPosition(VirtualDesktop.Current);
+		}
+
+		private void RegisterVirtualDesktopEvents()
+		{
+			var idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+			VirtualDesktop.Created += (sender, args) =>
+			{
+				this.ResizePropertyList();
+				LocalSettingsProvider.Instance.SaveAsync().Wait();
+				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+			};
+			VirtualDesktop.Destroyed += (sender, args) =>
+			{
+				var destroyedIndex = Array.IndexOf(idCaches, args.Destroyed.Id);
+				if (destroyedIndex >= 0)
+				{
+					var positionSettings = Settings.General.DesktopBackgroundPositions;
+					for (var i = destroyedIndex; i + 1 < positionSettings.Count; ++i)
+					{
+						positionSettings.Value[i].Value = positionSettings.Value[i + 1].Value;
+					}
+				}
+				this.ResizePropertyList();
+				LocalSettingsProvider.Instance.SaveAsync().Wait();
+				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+			};
+
+			if (!ProductInfo.IsWindows11OrLater) return;
+
+			VirtualDesktop.Moved += (sender, args) =>
+			{
+				this.ApplyDesktopSettingsToPropertyList();
+				Settings.General.DesktopBackgroundPositions.Swap(args.OldIndex, args.NewIndex);
+				LocalSettingsProvider.Instance.SaveAsync().Wait();
+				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+			};
+			VirtualDesktop.Renamed += (sender, args) =>
+			{
+				this.ApplyDesktopSettingsToPropertyList();
+				LocalSettingsProvider.Instance.SaveAsync().Wait();
+			};
+			VirtualDesktop.WallpaperChanged += (sender, args) =>
+			{
+				this.ApplyDesktopSettingsToPropertyList();
+				LocalSettingsProvider.Instance.SaveAsync().Wait();
+			};
+		}
+
+		private void RegisterActions(ShortcutKeySettings settings, ActionRegister register)
+		{
+			register(() => settings.MoveLeft.ToShortcutKey(), hWnd => hWnd.MoveToLeft())
 				.AddTo(this._disposable);
 
-			register1(() => settings.MoveLeftAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToLeft()?.Switch())
+			register(() => settings.MoveLeftAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToLeft()?.Switch())
 				.AddTo(this._disposable);
 
-			register1(() => settings.MoveRight.ToShortcutKey(), hWnd => hWnd.MoveToRight())
+			register(() => settings.MoveRight.ToShortcutKey(), hWnd => hWnd.MoveToRight())
 				.AddTo(this._disposable);
 
-			register1(() => settings.MoveRightAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToRight()?.Switch())
+			register(() => settings.MoveRightAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToRight()?.Switch())
 				.AddTo(this._disposable);
 
-			register1(() => settings.MoveNew.ToShortcutKey(), hWnd => hWnd.MoveToNew())
+			register(() => settings.MoveNew.ToShortcutKey(), hWnd => hWnd.MoveToNew())
 				.AddTo(this._disposable);
 
-			register1(() => settings.MoveNewAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToNew()?.Switch())
+			register(() => settings.MoveNewAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToNew()?.Switch())
 				.AddTo(this._disposable);
 
 			var isKeyboardSettings = settings as MouseShortcutSettings == null;
@@ -161,68 +230,68 @@ namespace SylphyHorn
 			{
 				if (Settings.General.OverrideWindowsDefaultKeyCombination)
 				{
-					register1(() => settings.SwitchToLeftWithDefault.ToShortcutKey(), _ => { })
+					register(() => settings.SwitchToLeftWithDefault.ToShortcutKey(), _ => { })
 						.AddTo(this._disposable);
 
-					register1(() => settings.SwitchToRightWithDefault.ToShortcutKey(), _ => { })
+					register(() => settings.SwitchToRightWithDefault.ToShortcutKey(), _ => { })
 						.AddTo(this._disposable);
 				}
 				else if (Settings.General.LoopDesktop)
 				{
-					register1(
+					register(
 							() => settings.SwitchToLeftWithDefault.ToShortcutKey(),
 							_ => VirtualDesktopService.GetLeft()?.Switch())
 						.AddTo(this._disposable);
 
-					register1(
+					register(
 							() => settings.SwitchToRightWithDefault.ToShortcutKey(),
 							_ => VirtualDesktopService.GetRight()?.Switch())
 						.AddTo(this._disposable);
 				}
 
-				register1(() => settings.SwitchToLeft.ToShortcutKey(), _ => VirtualDesktopService.GetLeft()?.Switch())
+				register(() => settings.SwitchToLeft.ToShortcutKey(), _ => VirtualDesktopService.GetLeft()?.Switch())
 					.AddTo(this._disposable);
 
-				register1(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
+				register(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
 					.AddTo(this._disposable);
 			}
 			else
 			{
-				register1(() => settings.SwitchToLeft.ToShortcutKey(), _ => VirtualDesktopService.GetLeft()?.Switch())
+				register(() => settings.SwitchToLeft.ToShortcutKey(), _ => VirtualDesktopService.GetLeft()?.Switch())
 					.AddTo(this._disposable);
 
-				register1(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
+				register(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
 					.AddTo(this._disposable);
 			}
 
-			register1(() => settings.CloseAndSwitchLeft.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchLeft())
+			register(() => settings.CloseAndSwitchLeft.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchLeft())
 				.AddTo(this._disposable);
 
-			register1(() => settings.CloseAndSwitchRight.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchRight())
+			register(() => settings.CloseAndSwitchRight.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchRight())
 				.AddTo(this._disposable);
 
-			register1(() => settings.ShowTaskView.ToShortcutKey(), _ => VirtualDesktopService.ShowTaskView())
+			register(() => settings.ShowTaskView.ToShortcutKey(), _ => VirtualDesktopService.ShowTaskView())
 				.AddTo(this._disposable);
 
-			register1(() => settings.ShowWindowSwitch.ToShortcutKey(), _ => VirtualDesktopService.ShowWindowSwitch())
+			register(() => settings.ShowWindowSwitch.ToShortcutKey(), _ => VirtualDesktopService.ShowWindowSwitch())
 				.AddTo(this._disposable);
 
-			register1(() => settings.Pin.ToShortcutKey(), hWnd => hWnd.Pin())
+			register(() => settings.Pin.ToShortcutKey(), hWnd => hWnd.Pin())
 				.AddTo(this._disposable);
 
-			register1(() => settings.Unpin.ToShortcutKey(), hWnd => hWnd.Unpin())
+			register(() => settings.Unpin.ToShortcutKey(), hWnd => hWnd.Unpin())
 				.AddTo(this._disposable);
 
-			register1(() => settings.TogglePin.ToShortcutKey(), hWnd => hWnd.TogglePin())
+			register(() => settings.TogglePin.ToShortcutKey(), hWnd => hWnd.TogglePin())
 				.AddTo(this._disposable);
 
-			register1(() => settings.PinApp.ToShortcutKey(), hWnd => hWnd.PinApp())
+			register(() => settings.PinApp.ToShortcutKey(), hWnd => hWnd.PinApp())
 				.AddTo(this._disposable);
 
-			register1(() => settings.UnpinApp.ToShortcutKey(), hWnd => hWnd.UnpinApp())
+			register(() => settings.UnpinApp.ToShortcutKey(), hWnd => hWnd.UnpinApp())
 				.AddTo(this._disposable);
 
-			register1(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
+			register(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
 				.AddTo(this._disposable);
 
 			var desktopCount = VirtualDesktopService.Count;
@@ -240,13 +309,13 @@ namespace SylphyHorn
 
 			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
 			{
-				register1(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
+				register(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
 					.AddTo(this._disposable);
 			};
 
 			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut)
 			{
-				register1(() => shortcut, hWnd => hWnd.MoveToIndex(i))
+				register(() => shortcut, hWnd => hWnd.MoveToIndex(i))
 					.AddTo(this._disposable);
 			};
 		}
@@ -255,10 +324,68 @@ namespace SylphyHorn
 		{
 			var desktopCount = VirtualDesktopService.Count;
 			Settings.General.DesktopNames.Resize(desktopCount);
+			Settings.General.DesktopBackgroundImagePaths.Resize(desktopCount);
+			Settings.General.DesktopBackgroundPositions.Resize(desktopCount);
 			Settings.ShortcutKey.SwitchToIndices.Resize(desktopCount);
 			Settings.ShortcutKey.MoveToIndices.Resize(desktopCount);
 			Settings.MouseShortcut.SwitchToIndices.Resize(desktopCount);
 			Settings.MouseShortcut.MoveToIndices.Resize(desktopCount);
+		}
+
+		private void ApplyDesktopSettingsToPropertyList()
+		{
+			// Only for Window 11
+			var desktops = VirtualDesktop.GetDesktops();
+			Array.ForEach(Settings.General.DesktopNames.Value.ToArray(), prop => prop.Value = desktops[prop.Index].Name);
+			Array.ForEach(Settings.General.DesktopBackgroundImagePaths.Value.ToArray(), prop => prop.Value = desktops[prop.Index].WallpaperPath);
+		}
+
+		private void UpdateDesktopSettingsByPropertyList()
+		{
+			// Only for Window 11
+			var desktops = VirtualDesktop.GetDesktops();
+			var desktopNames = Settings.General.DesktopNames.Value.Select(prop => prop.Value).ToArray();
+			var wallpaperPaths = Settings.General.DesktopBackgroundImagePaths.Value.Select(prop => prop.Value).ToArray();
+			for (int i = 0; i < desktopNames.Length; ++i)
+			{
+				desktops[i].Name = desktopNames[i];
+			}
+			for (int i = 0; i < wallpaperPaths.Length; ++i)
+			{
+				desktops[i].WallpaperPath = wallpaperPaths[i];
+			}
+		}
+
+		private void FitDesktopsWithPropertyList()
+		{
+			var generalSettings = Settings.General;
+			var nameCount = generalSettings.DesktopNames.Count;
+			var wallpaperCount = generalSettings.DesktopBackgroundImagePaths.Count;
+			var settingsCount = nameCount >= wallpaperCount ? nameCount : wallpaperCount;
+			if (nameCount < settingsCount)
+			{
+				generalSettings.DesktopNames.Resize(settingsCount);
+			}
+			else if (wallpaperCount < settingsCount)
+			{
+				generalSettings.DesktopBackgroundImagePaths.Resize(settingsCount);
+			}
+			var desktops = VirtualDesktop.GetDesktops();
+			var currentCount = desktops.Length;
+			if (settingsCount > currentCount)
+			{
+				for (var i = currentCount; i < settingsCount; ++i)
+				{
+					VirtualDesktop.Create();
+				}
+			}
+			else if (settingsCount < currentCount)
+			{
+				for (var i = settingsCount; i < currentCount; ++i)
+				{
+					desktops[i].Remove();
+				}
+			}
 		}
 	}
 }

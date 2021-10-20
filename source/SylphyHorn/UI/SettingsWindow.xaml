@@ -57,7 +57,7 @@
 
 		<livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
 										 MessageKey="Window.OpenBackgroundImagesDialog.Open">
-			<livet:FolderBrowserDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+			<livet:OpenFileDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
 		</livet:InteractionMessageTrigger>
 	</i:Interaction.Triggers>
 
@@ -222,7 +222,7 @@
 
 			<TabItem>
 				<TabItem.Header>
-					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background}"
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop}"
 							   Style="{DynamicResource TabitemStyleKey}" />
 				</TabItem.Header>
 
@@ -230,64 +230,165 @@
 							  VerticalScrollBarVisibility="Auto">
 					<StackPanel Margin="16,0,16,16"
 								Focusable="True">
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Desktop}"
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_Settings}"
 								   Style="{DynamicResource HeaderStyleKey}"
 								   Margin="0,0,0,8" />
-						<StackPanel Margin="8,0,0,0">
-							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=ChangeBackgroundEachDesktop.Value, Mode=TwoWay}">
+						<StackPanel Margin="8,0,8,0">
+							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=OverrideDesktopsOnStartup.Value, Mode=TwoWay}"
+									  IsEnabled="{Binding IsWindows11OrLater}"
+									  Visibility="{Binding IsWindows11OrLater, Converter={StaticResource BooleanToVisibilityConverter}}">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_OverrideSettingsOnStartup}" />
+							</CheckBox>
+							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=ChangeBackgroundEachDesktop.Value, Mode=TwoWay}"
+									  IsEnabled="{Binding IsWindows10OrEarlier}"
+									  Visibility="{Binding IsWindows10OrEarlier, Converter={StaticResource BooleanToVisibilityConverter}}">
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_ChangeBackground}" />
 							</CheckBox>
-							<StackPanel Margin="16,0,0,0">
-								<Grid IsEnabled="{Binding Source={x:Static serialization:Settings.General}, Path=ChangeBackgroundEachDesktop.Value, Mode=TwoWay}"
-									  Margin="2">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition MaxWidth="360" />
-										<ColumnDefinition Width="Auto" />
-									</Grid.ColumnDefinitions>
-									<metro:PromptTextBox Grid.Column="0"
-														 Text="{Binding Source={x:Static serialization:Settings.General}, Path=DesktopBackgroundFolderPath.Value, Mode=TwoWay}"
-														 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_SourceImageFolder}"
-														 Margin="2" />
-									<metro2:CallMethodButton Grid.Column="1"
-															 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_Reference}"
-															 MethodTarget="{Binding}"
-															 MethodName="OpenBackgroundPathDialog"
-															 Margin="2" />
-								</Grid>
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1}"
-										   TextWrapping="Wrap"
-										   Margin="4,0,0,0" />
-								<Border Height="4" />
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note2}"
-										   TextWrapping="Wrap"
-										   Margin="4,0,0,0" />
-							</StackPanel>
 							<Border Height="16" />
-							<ItemsControl ItemsSource="{Binding Backgrounds}"
-										  Visibility="{Binding Source={x:Static serialization:Settings.General}, Path=ChangeBackgroundEachDesktop.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
-										  Margin="18,0,0,0">
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<WrapPanel Orientation="Horizontal" />
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<DockPanel Margin="2">
-											<Label DockPanel.Dock="Top"
-												   Content="{Binding DesktopMonitorText}"
-												   Background="{DynamicResource ActiveBackgroundBrushKey}"
-												   Foreground="{DynamicResource ActiveForegroundBrushKey}"
-												   HorizontalContentAlignment="Center"
-												   Padding="8,1" />
-											<Image Source="{Binding Filepath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
-												   Stretch="Uniform"
-												   VerticalAlignment="Top"
-												   MaxWidth="150" />
-										</DockPanel>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
+							<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1}"
+									   TextWrapping="Wrap"
+									   Margin="20,0,0,0" />
+							<Grid Margin="0,4,0,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<ItemsControl ItemsSource="{Binding Desktops, Mode=TwoWay}"
+											  Grid.Row="0">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<UniformGrid Columns="1" />
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"
+																	  SharedSizeGroup="KeyHeader" />
+													<ColumnDefinition Width="4" />
+													<ColumnDefinition Width="*" MinWidth="154" MaxWidth="560" />
+													<ColumnDefinition Width="Auto" />
+													<ColumnDefinition Width="124" />
+												</Grid.ColumnDefinitions>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*" />
+													<RowDefinition Height="*" />
+													<RowDefinition Height="*" />
+													<RowDefinition Height="*" />
+												</Grid.RowDefinitions>
+
+												<Border Height="12" Grid.Row="0" Grid.ColumnSpan="4" />
+
+												<TextBlock Grid.Row="1"
+														   Grid.Column="0"
+														   VerticalAlignment="Center"
+														   Foreground="{DynamicResource ForegroundBrushKey}">
+													<TextBlock.Text>
+														<MultiBinding StringFormat="{}{0} {1}: ">
+															<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
+															<Binding Path="NumberText" />
+														</MultiBinding>
+													</TextBlock.Text>
+												</TextBlock>
+												<metro:PromptTextBox Grid.Row="1"
+																	 Grid.Column="2"
+																	 Grid.ColumnSpan="2"
+																	 Text="{Binding Path='Name', Mode=TwoWay}"
+																	 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
+																	 Margin="2" />
+
+												<TextBlock Grid.Row="2"
+														   Grid.Column="0"
+														   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Image}"
+														   VerticalAlignment="Center"
+														   Foreground="{DynamicResource ForegroundBrushKey}" />
+												<metro:PromptTextBox Grid.Row="2"
+																	 Grid.Column="2"
+																	 Text="{Binding WallpaperPath, Mode=TwoWay}"
+																	 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_SourceImageFile}"
+																	 IsEnabled="{Binding IsWallpaperEnabled}"
+																	 Margin="2" />
+												<metro2:CallMethodButton Grid.Row="2" Grid.Column="3"
+																		 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_Reference}"
+																		 MethodTarget="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																		 MethodName="OpenBackgroundPathDialog"
+																		 MethodParameter="{Binding Index}"
+																		 IsEnabled="{Binding IsWallpaperEnabled}"
+																		 Margin="2" />
+
+												<TextBlock Grid.Row="3"
+														   Grid.Column="0"
+														   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Position}"
+														   VerticalAlignment="Center"
+														   Foreground="{DynamicResource ForegroundBrushKey}" />
+												<metro:PromptComboBox Grid.Row="3"
+																	  Grid.Column="2"
+																	  ItemsSource="{Binding Path=DataContext.WallpaperPositions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																	  DisplayMemberPath="Display"
+																	  SelectedValuePath="Value"
+																	  SelectedValue="{Binding Path=Wallpaper.Position, Mode=TwoWay}"
+																	  Prompt=""
+																	  IsReadOnly="True"
+																	  MinWidth="150"
+																	  MaxWidth="250"
+																	  Margin="2"
+																	  HorizontalAlignment="Left" />
+
+												<Canvas Grid.RowSpan="3"
+														Grid.Row="1"
+														Grid.Column="4"
+														Margin="4,1,0,0">
+													<Rectangle Fill="{Binding Path=DataContext.PreviewBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+															   Width="120"
+															   Height="78" />
+													<Image Source="{Binding WallpaperPath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
+														   Stretch="UniformToFill"
+														   VerticalAlignment="Top"
+														   Width="120"
+														   Height="78" />
+													<Grid x:Name="PreviewRoot"
+														  Width="20"
+														  Height="20"
+														  Canvas.Left="0"
+														  Canvas.Top="0">
+														<ContentControl Width="20"
+																		Height="20"
+																		ClipToBounds="True">
+															<ContentControl.CacheMode>
+																<BitmapCache RenderAtScale="0.2" />
+															</ContentControl.CacheMode>
+															<Rectangle Fill="{Binding Path=DataContext.NotificationBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																   VerticalAlignment="Top"
+																   Width="120"
+																   Height="78"
+																   Visibility="{Binding HasWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}">
+																<Rectangle.Effect>
+																	<BlurEffect Radius="20" />
+																</Rectangle.Effect>
+															</Rectangle>
+														</ContentControl>
+														<Border Background="{Binding Path=DataContext.NotificationBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+														<DockPanel VerticalAlignment="Center"
+																   HorizontalAlignment="Center"
+																   Margin="0">
+															<TextBlock DockPanel.Dock="Top"
+																	   Text="{Binding NumberText}"
+																	   Foreground="{Binding Path=DataContext.NotificationForeground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																	   FontFamily="Segoe UI, Meiryo UI"
+																	   FontSize="12"
+																	   FontWeight="Bold"
+																	   Margin="-1,-1,0,0" />
+														</DockPanel>
+														<Border BorderBrush="#AAAAAA"
+																SnapsToDevicePixels="True"
+																BorderThickness="0,0,1,1" />
+													</Grid>
+												</Canvas>
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</Grid>
 						</StackPanel>
 						<Border Height="8" />
 					</StackPanel>
@@ -348,6 +449,13 @@
 												  MinWidth="250"
 												  Margin="1,0,0,0"
 												  HorizontalAlignment="Left" />
+						</StackPanel>
+						<Border Height="16" />
+
+						<StackPanel Margin="8,0,0,0">
+							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
+							</CheckBox>
 						</StackPanel>
 						<Border Height="32" />
 
@@ -530,7 +638,7 @@
 											   FontSize="11"
 											   Margin="1,0,0,-4" />
 									<TextBlock DockPanel.Dock="Top"
-											   Text="Current Desktop: Desktop 1"
+											   Text="{Binding PreviewNotificationText}"
 											   Foreground="{Binding NotificationForeground}"
 											   FontFamily="Segoe UI Light, Meiryo UI"
 											   FontSize="21" />
@@ -545,76 +653,6 @@
 									   Height="15"
 									   Canvas.Top="255" />
 						</Canvas>
-					</StackPanel>
-				</ScrollViewer>
-			</TabItem>
-
-			<TabItem>
-				<TabItem.Header>
-					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
-							   Style="{DynamicResource TabitemStyleKey}" />
-				</TabItem.Header>
-
-				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
-							  VerticalScrollBarVisibility="Auto">
-					<StackPanel Margin="16,0,16,16"
-								Focusable="True">
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
-								   Style="{DynamicResource HeaderStyleKey}"
-								   Margin="0,0,0,8" />
-						<StackPanel Margin="8,0,0,0">
-							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
-							</CheckBox>
-							<Border Height="16" />
-							<Grid Margin="8,0,0,0">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"
-													  SharedSizeGroup="KeyHeader" />
-									<ColumnDefinition Width="8" />
-									<ColumnDefinition Width="*" />
-								</Grid.ColumnDefinitions>
-								<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.General}, Path=DesktopNames.Value, Mode=TwoWay}"
-											  Grid.Column="0"
-											  Visibility="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
-									<ItemsControl.ItemsPanel>
-										<ItemsPanelTemplate>
-											<UniformGrid Columns="1" />
-										</ItemsPanelTemplate>
-									</ItemsControl.ItemsPanel>
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<TextBlock VerticalAlignment="Center"
-													   Foreground="{DynamicResource ForegroundBrushKey}">
-												<TextBlock.Text>
-													<MultiBinding StringFormat="{}{0} {1}:">
-														<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
-														<Binding Path="NumberText" />
-													</MultiBinding>
-												</TextBlock.Text>
-											</TextBlock>
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
-								<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.General}, Path=DesktopNames.Value, Mode=TwoWay}"
-											  Grid.Column="2"
-											  Visibility="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
-									<ItemsControl.ItemsPanel>
-										<ItemsPanelTemplate>
-											<UniformGrid Columns="1" />
-										</ItemsPanelTemplate>
-									</ItemsControl.ItemsPanel>
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<metro:PromptTextBox Text="{Binding Path='Value', Mode=TwoWay}"
-																 Prompt=""
-																 Margin="2" />
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
-							</Grid>
-						</StackPanel>
-						<Border Height="8" />
 					</StackPanel>
 				</ScrollViewer>
 			</TabItem>

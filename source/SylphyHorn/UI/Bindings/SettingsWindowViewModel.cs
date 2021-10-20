@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using Livet;
+using Livet.EventListeners;
 using Livet.Messaging.IO;
 using MetroRadiance.Platform;
 using MetroRadiance.UI.Controls;
@@ -13,6 +14,7 @@ using MetroTrilithon.Mvvm;
 using SylphyHorn.Properties;
 using SylphyHorn.Serialization;
 using SylphyHorn.Services;
+using WindowsDesktop;
 
 namespace SylphyHorn.UI.Bindings
 {
@@ -27,6 +29,8 @@ namespace SylphyHorn.UI.Bindings
 
 		public IReadOnlyCollection<DisplayViewModel<string>> Cultures { get; }
 
+		public IReadOnlyCollection<DisplayViewModel<WallpaperPosition>> WallpaperPositions { get; }
+
 		public IReadOnlyCollection<DisplayViewModel<WindowPlacement>> Placements { get; }
 
 		public IReadOnlyCollection<DisplayViewModel<BlurWindowThemeMode>> NotificationWindowStyles { get; }
@@ -38,6 +42,10 @@ namespace SylphyHorn.UI.Bindings
 		public IReadOnlyCollection<LicenseViewModel> Licenses { get; }
 
 		public bool RestartRequired => _restartRequired;
+
+		public bool IsWindows11OrLater => ProductInfo.IsWindows11OrLater;
+
+		public bool IsWindows10OrEarlier => !this.IsWindows11OrLater;
 
 		#region HasStartupLink notification property
 
@@ -202,26 +210,27 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
-		#region Backgrounds notification property
+		public bool HasWallpaper => !string.IsNullOrEmpty(this.PreviewBackgroundPath);
 
-		private WallpaperFile[] _Backgrounds;
+		#region Desktops notification property
 
-		public WallpaperFile[] Backgrounds
+		private VirtualDesktopViewModel[] _Desktops;
+
+		public VirtualDesktopViewModel[] Desktops
 		{
-			get => this._Backgrounds;
+			get => this._Desktops;
 			set
 			{
-				if (this._Backgrounds != value)
+				if (this._Desktops != value)
 				{
-					this._Backgrounds = value;
+					this._Desktops = value;
 					this.RaisePropertyChanged();
+					GC.Collect();
 				}
 			}
 		}
 
 		#endregion
-
-		public bool HasWallpaper => !string.IsNullOrEmpty(this.PreviewBackgroundPath);
 
 		#region PreviewBackgroundBrush notification property
 
@@ -264,6 +273,10 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		public string PreviewNotificationText => Settings.General.UseDesktopName && this._Desktops?.Length > 0
+			? $"Desktop 1: {this._Desktops[0].Name}"
+			: "Current Desktop: Desktop 1";
+
 		public Brush NotificationBackground => new SolidColorBrush(WindowsTheme.ColorPrevalence.Current
 			? ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemAccentDark1)
 			: ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.DarkChromeMedium))
@@ -289,6 +302,16 @@ namespace SylphyHorn.UI.Bindings
 					.Select(x => new DisplayViewModel<string> { Display = x.NativeName, Value = x.Name, })
 					.OrderBy(x => x.Display))
 				.ToList();
+
+			this.WallpaperPositions = new[]
+			{
+				new DisplayViewModel<WallpaperPosition> { Display = " " + Resources.Settings_Background_Position_Center, Value = WallpaperPosition.Center, },
+				new DisplayViewModel<WallpaperPosition> { Display = " " + Resources.Settings_Background_Position_Tile, Value = WallpaperPosition.Tile, },
+				new DisplayViewModel<WallpaperPosition> { Display = " " + Resources.Settings_Background_Position_Stretch, Value = WallpaperPosition.Stretch, },
+				new DisplayViewModel<WallpaperPosition> { Display = " " + Resources.Settings_Background_Position_Fit, Value = WallpaperPosition.Fit, },
+				new DisplayViewModel<WallpaperPosition> { Display = " " + Resources.Settings_Background_Position_Fill, Value = WallpaperPosition.Fill, },
+				new DisplayViewModel<WallpaperPosition> { Display = " " + Resources.Settings_Background_Position_Span, Value = WallpaperPosition.Span, },
+			}.ToList();
 
 			this.Placements = new[]
 			{
@@ -333,9 +356,32 @@ namespace SylphyHorn.UI.Bindings
 			this._HasStartupLink = this._startup.IsExists;
 			this._HasStartupScheduler = this._startupScheduler.IsExists;
 
-			Settings.General.DesktopBackgroundFolderPath
-				.Subscribe(path => this.Backgrounds = WallpaperService.Instance.GetWallpaperFiles(path))
-				.AddTo(this);
+			this._Desktops = VirtualDesktopViewModel.CreateAll();
+			this.CompositeDisposable.Add(
+				new EventListener<EventHandler<VirtualDesktop>>(
+					h => VirtualDesktop.Created += h,
+					h => VirtualDesktop.Created -= h,
+					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
+			this.CompositeDisposable.Add(
+				new EventListener<EventHandler<VirtualDesktopDestroyEventArgs>>(
+					h => VirtualDesktop.Destroyed += h,
+					h => VirtualDesktop.Destroyed -= h,
+					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
+			this.CompositeDisposable.Add(
+				new EventListener<EventHandler<VirtualDesktopMovedEventArgs>>(
+					h => VirtualDesktop.Moved += h,
+					h => VirtualDesktop.Moved -= h,
+					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
+			this.CompositeDisposable.Add(
+				new EventListener<EventHandler<VirtualDesktopRenamedEventArgs>>(
+					h => VirtualDesktop.Renamed += h,
+					h => VirtualDesktop.Renamed -= h,
+					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
+			this.CompositeDisposable.Add(
+				new EventListener<EventHandler<VirtualDesktopWallpaperChangedEventArgs>>(
+					h => VirtualDesktop.WallpaperChanged += h,
+					h => VirtualDesktop.WallpaperChanged -= h,
+					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
 
 			var colAndWall = WallpaperService.GetCurrentColorAndWallpaper();
 			this.PreviewBackgroundBrush = new SolidColorBrush(colAndWall.Item1);
@@ -364,6 +410,13 @@ namespace SylphyHorn.UI.Bindings
 
 			Disposable.Create(() => Application.Current.TaskTrayIcon.Reload())
 				.AddTo(this);
+
+			Disposable.Create(() => 
+				{
+					this.PreviewBackgroundPath = null;
+					this.Desktops = null;
+				})
+				.AddTo(this);
 		}
 
 		protected override void InitializeCore()
@@ -374,19 +427,22 @@ namespace SylphyHorn.UI.Bindings
 		}
 
 		[UsedImplicitly]
-		public void OpenBackgroundPathDialog()
+		public void OpenBackgroundPathDialog(int index)
 		{
-			var message = new FolderSelectionMessage("Window.OpenBackgroundImagesDialog.Open")
+			var message = new OpeningFileSelectionMessage("Window.OpenBackgroundImagesDialog.Open")
 			{
 				Title = Resources.Settings_Background_SelectionDialog,
-				SelectedPath = Settings.General.DesktopBackgroundFolderPath,
-				DialogPreference = FolderSelectionDialogPreference.CommonItemDialog,
+				InitialDirectory = Settings.General.DesktopBackgroundFolderPath,
+				Filter = WallpaperService.SupportedFormats,
+				MultiSelect = false,
 			};
 			this.Messenger.Raise(message);
 
-			if (Directory.Exists(message.Response))
+			if (message.Response != null && message.Response.Length > 0 && File.Exists(message.Response[0]))
 			{
-				Settings.General.DesktopBackgroundFolderPath.Value = message.Response;
+				var filePath = message.Response[0];
+				Settings.General.DesktopBackgroundFolderPath.Value = Path.GetDirectoryName(filePath);
+				this._Desktops[index].WallpaperPath = filePath;
 			}
 		}
 	}

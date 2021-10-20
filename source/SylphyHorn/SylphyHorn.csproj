@@ -215,6 +215,7 @@
     </Compile>
     <Compile Include="UI\Bindings\BindableTextViewModel.cs" />
     <Compile Include="UI\Bindings\HeaderContentViewModel.cs" />
+    <Compile Include="UI\Bindings\VirtualDesktopViewModel.cs" />
     <Compile Include="UI\Bindings\WindowPlacement.cs" />
     <Compile Include="Services\IMouseInterceptor.cs" />
     <Compile Include="Services\LoggingService.cs" />
@@ -386,9 +387,11 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx">
       <DependentUpon>Resources.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
