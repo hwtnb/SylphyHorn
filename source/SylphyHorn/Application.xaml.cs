@@ -8,6 +8,7 @@ using MetroRadiance.UI;
 using MetroTrilithon.Lifetime;
 using MetroTrilithon.Threading.Tasks;
 using StatefulModel;
+using SylphyHorn.Properties;
 using SylphyHorn.Serialization;
 using SylphyHorn.Services;
 using SylphyHorn.UI;
@@ -43,7 +44,7 @@ namespace SylphyHorn
 			if (appInstance.IsFirst || Args.Restarted.HasValue)
 #endif
 			{
-				if (WindowsDesktop.VirtualDesktop.IsSupported)
+				if (ProductInfo.OSBuild >= 14393)
 				{
 					this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 					DispatcherHelper.UIDispatcher = this.Dispatcher;
