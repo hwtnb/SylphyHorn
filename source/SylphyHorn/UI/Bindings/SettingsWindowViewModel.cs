@@ -225,7 +225,6 @@ namespace SylphyHorn.UI.Bindings
 				{
 					this._Desktops = value;
 					this.RaisePropertyChanged();
-					GC.Collect();
 				}
 			}
 		}
@@ -411,11 +410,7 @@ namespace SylphyHorn.UI.Bindings
 			Disposable.Create(() => Application.Current.TaskTrayIcon.Reload())
 				.AddTo(this);
 
-			Disposable.Create(() => 
-				{
-					this.PreviewBackgroundPath = null;
-					this.Desktops = null;
-				})
+			Disposable.Create(() => GC.Collect())
 				.AddTo(this);
 		}
 
