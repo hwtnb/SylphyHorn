@@ -1,4 +1,6 @@
 ﻿using Livet;
+using Livet.EventListeners;
+using MetroTrilithon.Mvvm;
 using SylphyHorn.Properties;
 using SylphyHorn.Serialization;
 using SylphyHorn.Services;
@@ -42,7 +44,6 @@ namespace SylphyHorn.UI.Bindings
 				if (this._wallpaper.FilePath != value)
 				{
 					this._wallpaper.FilePath = value;
-					this.RaisePropertyChanged();
 				}
 			}
 		}
@@ -59,7 +60,6 @@ namespace SylphyHorn.UI.Bindings
 				if (this._wallpaper.Position != value)
 				{
 					this._wallpaper.Position = value;
-					this.RaisePropertyChanged();
 				}
 			}
 		}
@@ -76,7 +76,7 @@ namespace SylphyHorn.UI.Bindings
 				if (this._wallpaper != value)
 				{
 					this._wallpaper = value;
-					this.RaisePropertyChanged();
+					this.RaisePropertyChanged(nameof(this.Wallpaper));
 				}
 			}
 		}
@@ -95,19 +95,23 @@ namespace SylphyHorn.UI.Bindings
 			var wallpaperPosition = settings.DesktopBackgroundPositions.Value[index];
 			this._wallpaper = new WallpaperViewModel(desktop, wallpaperPath, wallpaperPosition);
 
+			var listener = new PropertyChangedEventListener(this.Wallpaper);
+			listener.Add(nameof(this.Wallpaper.FilePath), (sender, args) => this.RaisePropertyChanged(nameof(this.WallpaperPath)));
+			listener.Add(nameof(this.Wallpaper.Position), (sender, args) => this.RaisePropertyChanged(nameof(this.WallpaperPosition)));
+			this.CompositeDisposable.Add(listener);
+
+			// for Windows 10
 			if (!ProductInfo.IsWindows11OrLater)
 			{
 				this._nameFunc = n =>
 				{
-					if (this._name.Value != n)
-					{
-						this._name.Value = n;
-						this.RaisePropertyChanged();
-					}
+					if (this._name.Value != n) this._name.Value = n;
 				};
+				name.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Name))).AddTo(this);
 				return;
 			}
 
+			// for Windows 11 or later
 			if (name.Value != desktop.Name)
 			{
 				name.Value = desktop.Name;
@@ -118,9 +122,9 @@ namespace SylphyHorn.UI.Bindings
 				{
 					this._name.Value = n;
 					desktop.Name = n;
-					this.RaisePropertyChanged();
 				}
 			};
+			name.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Name))).AddTo(this);
 		}
 
 		public static VirtualDesktopViewModel[] CreateAll()
@@ -214,10 +218,11 @@ namespace SylphyHorn.UI.Bindings
 					{
 						WallpaperService.SetPosition(currentDesktop);
 					}
-					this.RaisePropertyChanged();
 				}
 			};
+			position.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Position))).AddTo(this);
 
+			// for Windows 10
 			if (!ProductInfo.IsWindows11OrLater)
 			{
 				var generalSettings = Settings.General;
@@ -231,12 +236,13 @@ namespace SylphyHorn.UI.Bindings
 						{
 							WallpaperService.SetWallpaperAndPosition(desktop);
 						}
-						this.RaisePropertyChanged();
 					}
 				};
+				path.Subscribe(_ => this.RaisePropertyChanged(nameof(this.FilePath))).AddTo(this);
 				return;
 			}
 
+			// for Windows 11 or later
 			if (path.Value != desktop.WallpaperPath)
 			{
 				path.Value = desktop.WallpaperPath;
@@ -248,9 +254,9 @@ namespace SylphyHorn.UI.Bindings
 				{
 					this._path.Value = p;
 					desktop.WallpaperPath = p;
-					this.RaisePropertyChanged();
 				}
 			};
+			path.Subscribe(_ => this.RaisePropertyChanged(nameof(this.FilePath))).AddTo(this);
 		}
 	}
 }
