@@ -167,14 +167,7 @@ namespace SylphyHorn.Serialization
 			}
 		}
 
-		public void Swap(int index1, int index2)
-		{
-			var newValue = this.Value.ToList();
-			var tempItem = this.Value[index1];
-			newValue[index1] = this.CreatePropertyWithDefault(index1, newValue[index2]);
-			newValue[index2] = this.CreatePropertyWithDefault(index2, tempItem);
-			this.Value = newValue;
-		}
+		public abstract void Swap(int index1, int index2);
 
 		protected void AddNewProperties(int newSize)
 		{
@@ -228,6 +221,15 @@ namespace SylphyHorn.Serialization
 		public ShortcutkeyPropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public ShortcutkeyPropertyList(string key, ISerializationProvider provider, params ShortcutkeyProperty[] defaultValues) : base(key, provider, defaultValues) { }
 
+		public override void Swap(int index1, int index2)
+		{
+			var newValue = this.Value.ToList();
+			var tempItem = this.Value[index1].Value;
+			newValue[index1].Value = newValue[index2].Value;
+			newValue[index2].Value = tempItem;
+			this.Value = newValue;
+		}
+
 		protected override void LoadProperties()
 		{
 			this.LoadPropertiesImpl<IList<int>>();
@@ -250,6 +252,15 @@ namespace SylphyHorn.Serialization
 		public DesktopNamePropertyList(string key, ISerializationProvider provider) : base(key, provider) { }
 		public DesktopNamePropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public DesktopNamePropertyList(string key, ISerializationProvider provider, params DesktopNameProperty[] defaultValues) : base(key, provider, defaultValues) { }
+
+		public override void Swap(int index1, int index2)
+		{
+			var newValue = this.Value.ToList();
+			var tempItem = this.Value[index1].Value;
+			newValue[index1].Value = newValue[index2].Value;
+			newValue[index2].Value = tempItem;
+			this.Value = newValue;
+		}
 
 		protected override void LoadProperties()
 		{
@@ -274,6 +285,15 @@ namespace SylphyHorn.Serialization
 		public WallpaperPathPropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public WallpaperPathPropertyList(string key, ISerializationProvider provider, params WallpaperPathProperty[] defaultValues) : base(key, provider, defaultValues) { }
 
+		public override void Swap(int index1, int index2)
+		{
+			var newValue = this.Value.ToList();
+			var tempItem = this.Value[index1].Value;
+			newValue[index1].Value = newValue[index2].Value;
+			newValue[index2].Value = tempItem;
+			this.Value = newValue;
+		}
+
 		protected override void LoadProperties()
 		{
 			this.LoadPropertiesImpl<string>();
@@ -296,6 +316,15 @@ namespace SylphyHorn.Serialization
 		public WallpaperPositionsPropertyList(string key, ISerializationProvider provider) : base(key, provider) { }
 		public WallpaperPositionsPropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public WallpaperPositionsPropertyList(string key, ISerializationProvider provider, params WallpaperPositionsProperty[] defaultValues) : base(key, provider, defaultValues) { }
+
+		public override void Swap(int index1, int index2)
+		{
+			var newValue = this.Value.ToList();
+			var tempItem = this.Value[index1].Value;
+			newValue[index1].Value = newValue[index2].Value;
+			newValue[index2].Value = tempItem;
+			this.Value = newValue;
+		}
 
 		protected override void LoadProperties()
 		{
