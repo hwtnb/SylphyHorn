@@ -366,21 +366,6 @@ namespace SylphyHorn.UI.Bindings
 					h => VirtualDesktop.Destroyed += h,
 					h => VirtualDesktop.Destroyed -= h,
 					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
-			this.CompositeDisposable.Add(
-				new EventListener<EventHandler<VirtualDesktopMovedEventArgs>>(
-					h => VirtualDesktop.Moved += h,
-					h => VirtualDesktop.Moved -= h,
-					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
-			this.CompositeDisposable.Add(
-				new EventListener<EventHandler<VirtualDesktopRenamedEventArgs>>(
-					h => VirtualDesktop.Renamed += h,
-					h => VirtualDesktop.Renamed -= h,
-					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
-			this.CompositeDisposable.Add(
-				new EventListener<EventHandler<VirtualDesktopWallpaperChangedEventArgs>>(
-					h => VirtualDesktop.WallpaperChanged += h,
-					h => VirtualDesktop.WallpaperChanged -= h,
-					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
 
 			var colAndWall = WallpaperService.GetCurrentColorAndWallpaper();
 			this.PreviewBackgroundBrush = new SolidColorBrush(colAndWall.Item1);
