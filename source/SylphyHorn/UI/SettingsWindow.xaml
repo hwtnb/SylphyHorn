@@ -516,7 +516,7 @@
 									</Style.Triggers>
 								</Style>
 								<Style x:Key="PreviewBlurImageStyle"
-									   TargetType="Image">
+									   TargetType="Rectangle">
 									<Style.Triggers>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.TopLeft}">
@@ -615,18 +615,17 @@
 									<ContentControl.CacheMode>
 										<BitmapCache RenderAtScale="0.2" />
 									</ContentControl.CacheMode>
-									<Image x:Name="PreviewBlurImage"
-										   Source="{Binding PreviewBackgroundPath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
-										   Stretch="Uniform"
+									<Rectangle x:Name="PreviewBlurImage"
+										   Fill="{Binding NotificationBackground}"
 										   VerticalAlignment="Top"
 										   Width="480"
 										   Height="270"
 										   Visibility="{Binding HasWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}"
 										   Style="{StaticResource PreviewBlurImageStyle}">
-										<Image.Effect>
+										<Rectangle.Effect>
 											<BlurEffect Radius="20" />
-										</Image.Effect>
-									</Image>
+										</Rectangle.Effect>
+									</Rectangle>
 								</ContentControl>
 								<Border Background="{Binding NotificationBackground}" />
 								<DockPanel VerticalAlignment="Center"
