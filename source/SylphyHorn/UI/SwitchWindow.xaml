@@ -38,7 +38,7 @@
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="NativeOpacity"
 										   Storyboard.TargetName="Window">
 				<EasingDoubleKeyFrame KeyTime="0"
-									  Value="1" />
+									  Value="0.5" />
 				<EasingDoubleKeyFrame KeyTime="0:0:0.2"
 									  Value=".0" />
 			</DoubleAnimationUsingKeyFrames>
