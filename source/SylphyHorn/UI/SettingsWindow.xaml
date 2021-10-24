@@ -248,157 +248,171 @@
 							<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1}"
 									   TextWrapping="Wrap"
 									   Margin="20,0,0,0" />
-							<Grid Margin="0,8,0,0">
+							<Grid Margin="0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" MaxWidth="800" />
 								</Grid.ColumnDefinitions>
-								<ItemsControl ItemsSource="{Binding Desktops, Mode=TwoWay}"
-											  Grid.Row="0">
-									<ItemsControl.ItemsPanel>
-										<ItemsPanelTemplate>
-											<UniformGrid Columns="1" />
-										</ItemsPanelTemplate>
-									</ItemsControl.ItemsPanel>
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="Auto"
-																	  SharedSizeGroup="KeyHeader" />
-													<ColumnDefinition Width="4" />
-													<ColumnDefinition Width="*" MinWidth="154" MaxWidth="560" />
-													<ColumnDefinition Width="Auto" />
-													<ColumnDefinition Width="124" />
-												</Grid.ColumnDefinitions>
-												<Grid.RowDefinitions>
-													<RowDefinition Height="*" />
-													<RowDefinition Height="*" />
-													<RowDefinition Height="*" />
-													<RowDefinition Height="*" />
-												</Grid.RowDefinitions>
 
-												<Border Height="12" Grid.Row="0" Grid.ColumnSpan="4" />
+								<Grid Grid.Row="0"
+									  Margin="0,8,0,0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<ItemsControl ItemsSource="{Binding Desktops, Mode=TwoWay}"
+												  Grid.Row="0">
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<UniformGrid Columns="1" />
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="Auto"
+																		  SharedSizeGroup="KeyHeader" />
+														<ColumnDefinition Width="4" />
+														<ColumnDefinition Width="*" MinWidth="154" MaxWidth="560" />
+														<ColumnDefinition Width="Auto" />
+														<ColumnDefinition Width="124" />
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*" />
+														<RowDefinition Height="*" />
+														<RowDefinition Height="*" />
+														<RowDefinition Height="*" />
+													</Grid.RowDefinitions>
 
-												<TextBlock Grid.Row="1"
-														   Grid.Column="0"
-														   VerticalAlignment="Center"
-														   Foreground="{DynamicResource ForegroundBrushKey}">
-													<TextBlock.Text>
-														<MultiBinding StringFormat="{}{0} {1}: ">
-															<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
-															<Binding Path="NumberText" />
-														</MultiBinding>
-													</TextBlock.Text>
-												</TextBlock>
-												<metro:PromptTextBox Grid.Row="1"
-																	 Grid.Column="2"
-																	 Text="{Binding Path='Name', Mode=TwoWay}"
-																	 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
-																	 Margin="2" />
-												<metro2:CallMethodButton Grid.Row="1" Grid.Column="3"
-																		 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CloseDesktop}"
-																		 MethodTarget="{Binding}"
-																		 MethodName="Close"
+													<Border Height="12" Grid.Row="0" Grid.ColumnSpan="4" />
+
+													<TextBlock Grid.Row="1"
+															   Grid.Column="0"
+															   VerticalAlignment="Center"
+															   Foreground="{DynamicResource ForegroundBrushKey}">
+														<TextBlock.Text>
+															<MultiBinding StringFormat="{}{0} {1}: ">
+																<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
+																<Binding Path="NumberText" />
+															</MultiBinding>
+														</TextBlock.Text>
+													</TextBlock>
+													<metro:PromptTextBox Grid.Row="1"
+																		 Grid.Column="2"
+																		 Text="{Binding Path='Name', Mode=TwoWay}"
+																		 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
 																		 Margin="2" />
+													<metro2:CallMethodButton Grid.Row="1" Grid.Column="3"
+																			 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CloseDesktop}"
+																			 MethodTarget="{Binding}"
+																			 MethodName="Close"
+																			 Margin="2" />
 
-												<TextBlock Grid.Row="2"
-														   Grid.Column="0"
-														   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Image}"
-														   VerticalAlignment="Center"
-														   Foreground="{DynamicResource ForegroundBrushKey}" />
-												<metro:PromptTextBox Grid.Row="2"
-																	 Grid.Column="2"
-																	 Text="{Binding WallpaperPath, Mode=TwoWay}"
-																	 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_SourceImageFile}"
-																	 IsEnabled="{Binding IsWallpaperEnabled}"
-																	 Margin="2" />
-												<metro2:CallMethodButton Grid.Row="2" Grid.Column="3"
-																		 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_Reference}"
-																		 MethodTarget="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																		 MethodName="OpenBackgroundPathDialog"
-																		 MethodParameter="{Binding Index}"
+													<TextBlock Grid.Row="2"
+															   Grid.Column="0"
+															   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Image}"
+															   VerticalAlignment="Center"
+															   Foreground="{DynamicResource ForegroundBrushKey}" />
+													<metro:PromptTextBox Grid.Row="2"
+																		 Grid.Column="2"
+																		 Text="{Binding WallpaperPath, Mode=TwoWay}"
+																		 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_SourceImageFile}"
 																		 IsEnabled="{Binding IsWallpaperEnabled}"
 																		 Margin="2" />
+													<metro2:CallMethodButton Grid.Row="2" Grid.Column="3"
+																			 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_Reference}"
+																			 MethodTarget="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																			 MethodName="OpenBackgroundPathDialog"
+																			 MethodParameter="{Binding Index}"
+																			 IsEnabled="{Binding IsWallpaperEnabled}"
+																			 Margin="2" />
 
-												<TextBlock Grid.Row="3"
-														   Grid.Column="0"
-														   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Position}"
-														   VerticalAlignment="Center"
-														   Foreground="{DynamicResource ForegroundBrushKey}" />
-												<metro:PromptComboBox Grid.Row="3"
-																	  Grid.Column="2"
-																	  ItemsSource="{Binding Path=DataContext.WallpaperPositions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																	  DisplayMemberPath="Display"
-																	  SelectedValuePath="Value"
-																	  SelectedValue="{Binding Path=Wallpaper.Position, Mode=TwoWay}"
-																	  Prompt=""
-																	  IsEnabled="{Binding IsWallpaperEnabled}"
-																	  IsReadOnly="True"
-																	  MinWidth="150"
-																	  MaxWidth="250"
-																	  Margin="2"
-																	  HorizontalAlignment="Left" />
+													<TextBlock Grid.Row="3"
+															   Grid.Column="0"
+															   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Position}"
+															   VerticalAlignment="Center"
+															   Foreground="{DynamicResource ForegroundBrushKey}" />
+													<metro:PromptComboBox Grid.Row="3"
+																		  Grid.Column="2"
+																		  ItemsSource="{Binding Path=DataContext.WallpaperPositions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																		  DisplayMemberPath="Display"
+																		  SelectedValuePath="Value"
+																		  SelectedValue="{Binding Path=Wallpaper.Position, Mode=TwoWay}"
+																		  Prompt=""
+																		  IsEnabled="{Binding IsWallpaperEnabled}"
+																		  IsReadOnly="True"
+																		  MinWidth="150"
+																		  MaxWidth="250"
+																		  Margin="2"
+																		  HorizontalAlignment="Left" />
 
-												<Canvas Grid.RowSpan="3"
-														Grid.Row="1"
-														Grid.Column="4"
-														Margin="4,1,0,0">
-													<Rectangle Fill="{Binding Path=DataContext.PreviewBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+													<Canvas Grid.RowSpan="3"
+															Grid.Row="1"
+															Grid.Column="4"
+															Margin="4,1,0,0">
+														<Rectangle Fill="{Binding Path=DataContext.PreviewBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																   Width="120"
+																   Height="78" />
+														<Image Source="{Binding WallpaperPath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
+															   Stretch="UniformToFill"
+															   VerticalAlignment="Top"
 															   Width="120"
 															   Height="78" />
-													<Image Source="{Binding WallpaperPath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
-														   Stretch="UniformToFill"
-														   VerticalAlignment="Top"
-														   Width="120"
-														   Height="78" />
-													<Grid x:Name="PreviewRoot"
-														  Width="20"
-														  Height="20"
-														  Canvas.Left="0"
-														  Canvas.Top="0">
-														<ContentControl Width="20"
-																		Height="20"
-																		ClipToBounds="True">
-															<ContentControl.CacheMode>
-																<BitmapCache RenderAtScale="0.2" />
-															</ContentControl.CacheMode>
-															<Rectangle Fill="{Binding Path=DataContext.NotificationBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																	   VerticalAlignment="Top"
-																	   Width="120"
-																	   Height="78"
-																	   Visibility="{Binding HasWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}">
-																<Rectangle.Effect>
-																	<BlurEffect Radius="20" />
-																</Rectangle.Effect>
-															</Rectangle>
-														</ContentControl>
-														<Border Background="{Binding Path=DataContext.NotificationBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-														<DockPanel VerticalAlignment="Center"
-																   HorizontalAlignment="Center"
-																   Margin="0">
-															<TextBlock DockPanel.Dock="Top"
-																	   Text="{Binding NumberText}"
-																	   Foreground="{Binding Path=DataContext.NotificationForeground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																	   FontFamily="Segoe UI, Meiryo UI"
-																	   FontSize="12"
-																	   FontWeight="Bold"
-																	   Margin="-1,-1,0,0" />
-														</DockPanel>
-														<Border BorderBrush="#AAAAAA"
-																SnapsToDevicePixels="True"
-																BorderThickness="0,0,1,1" />
-													</Grid>
-												</Canvas>
-											</Grid>
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
+														<Grid x:Name="PreviewRoot"
+															  Width="20"
+															  Height="20"
+															  Canvas.Left="0"
+															  Canvas.Top="0">
+															<ContentControl Width="20"
+																			Height="20"
+																			ClipToBounds="True">
+																<ContentControl.CacheMode>
+																	<BitmapCache RenderAtScale="0.2" />
+																</ContentControl.CacheMode>
+																<Rectangle Fill="{Binding Path=DataContext.NotificationBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																		   VerticalAlignment="Top"
+																		   Width="120"
+																		   Height="78"
+																		   Visibility="{Binding HasWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}">
+																	<Rectangle.Effect>
+																		<BlurEffect Radius="20" />
+																	</Rectangle.Effect>
+																</Rectangle>
+															</ContentControl>
+															<Border Background="{Binding Path=DataContext.NotificationBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+															<DockPanel VerticalAlignment="Center"
+																	   HorizontalAlignment="Center"
+																	   Margin="0">
+																<TextBlock DockPanel.Dock="Top"
+																		   Text="{Binding NumberText}"
+																		   Foreground="{Binding Path=DataContext.NotificationForeground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																		   FontFamily="Segoe UI, Meiryo UI"
+																		   FontSize="12"
+																		   FontWeight="Bold"
+																		   Margin="-1,-1,0,0" />
+															</DockPanel>
+															<Border BorderBrush="#AAAAAA"
+																	SnapsToDevicePixels="True"
+																	BorderThickness="0,0,1,1" />
+														</Grid>
+													</Canvas>
+												</Grid>
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+								</Grid>
+
+								<Border Grid.Row="1" Height="20" />
+								<metro2:CallMethodButton Grid.Row="2"
+														 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CreateDesktop}"
+														 MethodTarget="{Binding}"
+														 MethodName="CreateDesktop"
+														 Margin="0" />
 							</Grid>
-							<Border Height="20" />
-							<metro2:CallMethodButton Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CreateDesktop}"
-													 MethodTarget="{Binding}"
-													 MethodName="CreateDesktop"
-													 Margin="0" />
 						</StackPanel>
 					</StackPanel>
 				</ScrollViewer>
