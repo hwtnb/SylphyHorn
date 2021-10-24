@@ -46,7 +46,7 @@ namespace SylphyHorn.Services
 
 		#endregion
 
-		#region Move
+		#region Move Window
 
 		public static VirtualDesktop MoveToLeft(this IntPtr hWnd)
 		{
@@ -126,6 +126,154 @@ namespace SylphyHorn.Services
 
 			SystemSounds.Asterisk.Play();
 			return null;
+		}
+
+		#endregion
+
+		#region Move Desktop
+
+		public static VirtualDesktop MoveToLeft(this VirtualDesktop current)
+		{
+			if (current != null)
+			{
+				var left = current.GetLeft();
+				if (left == null)
+				{
+					if (Settings.General.LoopDesktop)
+					{
+						var desktops = VirtualDesktop.GetDesktops();
+						if (desktops.Length >= 2) current.Move(desktops.Length - 1);
+					}
+				}
+				else
+				{
+					current.Move(left.Index);
+				}
+				return current;
+			}
+
+			SystemSounds.Asterisk.Play();
+			return null;
+		}
+
+		public static VirtualDesktop MoveToRight(this VirtualDesktop current)
+		{
+			if (current != null)
+			{
+				var right = current.GetRight();
+				if (right == null)
+				{
+					if (Settings.General.LoopDesktop)
+					{
+						var desktops = VirtualDesktop.GetDesktops();
+						if (desktops.Length >= 2) current.Move(0);
+					}
+				}
+				else
+				{
+					current.Move(right.Index);
+				}
+				return current;
+			}
+
+			SystemSounds.Asterisk.Play();
+			return null;
+		}
+
+		public static VirtualDesktop MoveToFirst(this VirtualDesktop current)
+		{
+			if (current != null && Count > 0)
+			{
+				current.Move(0);
+				return current;
+			}
+
+			SystemSounds.Asterisk.Play();
+			return null;
+		}
+
+		public static VirtualDesktop MoveToLast(this VirtualDesktop current)
+		{
+			var desktopCount = Count;
+			if (current != null && desktopCount > 0)
+			{
+				current.Move(desktopCount - 1);
+				return current;
+			}
+
+			SystemSounds.Asterisk.Play();
+			return null;
+		}
+
+		public static VirtualDesktop MoveToIndex(this VirtualDesktop current, int i)
+		{
+			if (current != null && 0 <= i && i < Count)
+			{
+				current.Move(i);
+				return current;
+			}
+
+			SystemSounds.Asterisk.Play();
+			return null;
+		}
+
+		#endregion
+
+		#region Swap Desktop
+
+		public static VirtualDesktop SwapCurrentForLeft()
+		{
+			var current = VirtualDesktop.Current;
+
+			return current.MoveToLeft();
+		}
+
+		public static VirtualDesktop SwapCurrentForRight()
+		{
+			var current = VirtualDesktop.Current;
+
+			return current.MoveToRight();
+		}
+
+		public static VirtualDesktop SwapCurrentForFirst()
+		{
+			var current = VirtualDesktop.Current;
+
+			return current.MoveToFirst();
+		}
+
+		public static VirtualDesktop SwapCurrentForLast()
+		{
+			var current = VirtualDesktop.Current;
+
+			return current.MoveToLast();
+		}
+
+		public static VirtualDesktop SwapCurrentByIndex(int index)
+		{
+			var current = VirtualDesktop.Current;
+
+			return current.MoveToIndex(index);
+		}
+
+		public static Tuple<VirtualDesktop, VirtualDesktop> SwapDesktops(int index1, int index2)
+		{
+			if (index1 >= 0 && index2 >= 0)
+			{
+				var desktops = VirtualDesktop.GetDesktops();
+				var desktopCount = desktops.Length;
+			
+				if (index1 < desktopCount && index2 < desktopCount)
+				{
+					var desktop1 = desktops[index1];
+					var desktop2 = desktops[index2];
+					desktop1.Move(index2);
+					desktop2.Move(index1);
+					return new Tuple<VirtualDesktop, VirtualDesktop>(desktop1, desktop2);
+				}
+			}
+
+			return new Tuple<VirtualDesktop, VirtualDesktop>(null, null);
 		}
 
 		#endregion

@@ -348,6 +348,24 @@
   <data name="Settings_Startup_Automaticaly_As_Admin" xml:space="preserve">
     <value>ログオン時に管理者として自動的に起動する (タスク スケジューラを使用)</value>
   </data>
+  <data name="Settings_SwapDesktop" xml:space="preserve">
+    <value>デスクトップを取り替え (Windows 11)</value>
+  </data>
+  <data name="Settings_SwapDesktop_First" xml:space="preserve">
+    <value>最初と取り替え:</value>
+  </data>
+  <data name="Settings_SwapDesktop_Last" xml:space="preserve">
+    <value>最後と取り替え:</value>
+  </data>
+  <data name="Settings_SwapDesktop_Left" xml:space="preserve">
+    <value>左と取り替え:</value>
+  </data>
+  <data name="Settings_SwapDesktop_Right" xml:space="preserve">
+    <value>右と取り替え:</value>
+  </data>
+  <data name="Settings_SwapSpecifiedDesktop" xml:space="preserve">
+    <value>指定の仮想デスクトップと取り替え (Windows 11)</value>
+  </data>
   <data name="Settings_SwitchAdjacentDesktop" xml:space="preserve">
     <value>隣接した仮想デスクトップへ切り替え</value>
   </data>

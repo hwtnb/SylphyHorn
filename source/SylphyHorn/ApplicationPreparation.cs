@@ -272,6 +272,35 @@ namespace SylphyHorn
 					.AddTo(this._disposable);
 			}
 
+			if (ProductInfo.IsWindows11OrLater)
+			{
+				register(() => settings.SwapDesktopLeft.ToShortcutKey(), _ => VirtualDesktopService.SwapCurrentForLeft())
+					.AddTo(this._disposable);
+
+				register(() => settings.SwapDesktopRight.ToShortcutKey(), _ => VirtualDesktopService.SwapCurrentForRight())
+					.AddTo(this._disposable);
+
+				register(() => settings.SwapDesktopFirst.ToShortcutKey(), _ => VirtualDesktopService.SwapCurrentForFirst())
+					.AddTo(this._disposable);
+
+				register(() => settings.SwapDesktopLast.ToShortcutKey(), _ => VirtualDesktopService.SwapCurrentForLast())
+					.AddTo(this._disposable);
+			}
+			else
+			{
+				register(() => settings.SwapDesktopLeft.ToShortcutKey(), _ => { })
+					.AddTo(this._disposable);
+
+				register(() => settings.SwapDesktopRight.ToShortcutKey(), _ => { })
+					.AddTo(this._disposable);
+
+				register(() => settings.SwapDesktopFirst.ToShortcutKey(), _ => { })
+					.AddTo(this._disposable);
+
+				register(() => settings.SwapDesktopLast.ToShortcutKey(), _ => { })
+					.AddTo(this._disposable);
+			}
+
 			register(() => settings.CloseAndSwitchLeft.ToShortcutKey(), _ => VirtualDesktopService.CloseAndSwitchLeft())
 				.AddTo(this._disposable);
 
@@ -309,6 +338,12 @@ namespace SylphyHorn
 				RegisterSpecifiedDesktopSwitching(index, switchToIndices[index].ToShortcutKey());
 			}
 
+			var swapDesktopIndices = settings.SwapDesktopIndices.Value;
+			for (var index = 0; index < desktopCount && index < swapDesktopIndices.Count; ++index)
+			{
+				RegisterSpecifiedDesktopSwapping(index, swapDesktopIndices[index].ToShortcutKey());
+			}
+
 			var moveToIndices = settings.MoveToIndices.Value;
 			for (var index = 0; index < desktopCount && index < moveToIndices.Count; ++index)
 			{
@@ -318,6 +353,12 @@ namespace SylphyHorn
 			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
 			{
 				register(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
+					.AddTo(this._disposable);
+			};
+
+			void RegisterSpecifiedDesktopSwapping(int i, ShortcutKey shortcut)
+			{
+				register(() => shortcut, _ => VirtualDesktopService.SwapCurrentByIndex(i))
 					.AddTo(this._disposable);
 			};
 
@@ -336,8 +377,10 @@ namespace SylphyHorn
 			Settings.General.DesktopBackgroundPositions.Resize(desktopCount);
 			Settings.ShortcutKey.SwitchToIndices.Resize(desktopCount);
 			Settings.ShortcutKey.MoveToIndices.Resize(desktopCount);
+			Settings.ShortcutKey.SwapDesktopIndices.Resize(desktopCount);
 			Settings.MouseShortcut.SwitchToIndices.Resize(desktopCount);
 			Settings.MouseShortcut.MoveToIndices.Resize(desktopCount);
+			Settings.MouseShortcut.SwapDesktopIndices.Resize(desktopCount);
 		}
 
 		private void ApplyDesktopSettingsToPropertyList()

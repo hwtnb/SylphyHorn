@@ -754,6 +754,60 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Swap desktop (Windows 11) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwapDesktop {
+            get {
+                return ResourceManager.GetString("Settings_SwapDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   First: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwapDesktop_First {
+            get {
+                return ResourceManager.GetString("Settings_SwapDesktop_First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Last: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwapDesktop_Last {
+            get {
+                return ResourceManager.GetString("Settings_SwapDesktop_Last", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Left: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwapDesktop_Left {
+            get {
+                return ResourceManager.GetString("Settings_SwapDesktop_Left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Right: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwapDesktop_Right {
+            get {
+                return ResourceManager.GetString("Settings_SwapDesktop_Right", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Swap for specified desktop (Windows 11) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwapSpecifiedDesktop {
+            get {
+                return ResourceManager.GetString("Settings_SwapSpecifiedDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Switch to adjacent desktop に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_SwitchAdjacentDesktop {
