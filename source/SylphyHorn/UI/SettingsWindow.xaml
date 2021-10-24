@@ -629,7 +629,7 @@
 											   VerticalAlignment="Top"
 											   Width="480"
 											   Height="270"
-											   Visibility="{Binding HasWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}"
+											   Visibility="{Binding HasPreviewWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}"
 											   Style="{StaticResource PreviewBlurImageStyle}">
 										<Rectangle.Effect>
 											<BlurEffect Radius="20" />

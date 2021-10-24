@@ -84,7 +84,7 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
-		public bool HasWallpaper => File.Exists(this.WallpaperPath);
+		public bool HasWallpaper => !string.IsNullOrEmpty(this.WallpaperPath);
 
 		private VirtualDesktopViewModel(int index, VirtualDesktop desktop)
 		{

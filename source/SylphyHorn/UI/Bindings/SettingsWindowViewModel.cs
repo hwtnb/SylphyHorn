@@ -157,6 +157,45 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		#region Desktops notification property
+
+		private VirtualDesktopViewModel[] _Desktops;
+
+		public VirtualDesktopViewModel[] Desktops
+		{
+			get => this._Desktops;
+			set
+			{
+				if (this._Desktops != value)
+				{
+					this._Desktops = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region CurrentDesktop notification property
+
+		private VirtualDesktopViewModel _CurrentDesktop;
+
+		public VirtualDesktopViewModel CurrentDesktop
+		{
+			get => this._CurrentDesktop;
+			set
+			{
+				if (this._CurrentDesktop != value)
+				{
+					this._CurrentDesktop = value;
+					this.RaisePropertyChanged();
+					this.RaisePropertyChanged(nameof(this.PreviewNotificationText));
+				}
+			}
+		}
+
+		#endregion
+
 		#region Placement notification property
 
 		public WindowPlacement Placement
@@ -210,26 +249,7 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
-		public bool HasWallpaper => !string.IsNullOrEmpty(this.PreviewBackgroundPath);
-
-		#region Desktops notification property
-
-		private VirtualDesktopViewModel[] _Desktops;
-
-		public VirtualDesktopViewModel[] Desktops
-		{
-			get => this._Desktops;
-			set
-			{
-				if (this._Desktops != value)
-				{
-					this._Desktops = value;
-					this.RaisePropertyChanged();
-				}
-			}
-		}
-
-		#endregion
+		public bool HasPreviewWallpaper => !string.IsNullOrEmpty(this.PreviewBackgroundPath);
 
 		#region PreviewBackgroundBrush notification property
 
@@ -265,23 +285,63 @@ namespace SylphyHorn.UI.Bindings
 					this._PreviewBackgroundPath = value;
 
 					this.RaisePropertyChanged();
-					this.RaisePropertyChanged(nameof(this.HasWallpaper));
+					this.RaisePropertyChanged(nameof(this.HasPreviewWallpaper));
 				}
 			}
 		}
 
 		#endregion
 
-		public string PreviewNotificationText => Settings.General.UseDesktopName && this._Desktops?.Length > 0
-			? $"Desktop 1: {this._Desktops[0].Name}"
-			: "Current Desktop: Desktop 1";
+		public string PreviewNotificationText => Settings.General.UseDesktopName && this.CurrentDesktop != null
+			? $"Desktop {this.CurrentDesktop.NumberText}: {this.CurrentDesktop.Name}"
+			: $"Current Desktop: Desktop {(this.CurrentDesktop != null ? this.CurrentDesktop.NumberText : "1")}";
 
-		public Brush NotificationBackground => new SolidColorBrush(WindowsTheme.ColorPrevalence.Current
-			? ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemAccentDark1)
-			: ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.DarkChromeMedium))
+		#region NotificationBackgroundColor notification property
+
+		private Color _NotificationBackgroundColor;
+
+		public Color NotificationBackgroundColor
+		{
+			get => this._NotificationBackgroundColor;
+			set
+			{
+				if (this._NotificationBackgroundColor != value)
+				{
+					this._NotificationBackgroundColor = value;
+
+					this.RaisePropertyChanged();
+					this.RaisePropertyChanged(nameof(this.NotificationBackground));
+				}
+			}
+		}
+
+		#endregion
+
+		public Brush NotificationBackground => new SolidColorBrush(this.NotificationBackgroundColor)
 		{ Opacity = WindowsTheme.Transparency.Current ? 0.6 : 1.0 };
 
-		public Brush NotificationForeground => new SolidColorBrush(ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextDarkTheme));
+		#region NotificationForegroundColor notification property
+
+		private Color _NotificationForegroundColor;
+
+		public Color NotificationForegroundColor
+		{
+			get => this._NotificationForegroundColor;
+			set
+			{
+				if (this._NotificationForegroundColor != value)
+				{
+					this._NotificationForegroundColor = value;
+
+					this.RaisePropertyChanged();
+					this.RaisePropertyChanged(nameof(this.NotificationForeground));
+				}
+			}
+		}
+
+		#endregion
+
+		public Brush NotificationForeground => new SolidColorBrush(this.NotificationForegroundColor);
 
 		public Brush TaskbarBackground => new SolidColorBrush(WindowsTheme.ColorPrevalence.Current
 			? ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemAccentDark1)
@@ -356,6 +416,7 @@ namespace SylphyHorn.UI.Bindings
 			this._HasStartupScheduler = this._startupScheduler.IsExists;
 
 			this._Desktops = VirtualDesktopViewModel.CreateAll();
+			this._CurrentDesktop = this._Desktops[VirtualDesktop.Current.Index];
 			this.CompositeDisposable.Add(
 				new EventListener<EventHandler<VirtualDesktop>>(
 					h => VirtualDesktop.Created += h,
@@ -366,24 +427,37 @@ namespace SylphyHorn.UI.Bindings
 					h => VirtualDesktop.Destroyed += h,
 					h => VirtualDesktop.Destroyed -= h,
 					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
+			this.CompositeDisposable.Add(
+				new EventListener<EventHandler<VirtualDesktopChangedEventArgs>>(
+					h => VirtualDesktop.CurrentChanged += h,
+					h => VirtualDesktop.CurrentChanged -= h,
+					(sender, args) => this.UpdatePreviewBackground()));
 
 			var colAndWall = WallpaperService.GetCurrentColorAndWallpaper();
 			this.PreviewBackgroundBrush = new SolidColorBrush(colAndWall.Item1);
 			this.PreviewBackgroundPath = colAndWall.Item2;
+			this.UpdateNotificationColor(this.NotificationWindowStyle);
 
 			this.Logs = ViewModelHelper.CreateReadOnlyDispatcherCollection(
 				LoggingService.Instance.Logs,
 				log => new LogViewModel(log),
 				DispatcherHelper.UIDispatcher);
 
+			Settings.General.UseDesktopName
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.PreviewNotificationText)))
+				.AddTo(this);
+			Settings.General.NotificationWindowStyle
+				.Subscribe(mode => this.UpdateNotificationColor((BlurWindowThemeMode)mode))
+				.AddTo(this);
+
 			WindowsTheme.ColorPrevalence
-				.RegisterListener(_ => this.RaisePropertyChanged(nameof(this.NotificationBackground)))
+				.RegisterListener(_ => this.UpdateNotificationColor(this.NotificationWindowStyle))
 				.AddTo(this);
 			WindowsTheme.ColorPrevalence
 				.RegisterListener(_ => this.RaisePropertyChanged(nameof(this.TaskbarBackground)))
 				.AddTo(this);
 			WindowsTheme.Transparency
-				.RegisterListener(_ => this.RaisePropertyChanged(nameof(this.NotificationBackground)))
+				.RegisterListener(_ => this.UpdateNotificationColor(this.NotificationWindowStyle))
 				.AddTo(this);
 			WindowsTheme.Transparency
 				.RegisterListener(_ => this.RaisePropertyChanged(nameof(this.TaskbarBackground)))
@@ -430,6 +504,76 @@ namespace SylphyHorn.UI.Bindings
 		public void CreateDesktop()
 		{
 			VirtualDesktop.Create();
+		}
+
+		private void UpdatePreviewBackground()
+		{
+			var index = VirtualDesktop.Current.Index;
+			if (this._Desktops == null || index >= this._Desktops.Length) this._Desktops = VirtualDesktopViewModel.CreateAll();
+			
+			this.CurrentDesktop = this.Desktops[index];
+
+			if (this.CurrentDesktop.HasWallpaper) this.PreviewBackgroundPath = this.CurrentDesktop.WallpaperPath;
+		}
+
+		private void UpdateNotificationColor(BlurWindowThemeMode mode)
+		{
+			this.GetColorByThemeMode(mode, out var background, out var foreground);
+			this.NotificationBackgroundColor = background;
+			this.NotificationForegroundColor = foreground;
+		}
+
+		private void GetColorByThemeMode(BlurWindowThemeMode themeMode, out Color background, out Color foreground)
+		{
+			var colorPrevalence = WindowsTheme.ColorPrevalence.Current;
+			switch (themeMode)
+			{
+				case BlurWindowThemeMode.Light:
+					background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.LightChromeMedium);
+					foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextLightTheme);
+					break;
+
+				case BlurWindowThemeMode.Dark:
+					background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.DarkChromeMedium);
+					foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextDarkTheme);
+					break;
+
+				case BlurWindowThemeMode.Accent:
+					background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemAccentDark1);
+					foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextDarkTheme);
+					break;
+
+				case BlurWindowThemeMode.System:
+					if (colorPrevalence)
+					{
+						background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemAccentDark1);
+						foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextDarkTheme);
+					}
+					else if (WindowsTheme.SystemTheme.Current == Theme.Light)
+					{
+						background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.LightChromeMedium);
+						foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextLightTheme);
+					}
+					else
+					{
+						background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.DarkChromeMedium);
+						foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextDarkTheme);
+					}
+					break;
+
+				default:
+					if (WindowsTheme.Theme.Current == Theme.Dark)
+					{
+						background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.DarkChromeMedium);
+						foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextDarkTheme);
+					}
+					else
+					{
+						background = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.LightChromeMedium);
+						foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextLightTheme);
+					}
+					break;
+			}
 		}
 	}
 }
