@@ -244,11 +244,11 @@
 									  Visibility="{Binding IsWindows10OrEarlier, Converter={StaticResource BooleanToVisibilityConverter}}">
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_ChangeBackground}" />
 							</CheckBox>
-							<Border Height="16" />
+							<Border Height="8" />
 							<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1}"
 									   TextWrapping="Wrap"
 									   Margin="20,0,0,0" />
-							<Grid Margin="0,4,0,0">
+							<Grid Margin="0,8,0,0">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
@@ -292,10 +292,14 @@
 												</TextBlock>
 												<metro:PromptTextBox Grid.Row="1"
 																	 Grid.Column="2"
-																	 Grid.ColumnSpan="2"
 																	 Text="{Binding Path='Name', Mode=TwoWay}"
 																	 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
 																	 Margin="2" />
+												<metro2:CallMethodButton Grid.Row="1" Grid.Column="3"
+																		 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CloseDesktop}"
+																		 MethodTarget="{Binding}"
+																		 MethodName="Close"
+																		 Margin="2" />
 
 												<TextBlock Grid.Row="2"
 														   Grid.Column="0"
@@ -389,8 +393,12 @@
 									</ItemsControl.ItemTemplate>
 								</ItemsControl>
 							</Grid>
+							<Border Height="20" />
+							<metro2:CallMethodButton Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CreateDesktop}"
+													 MethodTarget="{Binding}"
+													 MethodName="CreateDesktop"
+													 Margin="0" />
 						</StackPanel>
-						<Border Height="8" />
 					</StackPanel>
 				</ScrollViewer>
 			</TabItem>

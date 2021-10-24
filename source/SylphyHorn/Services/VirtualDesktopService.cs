@@ -278,6 +278,15 @@ namespace SylphyHorn.Services
 
 		#endregion
 
+		#region Create
+
+		public static void CreateAndSwitch()
+		{
+			VirtualDesktop.Create()?.Switch();
+		}
+
+		#endregion
+
 		#region Close
 
 		public static void CloseAndSwitchLeft()

@@ -425,5 +425,11 @@ namespace SylphyHorn.UI.Bindings
 				this._Desktops[index].WallpaperPath = filePath;
 			}
 		}
+
+		[UsedImplicitly]
+		public void CreateDesktop()
+		{
+			VirtualDesktop.Create();
+		}
 	}
 }

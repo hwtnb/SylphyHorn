@@ -198,6 +198,12 @@
   <data name="Settings_DesktopSwitching_OverrideOS" xml:space="preserve">
     <value>Override OS default key combination (Ctrl+Win+Left and Right)</value>
   </data>
+  <data name="Settings_Desktop_CloseDesktop" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Settings_Desktop_CreateDesktop" xml:space="preserve">
+    <value>New desktop</value>
+  </data>
   <data name="Settings_Desktop_OverrideSettingsOnStartup" xml:space="preserve">
     <value>Override virtual desktops with settings of SylphyHorn on startup</value>
   </data>

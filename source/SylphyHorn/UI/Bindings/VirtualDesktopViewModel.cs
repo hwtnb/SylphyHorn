@@ -14,6 +14,7 @@ namespace SylphyHorn.UI.Bindings
 {
 	public class VirtualDesktopViewModel : ViewModel
 	{
+		private VirtualDesktop _desktop;
 		private DesktopNameProperty _name;
 		private WallpaperViewModel _wallpaper;
 		private Action<string> _nameFunc;
@@ -87,6 +88,8 @@ namespace SylphyHorn.UI.Bindings
 
 		private VirtualDesktopViewModel(int index, VirtualDesktop desktop)
 		{
+			this._desktop = desktop;
+
 			var settings = Settings.General;
 			var name = settings.DesktopNames.Value[index];
 			this._name = name;
@@ -121,7 +124,7 @@ namespace SylphyHorn.UI.Bindings
 				if (this._name.Value != n)
 				{
 					this._name.Value = n;
-					desktop.Name = n;
+					this._desktop.Name = n;
 				}
 			};
 			name.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Name))).AddTo(this);
@@ -165,6 +168,11 @@ namespace SylphyHorn.UI.Bindings
 				settings.DesktopBackgroundPositions.Resize(requiredCount);
 			}
 			return new VirtualDesktopViewModel(desktopIndex, desktop);
+		}
+
+		public void Close()
+		{
+			this._desktop?.Remove();
 		}
 	}
 

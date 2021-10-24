@@ -259,6 +259,24 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Close に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_CloseDesktop {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_CloseDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   New desktop に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_CreateDesktop {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_CreateDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Override virtual desktops with settings of SylphyHorn on startup に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Desktop_OverrideSettingsOnStartup {
