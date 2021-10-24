@@ -111,6 +111,7 @@ namespace SylphyHorn.UI.Bindings
 					if (this._name.Value != n) this._name.Value = n;
 				};
 				name.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Name))).AddTo(this);
+				settings.ChangeBackgroundEachDesktop.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsWallpaperEnabled))).AddTo(this);
 				return;
 			}
 

@@ -332,6 +332,7 @@
 																	  SelectedValuePath="Value"
 																	  SelectedValue="{Binding Path=Wallpaper.Position, Mode=TwoWay}"
 																	  Prompt=""
+																	  IsEnabled="{Binding IsWallpaperEnabled}"
 																	  IsReadOnly="True"
 																	  MinWidth="150"
 																	  MaxWidth="250"
