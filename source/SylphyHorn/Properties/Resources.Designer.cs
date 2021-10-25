@@ -286,11 +286,56 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   First に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_MoveDesktopFirst {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_MoveDesktopFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Last に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_MoveDesktopLast {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_MoveDesktopLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Next に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_MoveDesktopNext {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_MoveDesktopNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Previous に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_MoveDesktopPrevious {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_MoveDesktopPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Override virtual desktops with settings of SylphyHorn on startup に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Desktop_OverrideSettingsOnStartup {
             get {
                 return ResourceManager.GetString("Settings_Desktop_OverrideSettingsOnStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reorder: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_Reorder {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_Reorder", resourceCulture);
             }
         }
         

@@ -207,8 +207,23 @@
   <data name="Settings_Desktop_CreateDesktop" xml:space="preserve">
     <value>新しいデスクトップ</value>
   </data>
+  <data name="Settings_Desktop_MoveDesktopFirst" xml:space="preserve">
+    <value>最初へ</value>
+  </data>
+  <data name="Settings_Desktop_MoveDesktopLast" xml:space="preserve">
+    <value>最後へ</value>
+  </data>
+  <data name="Settings_Desktop_MoveDesktopNext" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="Settings_Desktop_MoveDesktopPrevious" xml:space="preserve">
+    <value>前へ</value>
+  </data>
   <data name="Settings_Desktop_OverrideSettingsOnStartup" xml:space="preserve">
     <value>起動時に保存されている設定で仮想デスクトップを上書きする</value>
+  </data>
+  <data name="Settings_Desktop_Reorder" xml:space="preserve">
+    <value>並び替え:</value>
   </data>
   <data name="Settings_Desktop_Settings" xml:space="preserve">
     <value>デスクトップの設定</value>

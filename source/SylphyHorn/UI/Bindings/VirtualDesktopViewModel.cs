@@ -171,6 +171,26 @@ namespace SylphyHorn.UI.Bindings
 			return new VirtualDesktopViewModel(desktopIndex, desktop);
 		}
 
+		public void MoveToPrevious()
+		{
+			this._desktop?.MoveToLeft();
+		}
+
+		public void MoveToNext()
+		{
+			this._desktop?.MoveToRight();
+		}
+
+		public void MoveToFirst()
+		{
+			this._desktop?.MoveToFirst();
+		}
+
+		public void MoveToLast()
+		{
+			this._desktop?.MoveToLast();
+		}
+
 		public void Close()
 		{
 			this._desktop?.Remove();

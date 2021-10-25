@@ -226,14 +226,14 @@
 							   Style="{DynamicResource TabitemStyleKey}" />
 				</TabItem.Header>
 
-				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+				<ScrollViewer HorizontalScrollBarVisibility="Auto"
 							  VerticalScrollBarVisibility="Auto">
 					<StackPanel Margin="16,0,16,16"
 								Focusable="True">
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_Settings}"
 								   Style="{DynamicResource HeaderStyleKey}"
 								   Margin="0,0,0,8" />
-						<StackPanel Margin="8,0,8,0">
+						<StackPanel Margin="8,0,0,0">
 							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=OverrideDesktopsOnStartup.Value, Mode=TwoWay}"
 									  IsEnabled="{Binding IsWindows11OrLater}"
 									  Visibility="{Binding IsWindows11OrLater, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -248,7 +248,7 @@
 							<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1}"
 									   TextWrapping="Wrap"
 									   Margin="20,0,0,0" />
-							<Grid Margin="0">
+							<Grid Margin="0,8,8,0">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="*" />
 									<RowDefinition Height="*" />
@@ -259,7 +259,7 @@
 								</Grid.ColumnDefinitions>
 
 								<Grid Grid.Row="0"
-									  Margin="0,8,0,0">
+									  Margin="0">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
@@ -276,8 +276,8 @@
 													<Grid.ColumnDefinitions>
 														<ColumnDefinition Width="Auto"
 																		  SharedSizeGroup="KeyHeader" />
-														<ColumnDefinition Width="4" />
-														<ColumnDefinition Width="*" MinWidth="154" MaxWidth="560" />
+														<ColumnDefinition Width="2" />
+														<ColumnDefinition Width="*" MinWidth="245" MaxWidth="560" />
 														<ColumnDefinition Width="Auto" />
 														<ColumnDefinition Width="124" />
 													</Grid.ColumnDefinitions>
@@ -337,19 +337,93 @@
 															   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Position}"
 															   VerticalAlignment="Center"
 															   Foreground="{DynamicResource ForegroundBrushKey}" />
-													<metro:PromptComboBox Grid.Row="3"
-																		  Grid.Column="2"
-																		  ItemsSource="{Binding Path=DataContext.WallpaperPositions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																		  DisplayMemberPath="Display"
-																		  SelectedValuePath="Value"
-																		  SelectedValue="{Binding Path=Wallpaper.Position, Mode=TwoWay}"
-																		  Prompt=""
-																		  IsEnabled="{Binding IsWallpaperEnabled}"
-																		  IsReadOnly="True"
-																		  MinWidth="150"
-																		  MaxWidth="250"
-																		  Margin="2"
-																		  HorizontalAlignment="Left" />
+													<Grid Grid.Row="3"
+														  Grid.Column="2"
+														  Grid.ColumnSpan="2">
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="*" MinWidth="144"/>
+															<ColumnDefinition Width="*" MinWidth="58" />
+															<ColumnDefinition Width="*" MinWidth="24" MaxWidth="48" />
+															<ColumnDefinition Width="*" MinWidth="24" MaxWidth="48" />
+															<ColumnDefinition Width="*" MinWidth="24" MaxWidth="48" />
+															<ColumnDefinition Width="*" MinWidth="24" MaxWidth="48" />
+														</Grid.ColumnDefinitions>
+														<metro:PromptComboBox Grid.Column="0"
+																			  ItemsSource="{Binding Path=DataContext.WallpaperPositions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																			  DisplayMemberPath="Display"
+																			  SelectedValuePath="Value"
+																			  SelectedValue="{Binding Path=Wallpaper.Position, Mode=TwoWay}"
+																			  Prompt=""
+																			  IsEnabled="{Binding IsWallpaperEnabled}"
+																			  IsReadOnly="True"
+																			  MinWidth="140"
+																			  MaxWidth="250"
+																			  Margin="2"
+																			  HorizontalAlignment="Stretch" />
+														<TextBlock Grid.Column="1"
+																   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_Reorder}"
+																   VerticalAlignment="Center"
+																   HorizontalAlignment="Right"
+																   Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																   Margin="0,0,2,0"
+																   Foreground="{DynamicResource ForegroundBrushKey}" />
+														<metro2:CallMethodButton Grid.Column="2"
+																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopPrevious}"
+																				 MethodTarget="{Binding}"
+																				 MethodName="MoveToPrevious"
+																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 Margin="2"
+																				 Padding="0">
+															<ContentControl.Content>
+																<Path Fill="{DynamicResource ForegroundBrushKey}"
+																	  Stretch="Uniform"
+																	  Data="M0,9 L6,1 L12,9 z" />
+															</ContentControl.Content>
+														</metro2:CallMethodButton>
+														<metro2:CallMethodButton Grid.Column="3"
+																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopNext}"
+																				 MethodTarget="{Binding}"
+																				 MethodName="MoveToNext"
+																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 Margin="2"
+																				 Padding="0">
+															<ContentControl.Content>
+																<Path Fill="{DynamicResource ForegroundBrushKey}"
+																	  Stretch="Uniform"
+																	  Data="M0,1 L6,9 L12,1 z" />
+															</ContentControl.Content>
+														</metro2:CallMethodButton>
+														<metro2:CallMethodButton Grid.Column="4"
+																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopFirst}"
+																				 MethodTarget="{Binding}"
+																				 MethodName="MoveToFirst"
+																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 Margin="2"
+																				 Padding="0">
+															<ContentControl.Content>
+																<Path Fill="{DynamicResource ForegroundBrushKey}"
+																	  Stretch="Uniform"
+																	  Data="M0,12 L6,6 L0,6 L6,0 L12,6 L6,6 L12,12 z" />
+															</ContentControl.Content>
+														</metro2:CallMethodButton>
+														<metro2:CallMethodButton Grid.Column="5"
+																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopLast}"
+																				 MethodTarget="{Binding}"
+																				 MethodName="MoveToLast"
+																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 Margin="2"
+																				 Padding="0">
+															<ContentControl.Content>
+																<Path Fill="{DynamicResource ForegroundBrushKey}"
+																	  Stretch="Uniform"
+																	  Data="M0,0 L6,6 L0,6 L6,12 L12,6 L6,6 L12,0 z" />
+															</ContentControl.Content>
+														</metro2:CallMethodButton>
+													</Grid>
 
 													<Canvas Grid.RowSpan="3"
 															Grid.Row="1"

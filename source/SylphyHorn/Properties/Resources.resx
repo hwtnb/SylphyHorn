@@ -207,8 +207,23 @@
   <data name="Settings_Desktop_CreateDesktop" xml:space="preserve">
     <value>New desktop</value>
   </data>
+  <data name="Settings_Desktop_MoveDesktopFirst" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="Settings_Desktop_MoveDesktopLast" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="Settings_Desktop_MoveDesktopNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Settings_Desktop_MoveDesktopPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
   <data name="Settings_Desktop_OverrideSettingsOnStartup" xml:space="preserve">
     <value>Override virtual desktops with settings of SylphyHorn on startup</value>
+  </data>
+  <data name="Settings_Desktop_Reorder" xml:space="preserve">
+    <value>Reorder:</value>
   </data>
   <data name="Settings_Desktop_Settings" xml:space="preserve">
     <value>Desktop settings</value>
