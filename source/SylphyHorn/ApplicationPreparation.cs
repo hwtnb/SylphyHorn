@@ -165,6 +165,9 @@ namespace SylphyHorn
 			VirtualDesktop.Created += (sender, args) =>
 			{
 				this.ResizePropertyList();
+				var pathSetting = Settings.General.DesktopBackgroundImagePaths.Value[args.Index];
+				pathSetting.InitializeIfEmpty();
+
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
 			};
@@ -178,6 +181,7 @@ namespace SylphyHorn
 					positionSettings.Value[i].Value = positionSettings.Value[i + 1].Value;
 				}
 				this.ResizePropertyList();
+
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
 			};
@@ -188,6 +192,7 @@ namespace SylphyHorn
 			{
 				this.ApplyDesktopSettingsToPropertyList();
 				Settings.General.DesktopBackgroundPositions.Swap(args.OldIndex, args.NewIndex);
+
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
 			};
@@ -196,9 +201,12 @@ namespace SylphyHorn
 				var desktop = args.Source;
 				var index = desktop.Index;
 				var names = Settings.General.DesktopNames.Value;
+
 				if (index >= names.Count) this.ResizePropertyList();
+
 				var targetName = names[index];
 				targetName.Value = args.NewName;
+
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 			};
 			VirtualDesktop.WallpaperChanged += (sender, args) =>
@@ -206,9 +214,12 @@ namespace SylphyHorn
 				var desktop = args.Source;
 				var index = desktop.Index;
 				var paths = Settings.General.DesktopBackgroundImagePaths.Value;
+
 				if (index >= paths.Count) this.ResizePropertyList();
+
 				var targetPath = paths[index];
 				targetPath.Value = args.NewPath;
+
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 			};
 		}

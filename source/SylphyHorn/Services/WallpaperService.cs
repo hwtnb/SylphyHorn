@@ -82,7 +82,7 @@ namespace SylphyHorn.Services
 			var path = newIndex < pathCount
 				? pathSettings.Value[newIndex].Value
 				: pathSettings.Value.FirstOrDefault(p => p.Value.Length > 0);
-			if (path != null && path.Length > 0) dw.SetWallpaper(null, path);
+			if (!string.IsNullOrEmpty(path)) dw.SetWallpaper(null, path);
 			var oldPosition = dw.GetPosition();
 			var newPosition = newIndex < positionCount
 				? (DesktopWallpaperPosition)positionSettings.Value[newIndex].Value

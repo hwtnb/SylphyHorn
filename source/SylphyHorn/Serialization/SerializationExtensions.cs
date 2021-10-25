@@ -42,5 +42,23 @@ namespace SylphyHorn.Serialization
 				? key
 				: key.Concat(shortcutKey.Modifiers.Select(x => (int)x)).ToList();
 		}
+
+		public static WallpaperPathProperty InitializeIfEmpty(this WallpaperPathProperty path)
+		{
+			if (path == null) return path;
+
+			if (string.IsNullOrEmpty(path.Value))
+			{
+				var currentPath = WallpaperService.GetCurrentColorAndWallpaper().Item2;
+				if (string.IsNullOrEmpty(currentPath))
+				{
+					currentPath = Settings.General.DesktopBackgroundImagePaths.Value
+						.FirstOrDefault(p => !string.IsNullOrEmpty(p));
+				}
+				path.Value = currentPath ?? "";
+			}
+
+			return path;
+		}
 	}
 }

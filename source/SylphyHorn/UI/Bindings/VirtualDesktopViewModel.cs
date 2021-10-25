@@ -267,6 +267,7 @@ namespace SylphyHorn.UI.Bindings
 						}
 					}
 				};
+				path.InitializeIfEmpty();
 				path.Subscribe(_ => this.RaisePropertyChanged(nameof(this.FilePath))).AddTo(this);
 				return;
 			}
