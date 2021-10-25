@@ -308,6 +308,7 @@
 																		 Margin="2" />
 													<metro2:CallMethodButton Grid.Row="1" Grid.Column="3"
 																			 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CloseDesktop}"
+																			 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CloseDesktop_CloseThisDesktop}"
 																			 MethodTarget="{Binding}"
 																			 MethodName="Close"
 																			 Margin="2" />

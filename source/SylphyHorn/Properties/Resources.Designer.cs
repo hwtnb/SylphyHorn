@@ -268,6 +268,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Close this desktop に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_CloseDesktop_CloseThisDesktop {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_CloseDesktop_CloseThisDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   New desktop に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Desktop_CreateDesktop {

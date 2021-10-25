@@ -201,6 +201,9 @@
   <data name="Settings_Desktop_CloseDesktop" xml:space="preserve">
     <value>削除</value>
   </data>
+  <data name="Settings_Desktop_CloseDesktop_CloseThisDesktop" xml:space="preserve">
+    <value>このデスクトップを削除します</value>
+  </data>
   <data name="Settings_Desktop_CreateDesktop" xml:space="preserve">
     <value>新しいデスクトップ</value>
   </data>
