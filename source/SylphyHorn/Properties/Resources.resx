@@ -133,7 +133,7 @@
     <value>Desktop background</value>
   </data>
   <data name="Settings_Background_Image" xml:space="preserve">
-    <value>Wallpaper</value>
+    <value>Wallpaper:</value>
   </data>
   <data name="Settings_Background_Note1" xml:space="preserve">
     <value>Supported image formats: JPEG, PNG, BMP</value>
@@ -142,7 +142,7 @@
     <value>Note: Please prepare image files with the virtual desktop number as filename (e.g. "1.png", "2.png", ...).</value>
   </data>
   <data name="Settings_Background_Position" xml:space="preserve">
-    <value>Fit</value>
+    <value>Fit:</value>
   </data>
   <data name="Settings_Background_Position_Center" xml:space="preserve">
     <value>Center</value>

@@ -106,7 +106,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Wallpaper に類似しているローカライズされた文字列を検索します。
+        ///   Wallpaper: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Background_Image {
             get {
@@ -133,7 +133,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Fit に類似しているローカライズされた文字列を検索します。
+        ///   Fit: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Background_Position {
             get {

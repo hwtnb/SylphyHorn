@@ -133,7 +133,7 @@
     <value>デスクトップの背景</value>
   </data>
   <data name="Settings_Background_Image" xml:space="preserve">
-    <value>背景画像</value>
+    <value>背景画像:</value>
   </data>
   <data name="Settings_Background_Note1" xml:space="preserve">
     <value>サポートされている画像形式: JPG, PNG, BMP</value>
@@ -142,7 +142,7 @@
     <value>メモ: 仮想デスクトップ番号をファイル名とした画像ファイルを用意してください (例: "1.png", "2.png", ...)。</value>
   </data>
   <data name="Settings_Background_Position" xml:space="preserve">
-    <value>背景の配置</value>
+    <value>背景の配置:</value>
   </data>
   <data name="Settings_Background_Position_Center" xml:space="preserve">
     <value>中央に表示</value>
