@@ -302,10 +302,16 @@ namespace SylphyHorn.UI.Bindings
 			}
 
 			// for Windows 11 or later
-			if (path.Value != desktop.WallpaperPath)
+			if (string.IsNullOrEmpty(desktop.WallpaperPath))
+			{
+				path.InitializeIfEmpty();
+				desktop.WallpaperPath = path.Value;
+			}
+			else if (path.Value != desktop.WallpaperPath)
 			{
 				path.Value = desktop.WallpaperPath;
 			}
+
 			this._pathFunc = p =>
 			{
 				if (p == null || p.Length == 0) return;
