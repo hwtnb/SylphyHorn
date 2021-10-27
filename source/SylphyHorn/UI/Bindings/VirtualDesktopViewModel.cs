@@ -23,6 +23,23 @@ namespace SylphyHorn.UI.Bindings
 
 		public string NumberText => this._name.NumberText;
 
+		#region Model notification property
+
+		public VirtualDesktop Model
+		{
+			get => this._desktop;
+			private set
+			{
+				if (value != null && this._desktop != value)
+				{
+					this._desktop = value;
+					this.RaisePropertyChanged(nameof(this.Model));
+				}
+			}
+		}
+
+		#endregion
+
 		#region Name notification property
 
 		public string Name
@@ -131,6 +148,31 @@ namespace SylphyHorn.UI.Bindings
 			name.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Name))).AddTo(this);
 		}
 
+		public void MoveToPrevious()
+		{
+			this._desktop?.MoveToLeft();
+		}
+
+		public void MoveToNext()
+		{
+			this._desktop?.MoveToRight();
+		}
+
+		public void MoveToFirst()
+		{
+			this._desktop?.MoveToFirst();
+		}
+
+		public void MoveToLast()
+		{
+			this._desktop?.MoveToLast();
+		}
+
+		public void Close()
+		{
+			this._desktop?.Remove();
+		}
+
 		public static VirtualDesktopViewModel[] CreateAll()
 		{
 			var desktops = VirtualDesktop.GetDesktops();
@@ -171,29 +213,16 @@ namespace SylphyHorn.UI.Bindings
 			return new VirtualDesktopViewModel(desktopIndex, desktop);
 		}
 
-		public void MoveToPrevious()
+		public static void UpdateModel(VirtualDesktopViewModel[] viewModels)
 		{
-			this._desktop?.MoveToLeft();
-		}
+			var desktops = VirtualDesktop.GetDesktops();
 
-		public void MoveToNext()
-		{
-			this._desktop?.MoveToRight();
-		}
+			if (desktops.Length != viewModels.Length) throw new ArgumentException("ViewModel count does not match virtual desktop count.");
 
-		public void MoveToFirst()
-		{
-			this._desktop?.MoveToFirst();
-		}
-
-		public void MoveToLast()
-		{
-			this._desktop?.MoveToLast();
-		}
-
-		public void Close()
-		{
-			this._desktop?.Remove();
+			for (var i = 0; i < viewModels.Length; ++i)
+			{
+				viewModels[i].Model = desktops[i];
+			}
 		}
 	}
 

@@ -428,6 +428,11 @@ namespace SylphyHorn.UI.Bindings
 					h => VirtualDesktop.Destroyed -= h,
 					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
 			this.CompositeDisposable.Add(
+				new EventListener<EventHandler<VirtualDesktopMovedEventArgs>>(
+					h => VirtualDesktop.Moved += h,
+					h => VirtualDesktop.Moved -= h,
+					(sender, args) => VirtualDesktopViewModel.UpdateModel(this.Desktops)));
+			this.CompositeDisposable.Add(
 				new EventListener<EventHandler<VirtualDesktopChangedEventArgs>>(
 					h => VirtualDesktop.CurrentChanged += h,
 					h => VirtualDesktop.CurrentChanged -= h,
