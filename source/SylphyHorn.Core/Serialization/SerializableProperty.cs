@@ -194,7 +194,7 @@ namespace SylphyHorn.Serialization
 		protected abstract T CreateProperty(int index);
 		protected abstract T CreatePropertyWithDefault(int index, T defaultValue);
 
-		protected void LoadPropertiesImpl<U>()
+		protected void LoadPropertiesCore<U>()
 		{
 			var newValue = new List<T>();
 			var provider = this.Provider;
@@ -232,7 +232,7 @@ namespace SylphyHorn.Serialization
 
 		protected override void LoadProperties()
 		{
-			this.LoadPropertiesImpl<IList<int>>();
+			this.LoadPropertiesCore<IList<int>>();
 		}
 
 		protected override ShortcutkeyProperty CreateProperty(int index)
@@ -264,7 +264,7 @@ namespace SylphyHorn.Serialization
 
 		protected override void LoadProperties()
 		{
-			this.LoadPropertiesImpl<string>();
+			this.LoadPropertiesCore<string>();
 		}
 
 		protected override DesktopNameProperty CreateProperty(int index)
@@ -296,7 +296,7 @@ namespace SylphyHorn.Serialization
 
 		protected override void LoadProperties()
 		{
-			this.LoadPropertiesImpl<string>();
+			this.LoadPropertiesCore<string>();
 		}
 
 		protected override WallpaperPathProperty CreateProperty(int index)
@@ -328,7 +328,7 @@ namespace SylphyHorn.Serialization
 
 		protected override void LoadProperties()
 		{
-			this.LoadPropertiesImpl<byte>();
+			this.LoadPropertiesCore<byte>();
 		}
 
 		protected override WallpaperPositionsProperty CreateProperty(int index)
