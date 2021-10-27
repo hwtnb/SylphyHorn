@@ -191,7 +191,7 @@ namespace SylphyHorn
 			VirtualDesktop.Moved += (sender, args) =>
 			{
 				this.ApplyDesktopSettingsToPropertyList();
-				Settings.General.DesktopBackgroundPositions.Swap(args.OldIndex, args.NewIndex);
+				Settings.General.DesktopBackgroundPositions.Move(args.OldIndex, args.NewIndex);
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();

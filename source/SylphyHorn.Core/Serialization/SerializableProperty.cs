@@ -167,7 +167,14 @@ namespace SylphyHorn.Serialization
 			}
 		}
 
-		public abstract void Swap(int index1, int index2);
+		public void Move(int fromIndex, int toIndex)
+		{
+			if (fromIndex < 0 || toIndex < 0) throw new ArgumentOutOfRangeException();
+			if (fromIndex >= Count || toIndex >= Count) throw new ArgumentOutOfRangeException();
+			if (fromIndex == toIndex) return;
+
+			this.MoveCore(fromIndex, toIndex);
+		}
 
 		protected void AddNewProperties(int newSize)
 		{
@@ -190,6 +197,7 @@ namespace SylphyHorn.Serialization
 			this.Value = value;
 		}
 
+		protected abstract void MoveCore(int fromIndex, int toIndex);
 		protected abstract void LoadProperties();
 		protected abstract T CreateProperty(int index);
 		protected abstract T CreatePropertyWithDefault(int index, T defaultValue);
@@ -221,12 +229,29 @@ namespace SylphyHorn.Serialization
 		public ShortcutkeyPropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public ShortcutkeyPropertyList(string key, ISerializationProvider provider, params ShortcutkeyProperty[] defaultValues) : base(key, provider, defaultValues) { }
 
-		public override void Swap(int index1, int index2)
+		protected override void MoveCore(int fromIndex, int toIndex)
 		{
 			var newValue = this.Value.ToList();
-			var tempItem = this.Value[index1].Value;
-			newValue[index1].Value = newValue[index2].Value;
-			newValue[index2].Value = tempItem;
+			var tempItem = this.Value[fromIndex].Value;
+			if (fromIndex < toIndex)
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex + 1;
+				for (; sourceIndex <= toIndex; ++targetIndex, ++sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			else
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex - 1;
+				for (; sourceIndex >= toIndex; --targetIndex, --sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			newValue[toIndex].Value = tempItem;
 			this.Value = newValue;
 		}
 
@@ -253,12 +278,29 @@ namespace SylphyHorn.Serialization
 		public DesktopNamePropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public DesktopNamePropertyList(string key, ISerializationProvider provider, params DesktopNameProperty[] defaultValues) : base(key, provider, defaultValues) { }
 
-		public override void Swap(int index1, int index2)
+		protected override void MoveCore(int fromIndex, int toIndex)
 		{
 			var newValue = this.Value.ToList();
-			var tempItem = this.Value[index1].Value;
-			newValue[index1].Value = newValue[index2].Value;
-			newValue[index2].Value = tempItem;
+			var tempItem = this.Value[fromIndex].Value;
+			if (fromIndex < toIndex)
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex + 1;
+				for (; sourceIndex <= toIndex; ++targetIndex, ++sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			else
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex - 1;
+				for (; sourceIndex >= toIndex; --targetIndex, --sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			newValue[toIndex].Value = tempItem;
 			this.Value = newValue;
 		}
 
@@ -285,12 +327,29 @@ namespace SylphyHorn.Serialization
 		public WallpaperPathPropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public WallpaperPathPropertyList(string key, ISerializationProvider provider, params WallpaperPathProperty[] defaultValues) : base(key, provider, defaultValues) { }
 
-		public override void Swap(int index1, int index2)
+		protected override void MoveCore(int fromIndex, int toIndex)
 		{
 			var newValue = this.Value.ToList();
-			var tempItem = this.Value[index1].Value;
-			newValue[index1].Value = newValue[index2].Value;
-			newValue[index2].Value = tempItem;
+			var tempItem = this.Value[fromIndex].Value;
+			if (fromIndex < toIndex)
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex + 1;
+				for (; sourceIndex <= toIndex; ++targetIndex, ++sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			else
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex - 1;
+				for (; sourceIndex >= toIndex; --targetIndex, --sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			newValue[toIndex].Value = tempItem;
 			this.Value = newValue;
 		}
 
@@ -317,12 +376,29 @@ namespace SylphyHorn.Serialization
 		public WallpaperPositionsPropertyList(string key, int size, ISerializationProvider provider) : base(key, size, provider) { }
 		public WallpaperPositionsPropertyList(string key, ISerializationProvider provider, params WallpaperPositionsProperty[] defaultValues) : base(key, provider, defaultValues) { }
 
-		public override void Swap(int index1, int index2)
+		protected override void MoveCore(int fromIndex, int toIndex)
 		{
 			var newValue = this.Value.ToList();
-			var tempItem = this.Value[index1].Value;
-			newValue[index1].Value = newValue[index2].Value;
-			newValue[index2].Value = tempItem;
+			var tempItem = this.Value[fromIndex].Value;
+			if (fromIndex < toIndex)
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex + 1;
+				for (; sourceIndex <= toIndex; ++targetIndex, ++sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			else
+			{
+				var targetIndex = fromIndex;
+				var sourceIndex = fromIndex - 1;
+				for (; sourceIndex >= toIndex; --targetIndex, --sourceIndex)
+				{
+					newValue[targetIndex].Value = newValue[sourceIndex].Value;
+				}
+			}
+			newValue[toIndex].Value = tempItem;
 			this.Value = newValue;
 		}
 
