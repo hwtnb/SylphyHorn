@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 
-[assembly: AssemblyTitle("SylphyHorn")]
-[assembly: AssemblyDescription("Virtual Desktop Tools for Windows 10")]
+[assembly: AssemblyTitle("SylphyHornPlus")]
+[assembly: AssemblyDescription("Virtual Desktop Tools for Windows 11 and 10")]
 [assembly: AssemblyCompany("grabacr.net")]
 [assembly: AssemblyProduct("SylphyHorn")]
 [assembly: AssemblyCopyright("Copyright © 2015 - 2018 Manato KAMEYA")]
@@ -11,6 +11,6 @@ using System.Windows;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: AssemblyVersion("3.1.0.0")]
-[assembly: AssemblyMetadata("ExtraVersion", "1.1.0-beta.5")]
+[assembly: AssemblyVersion("4.0.0.0")]
+[assembly: AssemblyMetadata("ExtraVersion", "beta.1")]
 [assembly: ComVisible(false)]

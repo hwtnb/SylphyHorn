@@ -1672,8 +1672,8 @@
 								   FontFamily="Segoe UI, Meiryo UI"
 								   Margin="2,6">
 							<Run Text="Source code:" />
-							<metro2:HyperlinkEx Uri="https://github.com/hwtnb/SylphyHorn">
-								<Run Text="https://github.com/hwtnb/SylphyHorn" />
+							<metro2:HyperlinkEx Uri="https://github.com/hwtnb/SylphyHornPlusWin11">
+								<Run Text="https://github.com/hwtnb/SylphyHornPlusWin11" />
 							</metro2:HyperlinkEx>
 
 							<LineBreak />
