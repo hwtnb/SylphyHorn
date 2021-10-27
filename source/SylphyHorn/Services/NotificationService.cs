@@ -22,6 +22,8 @@ namespace SylphyHorn.Services
 		{
 			VirtualDesktop.CurrentChanged += this.VirtualDesktopOnCurrentChanged;
 			VirtualDesktopService.WindowPinned += this.VirtualDesktopServiceOnWindowPinned;
+
+			if (ProductInfo.IsWindows11OrLater) VirtualDesktop.Moved += this.VirtualDesktopOnMoved;
 		}
 
 		private void VirtualDesktopOnCurrentChanged(object sender, VirtualDesktopChangedEventArgs e)
@@ -33,7 +35,22 @@ namespace SylphyHorn.Services
 				var desktops = VirtualDesktop.GetDesktops();
 				var newIndex = Array.IndexOf(desktops, e.NewDesktop) + 1;
 
-				this._notificationWindow.Disposable = ShowDesktopWindow(newIndex);
+				this._notificationWindow.Disposable = ShowSwitchedDesktopWindow(newIndex);
+			});
+		}
+
+		private void VirtualDesktopOnMoved(object sender, VirtualDesktopMovedEventArgs e)
+		{
+			if (!Settings.General.NotificationWhenSwitchedDesktop) return;
+
+			VisualHelper.InvokeOnUIDispatcher(() =>
+			{
+				var current = VirtualDesktop.Current;
+				var currentNumber = current.Index + 1;
+				var newNumber = e.NewIndex + 1;
+				var oldNumber = e.OldIndex + 1;
+
+				this._notificationWindow.Disposable = ShowMovedDesktopWindow(currentNumber, newNumber, oldNumber);
 			});
 		}
 
@@ -45,13 +62,59 @@ namespace SylphyHorn.Services
 			});
 		}
 
-		private static IDisposable ShowDesktopWindow(int index)
+		private static IDisposable ShowSwitchedDesktopWindow(int newNumber)
+		{
+			return ShowDesktopWindow(
+				header: "Virtual Desktop Switched",
+				body: CreateNotificationBodyText(newNumber));
+
+			string CreateNotificationBodyText(int number)
+			{
+				var generalSttings = Settings.General;
+				var desktopNames = generalSttings.DesktopNames.Value;
+				var i = number - 1;
+				if (!generalSttings.UseDesktopName || desktopNames.Count < number ||
+					desktopNames[i].Value == null || desktopNames[i].Value.Length == 0)
+				{
+					return "Current Desktop: Desktop " + number.ToString();
+				}
+				else
+				{
+					return $"Desktop {number}: {desktopNames[i].Value}";
+				}
+			};
+		}
+
+		private static IDisposable ShowMovedDesktopWindow(int currentNumber, int newNumber, int oldNumber)
+		{
+			return ShowDesktopWindow(
+				header: $"Desktop {oldNumber} Moved to Desktop {newNumber}",
+				body: CreateNotificationBodyText(currentNumber));
+
+			string CreateNotificationBodyText(int number)
+			{
+				var generalSttings = Settings.General;
+				var desktopNames = generalSttings.DesktopNames.Value;
+				var i = number - 1;
+				if (!generalSttings.UseDesktopName || desktopNames.Count < number ||
+					desktopNames[i].Value == null || desktopNames[i].Value.Length == 0)
+				{
+					return "Reordered Current Desktop: Desktop " + number.ToString();
+				}
+				else
+				{
+					return $"Reordered Desktop {number}: {desktopNames[i].Value}";
+				}
+			};
+		}
+
+		private static IDisposable ShowDesktopWindow(string header, string body)
 		{
 			var vmodel = new NotificationWindowViewModel
 			{
 				Title = ProductInfo.Title,
-				Header = "Virtual Desktop Switched",
-				Body = CreateNotificationBodyText(index),
+				Header = header,
+				Body = body,
 			};
 			var source = new CancellationTokenSource();
 
@@ -87,22 +150,6 @@ namespace SylphyHorn.Services
 				.ContinueWith(_ => windows.ForEach(window => window.Close()), TaskScheduler.FromCurrentSynchronizationContext());
 
 			return Disposable.Create(() => source.Cancel());
-
-			string CreateNotificationBodyText(int number)
-			{
-				var generalSttings = Settings.General;
-				var desktopNames = generalSttings.DesktopNames.Value;
-				var i = number - 1;
-				if (!generalSttings.UseDesktopName || desktopNames.Count < number ||
-					desktopNames[i].Value == null || desktopNames[i].Value.Length == 0)
-				{
-					return "Current Desktop: Desktop " + number.ToString();
-				}
-				else
-				{
-					return $"Desktop {number.ToString()}: {desktopNames[i].Value}";
-				}
-			};
 		}
 
 		private static IDisposable ShowPinWindow(IntPtr hWnd, PinOperations operation)
@@ -129,6 +176,7 @@ namespace SylphyHorn.Services
 		public void Dispose()
 		{
 			VirtualDesktop.CurrentChanged -= this.VirtualDesktopOnCurrentChanged;
+			VirtualDesktop.Moved -= this.VirtualDesktopOnMoved;
 			VirtualDesktopService.WindowPinned -= this.VirtualDesktopServiceOnWindowPinned;
 
 			this._notificationWindow.Dispose();
