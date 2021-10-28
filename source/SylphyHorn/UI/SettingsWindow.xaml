@@ -558,50 +558,94 @@
 							  VerticalScrollBarVisibility="Auto">
 					<StackPanel Margin="16,0,16,16"
 								Focusable="True">
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MultipleDisplays}"
-								   Style="{DynamicResource HeaderStyleKey}"
-								   Margin="0,0,0,8" />
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="210" />
+								<ColumnDefinition Width="32" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Column="0"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MultipleDisplays}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+							<TextBlock Grid.Column="2"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowPlacement}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+						</Grid>
 						<StackPanel Margin="8,0,0,0">
-							<metro:PromptComboBox ItemsSource="{Binding Displays}"
-												  DisplayMemberPath="Display"
-												  SelectedValuePath="Value"
-												  SelectedValue="{Binding Display, Mode=TwoWay}"
-												  Prompt=""
-												  IsReadOnly="True"
-												  IsEnabled="{Binding IsDisplayEnabled}"
-												  MinWidth="250"
-												  Margin="1,0,0,0"
-												  HorizontalAlignment="Left" />
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="210" />
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<metro:PromptComboBox Grid.Column="0"
+													  ItemsSource="{Binding Displays}"
+													  DisplayMemberPath="Display"
+													  SelectedValuePath="Value"
+													  SelectedValue="{Binding Display, Mode=TwoWay}"
+													  Prompt=""
+													  IsReadOnly="True"
+													  IsEnabled="{Binding IsDisplayEnabled}"
+													  MinWidth="200"
+													  Margin="1,0,0,0"
+													  HorizontalAlignment="Left" />
+								<metro:PromptComboBox Grid.Column="2"
+													  ItemsSource="{Binding Placements}"
+													  DisplayMemberPath="Display"
+													  SelectedValuePath="Value"
+													  SelectedValue="{Binding Placement, Mode=TwoWay}"
+													  Prompt=""
+													  IsReadOnly="True"
+													  MinWidth="200"
+													  Margin="1,0,0,0"
+													  HorizontalAlignment="Left" />
+							</Grid>
 						</StackPanel>
 						<Border Height="8" />
 
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowPlacement}"
-								   Style="{DynamicResource HeaderStyleKey}" />
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="210" />
+								<ColumnDefinition Width="32" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Column="0"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowStyle}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+							<TextBlock Grid.Column="2"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontFamily}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+						</Grid>
 						<StackPanel Margin="8,0,0,0">
-							<metro:PromptComboBox ItemsSource="{Binding Placements}"
-												  DisplayMemberPath="Display"
-												  SelectedValuePath="Value"
-												  SelectedValue="{Binding Placement, Mode=TwoWay}"
-												  Prompt=""
-												  IsReadOnly="True"
-												  MinWidth="250"
-												  Margin="1,0,0,0"
-												  HorizontalAlignment="Left" />
-						</StackPanel>
-						<Border Height="8" />
-
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowStyle}"
-								   Style="{DynamicResource HeaderStyleKey}" />
-						<StackPanel Margin="8,0,0,0">
-							<metro:PromptComboBox ItemsSource="{Binding NotificationWindowStyles}"
-												  DisplayMemberPath="Display"
-												  SelectedValuePath="Value"
-												  SelectedValue="{Binding NotificationWindowStyle, Mode=TwoWay}"
-												  Prompt=""
-												  IsReadOnly="True"
-												  MinWidth="250"
-												  Margin="1,0,0,0"
-												  HorizontalAlignment="Left" />
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="210" />
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<metro:PromptComboBox Grid.Column="0"
+													  ItemsSource="{Binding NotificationWindowStyles}"
+													  DisplayMemberPath="Display"
+													  SelectedValuePath="Value"
+													  SelectedValue="{Binding NotificationWindowStyle, Mode=TwoWay}"
+													  Prompt=""
+													  IsReadOnly="True"
+													  MinWidth="200"
+													  Margin="1,0,0,0"
+													  HorizontalAlignment="Left" />
+								<metro:PromptTextBox Grid.Column="2"
+													 Text="{Binding NotificationFontFamily, Mode=TwoWay}"
+													 MinWidth="200"
+													 Margin="1,0,0,0"
+													 HorizontalAlignment="Left">
+									<metro:PromptTextBox.Prompt>
+										<MultiBinding StringFormat="{}{0} ({1}) ">
+											<Binding Source="{x:Static serialization:Settings.General}" Path="NotificationFontFamilyDefaultValue" />
+											<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Common_Default" />
+										</MultiBinding>
+									</metro:PromptTextBox.Prompt>
+								</metro:PromptTextBox>
+							</Grid>
 						</StackPanel>
 						<Border Height="16" />
 
@@ -610,7 +654,7 @@
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
 							</CheckBox>
 						</StackPanel>
-						<Border Height="32" />
+						<Border Height="48" />
 
 						<Canvas>
 							<Canvas.Resources>
@@ -786,13 +830,13 @@
 									<TextBlock DockPanel.Dock="Top"
 											   Text="Virtual Desktop Switched"
 											   Foreground="{Binding NotificationForeground}"
-											   FontFamily="Segoe UI Light, Meiryo UI"
+											   FontFamily="{Binding NotificationFontFamilyOrDefault}"
 											   FontSize="11"
 											   Margin="1,0,0,-4" />
 									<TextBlock DockPanel.Dock="Top"
 											   Text="{Binding PreviewNotificationText}"
 											   Foreground="{Binding NotificationForeground}"
-											   FontFamily="Segoe UI Light, Meiryo UI"
+											   FontFamily="{Binding NotificationFontFamilyOrDefault}"
 											   FontSize="21" />
 								</DockPanel>
 								<Border BorderBrush="#AAAAAA"

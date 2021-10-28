@@ -1,4 +1,5 @@
 ﻿using MetroTrilithon.Mvvm;
+using SylphyHorn.Serialization;
 
 namespace SylphyHorn.UI.Bindings
 {
@@ -37,6 +38,22 @@ namespace SylphyHorn.UI.Bindings
 					this._Body = value;
 					this.RaisePropertyChanged();
 				}
+			}
+		}
+
+		#endregion
+
+		#region FontFamily 変更通知プロパティ
+
+		public string FontFamily
+		{
+			get
+			{
+				var fontFamily = Settings.General.NotificationFontFamily.Value;
+				var defaultFont = GeneralSettings.NotificationFontFamilyDefaultValue;
+				return !string.IsNullOrEmpty(fontFamily)
+					? fontFamily + ", " + defaultFont
+					: defaultFont;
 			}
 		}
 

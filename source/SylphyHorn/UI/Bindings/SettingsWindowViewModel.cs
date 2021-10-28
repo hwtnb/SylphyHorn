@@ -242,7 +242,8 @@ namespace SylphyHorn.UI.Bindings
 			get => (BlurWindowThemeMode)Settings.General.NotificationWindowStyle.Value;
 			set
 			{
-				if ((BlurWindowThemeMode)Settings.General.NotificationWindowStyle.Value != value) {
+				if ((BlurWindowThemeMode)Settings.General.NotificationWindowStyle.Value != value)
+				{
 					Settings.General.NotificationWindowStyle.Value = (uint)value;
 
 					this.RaisePropertyChanged();
@@ -251,6 +252,37 @@ namespace SylphyHorn.UI.Bindings
 		}
 
 		#endregion
+
+		#region NotificationFontFamily notification property
+
+		public string NotificationFontFamily
+		{
+			get => Settings.General.NotificationFontFamily.Value;
+			set
+			{
+				if (Settings.General.NotificationFontFamily.Value != value)
+				{
+					Settings.General.NotificationFontFamily.Value = value;
+
+					this.RaisePropertyChanged();
+					this.RaisePropertyChanged(nameof(this.NotificationFontFamilyOrDefault));
+				}
+			}
+		}
+
+		#endregion
+
+		public string NotificationFontFamilyOrDefault
+		{
+			get
+			{
+				var fontFamily = Settings.General.NotificationFontFamily.Value;
+				var defaultFont = GeneralSettings.NotificationFontFamilyDefaultValue;
+				return !string.IsNullOrEmpty(fontFamily)
+					? fontFamily + ", " + defaultFont
+					: defaultFont;
+			}
+		}
 
 		public bool HasPreviewWallpaper => !string.IsNullOrEmpty(this.PreviewBackgroundPath);
 

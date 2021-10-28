@@ -61,6 +61,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   default に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Default {
+            get {
+                return ResourceManager.GetString("Common_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   provided by Windows に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Common_ProvidedByWinows {
@@ -714,6 +723,15 @@ namespace SylphyHorn.Properties {
         public static string Settings_Notification_Display_Duration_Milliseconds {
             get {
                 return ResourceManager.GetString("Settings_Notification_Display_Duration_Milliseconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Notification font family に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationFontFamily {
+            get {
+                return ResourceManager.GetString("Settings_NotificationFontFamily", resourceCulture);
             }
         }
         
