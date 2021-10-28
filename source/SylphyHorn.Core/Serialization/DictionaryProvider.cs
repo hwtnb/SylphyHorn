@@ -50,6 +50,15 @@ namespace SylphyHorn.Serialization
 			}
 		}
 
+		public void Clear()
+		{
+			lock (this._sync)
+			{
+				this._settings.Clear();
+				this.OnReloaded();
+			}
+		}
+
 
 		void ISerializationProvider.Save()
 		{
@@ -75,7 +84,28 @@ namespace SylphyHorn.Serialization
 			}
 		}
 
+		public async Task ExportAsync(string path)
+		{
+			try
+			{
+				SortedDictionary<string, object> current;
+
+				lock (this._sync)
+				{
+					current = new SortedDictionary<string, object>(this._settings);
+				}
+
+				await this.SaveAsyncCore(current, path).ConfigureAwait(false);
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex);
+			}
+		}
+
 		protected abstract Task SaveAsyncCore(IDictionary<string, object> dic);
+
+		protected abstract Task SaveAsyncCore(IDictionary<string, object> dic, string path);
 
 		void ISerializationProvider.Load()
 		{
@@ -103,7 +133,29 @@ namespace SylphyHorn.Serialization
 			this.IsLoaded = true;
 		}
 
+		public async Task ImportAsync(string path)
+		{
+			try
+			{
+				var dic = await this.LoadAsyncCore(path).ConfigureAwait(false);
+
+				lock (this._sync)
+				{
+					this._settings = dic != null
+						? new Dictionary<string, object>(dic)
+						: new Dictionary<string, object>();
+					this.OnReloaded();
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex);
+			}
+		}
+
 		protected abstract Task<IDictionary<string, object>> LoadAsyncCore();
+
+		protected abstract Task<IDictionary<string, object>> LoadAsyncCore(string path);
 
 		protected void OnReloaded()
 		{

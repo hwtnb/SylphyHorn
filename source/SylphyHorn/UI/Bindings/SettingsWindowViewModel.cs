@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using Livet;
 using Livet.EventListeners;
+using Livet.Messaging;
 using Livet.Messaging.IO;
 using MetroRadiance.Platform;
 using MetroRadiance.UI.Controls;
@@ -22,6 +24,7 @@ namespace SylphyHorn.UI.Bindings
 	{
 		private static bool _restartRequired;
 		private static readonly string _defaultCulture = Settings.General.Culture;
+		private static string _exportOrImportFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
 		private readonly HookService _hookService;
 		private readonly Startup _startup;
@@ -506,6 +509,75 @@ namespace SylphyHorn.UI.Bindings
 		}
 
 		[UsedImplicitly]
+		public void OpenExportPathDialog()
+		{
+			var provider = LocalSettingsProvider.Instance;
+			var message = new SavingFileSelectionMessage("Window.OpenExportPathDialog.Open")
+			{
+				Title = Resources.Settings_ManagingSettings_ExportDialog,
+				InitialDirectory = _exportOrImportFolder,
+				FileName = provider.Filename,
+				Filter = LocalSettingsProvider.SupportedFormats,
+			};
+			this.Messenger.Raise(message);
+
+			if (message.Response != null && message.Response.Length > 0 && !string.IsNullOrEmpty(message.Response[0]))
+			{
+				var filePath = message.Response[0];
+				_exportOrImportFolder = Path.GetDirectoryName(filePath);
+				provider.ExportAsync(filePath).Wait();
+			}
+		}
+
+		[UsedImplicitly]
+		public void OpenImportPathDialog()
+		{
+			var provider = LocalSettingsProvider.Instance;
+			var message = new OpeningFileSelectionMessage("Window.OpenImportPathDialog.Open")
+			{
+				Title = Resources.Settings_ManagingSettings_ImportDialog,
+				InitialDirectory = _exportOrImportFolder,
+				FileName = provider.Filename,
+				Filter = LocalSettingsProvider.SupportedFormats,
+				MultiSelect = false,
+			};
+			this.Messenger.Raise(message);
+
+			if (message.Response != null && message.Response.Length > 0 && !string.IsNullOrEmpty(message.Response[0]))
+			{
+				var filePath = message.Response[0];
+				_exportOrImportFolder = Path.GetDirectoryName(filePath);
+				provider.ImportAsync(filePath)
+					.ContinueWith(_ => provider.SaveAsync())
+					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
+					.Wait();
+			}
+		}
+
+		[UsedImplicitly]
+		public void ResetSettings()
+		{
+			var message = new ConfirmationMessage("", "", "Window.ResetSettingsDialog.Confirm")
+			{
+				Text = Resources.Settings_ManagingSettings_ResetConfirmationMessage,
+				Caption = Resources.Settings_ManagingSettings_ResetConfirmationDialog,
+				Image = MessageBoxImage.Warning,
+				Button = MessageBoxButton.OKCancel,
+			};
+
+			this.Messenger.Raise(message);
+
+			if (message.Response ?? false)
+			{
+				var provider = LocalSettingsProvider.Instance;
+				provider.Clear();
+				provider.SaveAsync()
+					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
+					.Wait();
+			}
+		}
+
+		[UsedImplicitly]
 		public void CreateDesktop()
 		{
 			VirtualDesktop.Create();
@@ -519,6 +591,15 @@ namespace SylphyHorn.UI.Bindings
 			this.CurrentDesktop = this.Desktops[index];
 
 			if (this.CurrentDesktop.HasWallpaper) this.PreviewBackgroundPath = this.CurrentDesktop.WallpaperPath;
+		}
+
+		private void NotifyOfAllPropertiesChanged()
+		{
+			var properties = this.GetType().GetProperties();
+			foreach (var prop in properties)
+			{
+				this.RaisePropertyChanged(prop.Name);
+			}
 		}
 
 		private void UpdateNotificationColor(BlurWindowThemeMode mode)

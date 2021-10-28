@@ -246,6 +246,39 @@
   <data name="Settings_LogViewer_Description" xml:space="preserve">
     <value>アプリ実行中に発生したイベントが表示されます。</value>
   </data>
+  <data name="Settings_ManagingSettings" xml:space="preserve">
+    <value>設定の管理</value>
+  </data>
+  <data name="Settings_ManagingSettings_Export" xml:space="preserve">
+    <value>エクスポート...</value>
+  </data>
+  <data name="Settings_ManagingSettings_ExportDetail" xml:space="preserve">
+    <value>設定をXMLファイルへエクスポートします。</value>
+  </data>
+  <data name="Settings_ManagingSettings_ExportDialog" xml:space="preserve">
+    <value>名前を付けて設定を保存</value>
+  </data>
+  <data name="Settings_ManagingSettings_Import" xml:space="preserve">
+    <value>インポート...</value>
+  </data>
+  <data name="Settings_ManagingSettings_ImportDetail" xml:space="preserve">
+    <value>設定をXMLファイルからインポートします。</value>
+  </data>
+  <data name="Settings_ManagingSettings_ImportDialog" xml:space="preserve">
+    <value>インポートする設定ファイルを選択</value>
+  </data>
+  <data name="Settings_ManagingSettings_Reset" xml:space="preserve">
+    <value>デフォルトにリセット</value>
+  </data>
+  <data name="Settings_ManagingSettings_ResetConfirmationDialog" xml:space="preserve">
+    <value>リセットの確認</value>
+  </data>
+  <data name="Settings_ManagingSettings_ResetConfirmationMessage" xml:space="preserve">
+    <value>すべての設定が削除されます。リセットしてもよろしいですか?</value>
+  </data>
+  <data name="Settings_ManagingSettings_ResetDetail" xml:space="preserve">
+    <value>設定をデフォルトにリセットします。リセットするとすべての設定が完全に削除されます。</value>
+  </data>
   <data name="Settings_MouseShortcut" xml:space="preserve">
     <value>マウス操作</value>
   </data>

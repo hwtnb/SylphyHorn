@@ -59,6 +59,21 @@
 										 MessageKey="Window.OpenBackgroundImagesDialog.Open">
 			<livet:OpenFileDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
 		</livet:InteractionMessageTrigger>
+
+		<livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.OpenImportPathDialog.Open">
+			<livet:OpenFileDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+		</livet:InteractionMessageTrigger>
+
+		<livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.OpenExportPathDialog.Open">
+			<livet:SaveFileDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+		</livet:InteractionMessageTrigger>
+
+		<livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.ResetSettingsDialog.Confirm">
+			<livet:ConfirmationDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+		</livet:InteractionMessageTrigger>
 	</i:Interaction.Triggers>
 
 	<DockPanel>
@@ -215,6 +230,42 @@
 							<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Language_RequireRestartMessage}"
 									   Visibility="{Binding RestartRequired, Converter={StaticResource BooleanToVisibilityConverter}}"
 									   Margin="3,2,0,0" />
+						</StackPanel>
+						<Border Height="8" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ManagingSettings}"
+								   Style="{DynamicResource HeaderStyleKey}" />
+						<StackPanel Margin="8,0,0,0">
+							<Grid Margin="0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="4" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="4" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<metro2:CallMethodButton Grid.Column="0"
+														 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ManagingSettings_Export}"
+														 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ManagingSettings_ExportDetail}"
+														 MethodTarget="{Binding}"
+														 MethodName="OpenExportPathDialog"
+														 HorizontalAlignment="Left"
+														 Margin="2" />
+								<metro2:CallMethodButton Grid.Column="2"
+														 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ManagingSettings_Import}"
+														 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ManagingSettings_ImportDetail}"
+														 MethodTarget="{Binding}"
+														 MethodName="OpenImportPathDialog"
+														 HorizontalAlignment="Left"
+														 Margin="2" />
+								<metro2:CallMethodButton Grid.Column="4"
+														 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ManagingSettings_Reset}"
+														 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ManagingSettings_ResetDetail}"
+														 MethodTarget="{Binding}"
+														 MethodName="ResetSettings"
+														 HorizontalAlignment="Left"
+														 Margin="2" />
+							</Grid>
 						</StackPanel>
 					</StackPanel>
 				</ScrollViewer>

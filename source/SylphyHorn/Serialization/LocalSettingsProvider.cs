@@ -11,6 +11,8 @@ namespace SylphyHorn.Serialization
 {
 	public sealed class LocalSettingsProvider : DictionaryProvider
 	{
+		public static readonly string SupportedFormats = "XML (*.xml)|*.xml";
+
 		public static TimeSpan FileSystemHandlerThrottleDueTime { get; set; } = TimeSpan.FromMilliseconds(1500);
 
 		public static LocalSettingsProvider Instance { get; } = new LocalSettingsProvider();
@@ -53,6 +55,27 @@ namespace SylphyHorn.Serialization
 				return Task.FromResult<IDictionary<string, object>>(null);
 			}
 
+			return this.SaveAsyncCore(dic, this._targetFile);
+		}
+
+		protected override Task SaveAsyncCore(IDictionary<string, object> dic, string path)
+		{
+			var file = new FileInfo(path);
+			if (file.Directory == null || file.DirectoryName == null)
+			{
+				return Task.FromResult<IDictionary<string, object>>(null);
+			}
+
+			if (!file.Directory.Exists)
+			{
+				file.Directory.Create();
+			}
+
+			return this.SaveAsyncCore(dic, file);
+		}
+
+		private Task SaveAsyncCore(IDictionary<string, object> dic, FileInfo targetFile)
+		{
 			return Task.Run(() =>
 			{
 				var serializer = new DataContractSerializer(dic.GetType(), this.KnownTypes);
@@ -61,7 +84,7 @@ namespace SylphyHorn.Serialization
 					Indent = true, // more readable!!!
 				};
 
-				using (var stream = this._targetFile.Open(FileMode.Create))
+				using (var stream = targetFile.Open(FileMode.Create))
 				using (var writer = XmlWriter.Create(stream, settings))
 				{
 					serializer.WriteObject(writer, dic);
@@ -71,18 +94,39 @@ namespace SylphyHorn.Serialization
 
 		protected override Task<IDictionary<string, object>> LoadAsyncCore()
 		{
-			if (!this.Available || !this._targetFile.Exists)
+			if (!this.Available)
+			{
+				return Task.FromResult<IDictionary<string, object>>(null);
+			}
+
+			return this.LoadAsyncCore(this._targetFile);
+		}
+
+		protected override Task<IDictionary<string, object>> LoadAsyncCore(string path)
+		{
+			var file = new FileInfo(path);
+			if (file.Directory == null || file.DirectoryName == null)
+			{
+				return Task.FromResult<IDictionary<string, object>>(null);
+			}
+
+			return this.LoadAsyncCore(file);
+		}
+
+		private Task<IDictionary<string, object>> LoadAsyncCore(FileInfo targetFile)
+		{
+			if (!targetFile.Exists)
 			{
 				return Task.FromResult<IDictionary<string, object>>(null);
 			}
 
 			return Task.Run(() =>
 			{
-				if (!this._targetFile.Exists) return null;
+				if (!targetFile.Exists) return null;
 
 				var serializer = new DataContractSerializer(typeof(IDictionary<string, object>), this.KnownTypes);
 
-				using (var stream = this._targetFile.OpenRead())
+				using (var stream = targetFile.OpenRead())
 				{
 					return serializer.ReadObject(stream) as IDictionary<string, object>;
 				}

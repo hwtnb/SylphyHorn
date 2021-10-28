@@ -246,6 +246,39 @@
   <data name="Settings_LogViewer_Description" xml:space="preserve">
     <value>Events that occurred during execution are displayed here.</value>
   </data>
+  <data name="Settings_ManagingSettings" xml:space="preserve">
+    <value>Managing settings</value>
+  </data>
+  <data name="Settings_ManagingSettings_Export" xml:space="preserve">
+    <value>Export...</value>
+  </data>
+  <data name="Settings_ManagingSettings_ExportDetail" xml:space="preserve">
+    <value>Export settings to an XML file to make a backup.</value>
+  </data>
+  <data name="Settings_ManagingSettings_ExportDialog" xml:space="preserve">
+    <value>Save Settings As...</value>
+  </data>
+  <data name="Settings_ManagingSettings_Import" xml:space="preserve">
+    <value>Import...</value>
+  </data>
+  <data name="Settings_ManagingSettings_ImportDetail" xml:space="preserve">
+    <value>Import settings from an XML file you stored.</value>
+  </data>
+  <data name="Settings_ManagingSettings_ImportDialog" xml:space="preserve">
+    <value>Select Settings to Import</value>
+  </data>
+  <data name="Settings_ManagingSettings_Reset" xml:space="preserve">
+    <value>Reset to default</value>
+  </data>
+  <data name="Settings_ManagingSettings_ResetConfirmationDialog" xml:space="preserve">
+    <value>Confirm Reset</value>
+  </data>
+  <data name="Settings_ManagingSettings_ResetConfirmationMessage" xml:space="preserve">
+    <value>This will delete all settings. Are you sure to reset?</value>
+  </data>
+  <data name="Settings_ManagingSettings_ResetDetail" xml:space="preserve">
+    <value>Reset settings to default. This will delete all settings.</value>
+  </data>
   <data name="Settings_MouseShortcut" xml:space="preserve">
     <value>Mouse shortcut</value>
   </data>

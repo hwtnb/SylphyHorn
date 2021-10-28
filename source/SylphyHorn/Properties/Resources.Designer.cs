@@ -448,6 +448,105 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Managing settings に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Export... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_Export {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Export settings to an XML file to make a backup. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_ExportDetail {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_ExportDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save Settings As... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_ExportDialog {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_ExportDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_Import {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import settings from an XML file you stored. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_ImportDetail {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_ImportDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select Settings to Import に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_ImportDialog {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_ImportDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reset to default に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_Reset {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Confirm Reset に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_ResetConfirmationDialog {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_ResetConfirmationDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   This will delete all settings. Are you sure to reset? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_ResetConfirmationMessage {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_ResetConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reset settings to default. This will delete all settings. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_ResetDetail {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_ResetDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Mouse shortcut に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_MouseShortcut {
