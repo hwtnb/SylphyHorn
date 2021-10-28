@@ -68,6 +68,8 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		public string WallpaperPathOrDefault => this._wallpaper.FilePathOrDefault;
+
 		#region WallpaperPosition notification property
 
 		public WallpaperPosition WallpaperPosition
@@ -102,6 +104,7 @@ namespace SylphyHorn.UI.Bindings
 		#endregion
 
 		public bool HasWallpaper => !string.IsNullOrEmpty(this.WallpaperPath);
+		public bool HasNoWallpaper => string.IsNullOrEmpty(this.WallpaperPath);
 
 		private VirtualDesktopViewModel(int index, VirtualDesktop desktop)
 		{
@@ -116,7 +119,18 @@ namespace SylphyHorn.UI.Bindings
 			this._wallpaper = new WallpaperViewModel(desktop, wallpaperPath, wallpaperPosition);
 
 			var listener = new PropertyChangedEventListener(this.Wallpaper);
-			listener.Add(nameof(this.Wallpaper.FilePath), (sender, args) => this.RaisePropertyChanged(nameof(this.WallpaperPath)));
+			listener.Add(nameof(this.Wallpaper.FilePath), (sender, args) =>
+				{
+					this.RaisePropertyChanged(nameof(this.WallpaperPath));
+					this.RaisePropertyChanged(nameof(this.HasWallpaper));
+					this.RaisePropertyChanged(nameof(this.HasNoWallpaper));
+				});
+			listener.Add(nameof(this.Wallpaper.FilePathOrDefault), (sender, args) =>
+				{
+					this.RaisePropertyChanged(nameof(this.WallpaperPathOrDefault));
+					this.RaisePropertyChanged(nameof(this.HasWallpaper));
+					this.RaisePropertyChanged(nameof(this.HasNoWallpaper));
+				});
 			listener.Add(nameof(this.Wallpaper.Position), (sender, args) => this.RaisePropertyChanged(nameof(this.WallpaperPosition)));
 			this.CompositeDisposable.Add(listener);
 
@@ -245,6 +259,8 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		public string FilePathOrDefault => this._path.GetOrDefault();
+
 		#region Position notification property
 
 		public WallpaperPosition Position
@@ -286,7 +302,7 @@ namespace SylphyHorn.UI.Bindings
 				var generalSettings = Settings.General;
 				this._pathFunc = p =>
 				{
-					if (p == null || p.Length == 0) return;
+					if (p == null) p = "";
 					if (this._path.Value != p)
 					{
 						this._path.Value = p;
@@ -296,16 +312,18 @@ namespace SylphyHorn.UI.Bindings
 						}
 					}
 				};
-				path.InitializeIfEmpty();
-				path.Subscribe(_ => this.RaisePropertyChanged(nameof(this.FilePath))).AddTo(this);
+				path.Subscribe(_ =>
+					{
+						this.RaisePropertyChanged(nameof(this.FilePath));
+						this.RaisePropertyChanged(nameof(this.FilePathOrDefault));
+					}).AddTo(this);
 				return;
 			}
 
 			// for Windows 11 or later
 			if (string.IsNullOrEmpty(desktop.WallpaperPath))
 			{
-				path.InitializeIfEmpty();
-				desktop.WallpaperPath = path.Value;
+				desktop.WallpaperPath = path.GetOrDefault();
 			}
 			else if (path.Value != desktop.WallpaperPath)
 			{
@@ -314,14 +332,18 @@ namespace SylphyHorn.UI.Bindings
 
 			this._pathFunc = p =>
 			{
-				if (p == null || p.Length == 0) return;
+				if (string.IsNullOrEmpty(p)) return;
 				if (this._path.Value != p)
 				{
 					this._path.Value = p;
 					desktop.WallpaperPath = p;
 				}
 			};
-			path.Subscribe(_ => this.RaisePropertyChanged(nameof(this.FilePath))).AddTo(this);
+			path.Subscribe(_ =>
+				{
+					this.RaisePropertyChanged(nameof(this.FilePath));
+					this.RaisePropertyChanged(nameof(this.FilePathOrDefault));
+				}).AddTo(this);
 		}
 	}
 }

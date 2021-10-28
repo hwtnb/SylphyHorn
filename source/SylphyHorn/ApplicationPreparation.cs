@@ -165,8 +165,6 @@ namespace SylphyHorn
 			VirtualDesktop.Created += (sender, args) =>
 			{
 				this.ResizePropertyList();
-				var pathSetting = Settings.General.DesktopBackgroundImagePaths.Value[args.Index];
-				pathSetting.InitializeIfEmpty();
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();

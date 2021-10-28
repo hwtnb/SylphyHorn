@@ -483,11 +483,16 @@
 														<Rectangle Fill="{Binding Path=DataContext.PreviewBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
 																   Width="120"
 																   Height="78" />
-														<Image Source="{Binding WallpaperPath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
+														<Image Source="{Binding WallpaperPathOrDefault, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
 															   Stretch="UniformToFill"
 															   VerticalAlignment="Top"
 															   Width="120"
 															   Height="78" />
+														<Rectangle Fill="{Binding Path=DataContext.PreviewBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																   Visibility="{Binding HasNoWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}"
+																   Width="120"
+																   Height="78"
+																   Opacity="0.6" />
 														<Grid x:Name="PreviewRoot"
 															  Width="20"
 															  Height="20"
@@ -502,8 +507,7 @@
 																<Rectangle Fill="{Binding Path=DataContext.NotificationBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
 																		   VerticalAlignment="Top"
 																		   Width="120"
-																		   Height="78"
-																		   Visibility="{Binding HasWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}">
+																		   Height="78">
 																	<Rectangle.Effect>
 																		<BlurEffect Radius="20" />
 																	</Rectangle.Effect>
