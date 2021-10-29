@@ -20,6 +20,7 @@ namespace SylphyHorn.Services
 				{
 					FitWindowsDesktopsWithList();
 					UpdateWindowsDesktopsByList();
+					ResizeShortcutList();
 				}
 				else
 				{
@@ -60,10 +61,30 @@ namespace SylphyHorn.Services
 		{
 			var desktopCount = VirtualDesktopService.Count;
 
+			ResizeDesktopListCore(desktopCount);
+			ResizeShortcutListCore(desktopCount);
+		}
+
+		public static void ResizeShortcutList()
+		{
+			var desktopCount = VirtualDesktopService.Count;
+
+			ResizeShortcutListCore(desktopCount);
+		}
+
+		#endregion
+
+		#region private methods
+
+		private static void ResizeDesktopListCore(int desktopCount)
+		{
 			Settings.General.DesktopNames.Resize(desktopCount);
 			Settings.General.DesktopBackgroundImagePaths.Resize(desktopCount);
 			Settings.General.DesktopBackgroundPositions.Resize(desktopCount);
+		}
 
+		private static void ResizeShortcutListCore(int desktopCount)
+		{
 			Settings.ShortcutKey.SwitchToIndices.Resize(desktopCount);
 			Settings.ShortcutKey.MoveToIndices.Resize(desktopCount);
 			Settings.ShortcutKey.SwapDesktopIndices.Resize(desktopCount);
@@ -72,10 +93,6 @@ namespace SylphyHorn.Services
 			Settings.MouseShortcut.MoveToIndices.Resize(desktopCount);
 			Settings.MouseShortcut.SwapDesktopIndices.Resize(desktopCount);
 		}
-
-		#endregion
-
-		#region private methods
 
 		private static void UpdateWindowsDesktopsByList()
 		{

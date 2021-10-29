@@ -609,6 +609,7 @@ namespace SylphyHorn.UI.Bindings
 				provider.Clear();
 				provider.SaveAsync()
 					.ContinueWith(_ => SettingsService.Synchronize(overrideDesktops: false))
+					.ContinueWith(_ => this._Desktops = VirtualDesktopViewModel.CreateAll())
 					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
 					.Forget();
 			}
