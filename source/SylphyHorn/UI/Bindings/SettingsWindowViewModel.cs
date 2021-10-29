@@ -13,6 +13,7 @@ using MetroRadiance.Platform;
 using MetroRadiance.UI.Controls;
 using MetroTrilithon.Lifetime;
 using MetroTrilithon.Mvvm;
+using MetroTrilithon.Threading.Tasks;
 using SylphyHorn.Properties;
 using SylphyHorn.Serialization;
 using SylphyHorn.Services;
@@ -557,7 +558,7 @@ namespace SylphyHorn.UI.Bindings
 			{
 				var filePath = message.Response[0];
 				_exportOrImportFolder = Path.GetDirectoryName(filePath);
-				provider.ExportAsync(filePath).Wait();
+				provider.ExportAsync(filePath).Forget();
 			}
 		}
 
@@ -579,11 +580,13 @@ namespace SylphyHorn.UI.Bindings
 			{
 				var filePath = message.Response[0];
 				_exportOrImportFolder = Path.GetDirectoryName(filePath);
-				provider.ImportAsync(filePath)
-					.ContinueWith(_ => provider.SaveAsync())
-					.ContinueWith(_ => SettingsService.Synchronize())
-					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
-					.Wait();
+
+				provider.ImportAsync(filePath).Wait();
+
+				this.SynchronizeDesktopsWithSettingsIfRequired();
+				this.NotifyOfAllPropertiesChanged();
+
+				provider.SaveAsync().Forget();
 			}
 		}
 
@@ -605,9 +608,9 @@ namespace SylphyHorn.UI.Bindings
 				var provider = LocalSettingsProvider.Instance;
 				provider.Clear();
 				provider.SaveAsync()
-					.ContinueWith(_ => SettingsService.Synchronize())
+					.ContinueWith(_ => SettingsService.Synchronize(overrideDesktops: false))
 					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
-					.Wait();
+					.Forget();
 			}
 		}
 
@@ -615,6 +618,28 @@ namespace SylphyHorn.UI.Bindings
 		public void CreateDesktop()
 		{
 			VirtualDesktop.Create();
+		}
+
+		private void SynchronizeDesktopsWithSettingsIfRequired()
+		{
+			if (this.IsWindows10OrEarlier) return;
+
+			var generalSettings = Settings.General;
+			var hasSettings = generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0;
+
+			if (!hasSettings) return;
+
+			var message = new ConfirmationMessage("", "", "Window.OverrideDesktopsDialog.Confirm")
+			{
+				Text = Resources.Settings_ManagingSettings_OverrideDesktopsConfirmationMessage,
+				Caption = Resources.Settings_ManagingSettings_OverrideDesktopsConfirmationDialog,
+				Image = MessageBoxImage.Question,
+				Button = MessageBoxButton.OKCancel,
+			};
+
+			this.Messenger.Raise(message);
+
+			SettingsService.Synchronize(overrideDesktops: message.Response ?? false);
 		}
 
 		private void UpdatePreviewBackground()

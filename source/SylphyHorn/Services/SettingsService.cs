@@ -10,13 +10,13 @@ namespace SylphyHorn.Services
 	{
 		#region Synchronize
 
-		public static void Synchronize()
+		public static void Synchronize(bool overrideDesktops)
 		{
 			if (ProductInfo.IsWindows11OrLater)
 			{
 				var generalSettings = Settings.General;
-				var hasSettings = generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0;
-				if (hasSettings && generalSettings.OverrideDesktopsOnStartup)
+				overrideDesktops = overrideDesktops && (generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0);
+				if (overrideDesktops)
 				{
 					FitWindowsDesktopsWithList();
 					UpdateWindowsDesktopsByList();
@@ -33,6 +33,11 @@ namespace SylphyHorn.Services
 			}
 
 			WallpaperService.SetPosition(VirtualDesktop.Current);
+		}
+
+		public static void SynchronizeOnStartup()
+		{
+			Synchronize(Settings.General.OverrideDesktopsOnStartup);
 		}
 
 		public static void SynchronizeWithWindows()

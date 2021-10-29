@@ -520,6 +520,24 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Confirm Override Desktops に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_OverrideDesktopsConfirmationDialog {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_OverrideDesktopsConfirmationDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Do you override virtual desktops with settings of SylphyHorn? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ManagingSettings_OverrideDesktopsConfirmationMessage {
+            get {
+                return ResourceManager.GetString("Settings_ManagingSettings_OverrideDesktopsConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Reset to default に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_ManagingSettings_Reset {

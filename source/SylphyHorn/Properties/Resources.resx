@@ -270,6 +270,12 @@
   <data name="Settings_ManagingSettings_ImportDialog" xml:space="preserve">
     <value>Select Settings to Import</value>
   </data>
+  <data name="Settings_ManagingSettings_OverrideDesktopsConfirmationDialog" xml:space="preserve">
+    <value>Confirm Override Desktops</value>
+  </data>
+  <data name="Settings_ManagingSettings_OverrideDesktopsConfirmationMessage" xml:space="preserve">
+    <value>Do you override virtual desktops with settings of SylphyHorn?</value>
+  </data>
   <data name="Settings_ManagingSettings_Reset" xml:space="preserve">
     <value>Reset to default</value>
   </data>

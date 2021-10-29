@@ -118,7 +118,7 @@ namespace SylphyHorn
 				switch (t.Status)
 				{
 					case TaskStatus.RanToCompletion:
-						SettingsService.Synchronize();
+						SettingsService.SynchronizeOnStartup();
 						this.RegisterActions();
 						this.RegisterVirtualDesktopEvents();
 						this.VirtualDesktopInitialized?.Invoke();

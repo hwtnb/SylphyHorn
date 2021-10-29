@@ -74,6 +74,11 @@
 										 MessageKey="Window.ResetSettingsDialog.Confirm">
 			<livet:ConfirmationDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
 		</livet:InteractionMessageTrigger>
+
+		<livet:InteractionMessageTrigger Messenger="{Binding Messenger}"
+										 MessageKey="Window.OverrideDesktopsDialog.Confirm">
+			<livet:ConfirmationDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+		</livet:InteractionMessageTrigger>
 	</i:Interaction.Triggers>
 
 	<DockPanel>

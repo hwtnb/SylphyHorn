@@ -270,6 +270,12 @@
   <data name="Settings_ManagingSettings_ImportDialog" xml:space="preserve">
     <value>インポートする設定ファイルを選択</value>
   </data>
+  <data name="Settings_ManagingSettings_OverrideDesktopsConfirmationDialog" xml:space="preserve">
+    <value>仮想デスクトップの上書きを確認</value>
+  </data>
+  <data name="Settings_ManagingSettings_OverrideDesktopsConfirmationMessage" xml:space="preserve">
+    <value>保存されている設定で現在の仮想デスクトップを上書きしますか?</value>
+  </data>
   <data name="Settings_ManagingSettings_Reset" xml:space="preserve">
     <value>デフォルトにリセット</value>
   </data>
