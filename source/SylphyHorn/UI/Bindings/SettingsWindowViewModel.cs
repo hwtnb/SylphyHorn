@@ -623,12 +623,11 @@ namespace SylphyHorn.UI.Bindings
 
 		private void SynchronizeDesktopsWithSettingsIfRequired()
 		{
-			if (this.IsWindows10OrEarlier) return;
-
-			var generalSettings = Settings.General;
-			var hasSettings = generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0;
-
-			if (!hasSettings) return;
+			if (this.IsWindows10OrEarlier || !HasDesktopSettings())
+			{
+				SettingsService.Synchronize(overrideDesktops: false);
+				return;
+			}
 
 			var message = new ConfirmationMessage("", "", "Window.OverrideDesktopsDialog.Confirm")
 			{
@@ -641,6 +640,12 @@ namespace SylphyHorn.UI.Bindings
 			this.Messenger.Raise(message);
 
 			SettingsService.Synchronize(overrideDesktops: message.Response ?? false);
+
+			bool HasDesktopSettings()
+			{
+				var generalSettings = Settings.General;
+				return generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0;
+			};
 		}
 
 		private void UpdatePreviewBackground()
