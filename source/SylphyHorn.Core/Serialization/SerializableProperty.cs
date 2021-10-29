@@ -110,7 +110,7 @@ namespace SylphyHorn.Serialization
 					this.Provider.Load();
 				}
 
-				var isValueChanged = this._value?.Count != value?.Count;
+				var isValueChanged = this._value?.Count != value?.Count && (!this._value?.SequenceEqual(value) ?? value != null);
 				this._value = value;
 
 				if (isValueChanged) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Value)));
@@ -127,6 +127,8 @@ namespace SylphyHorn.Serialization
 			this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
 			this.LoadProperties();
+
+			this.Provider.Reloaded += this.ProviderOnReloaded;
 		}
 
 		public SerializablePropertyListBase(string key, int size, ISerializationProvider provider)
@@ -135,6 +137,8 @@ namespace SylphyHorn.Serialization
 			this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
 			this.AddNewProperties(size);
+
+			this.Provider.Reloaded += this.ProviderOnReloaded;
 		}
 
 		public SerializablePropertyListBase(string key, ISerializationProvider provider, params T[] defaultValues)
@@ -145,6 +149,8 @@ namespace SylphyHorn.Serialization
 			this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
 			this.FillNewPropertiesWithDefaultValues(defaultValues);
+
+			this.Provider.Reloaded += this.ProviderOnReloaded;
 		}
 
 		public void Resize(int size)
@@ -219,6 +225,11 @@ namespace SylphyHorn.Serialization
 		protected string CreateItemName(int index)
 		{
 			return $"{this.Key}[{index}]";
+		}
+
+		protected void ProviderOnReloaded(object sender, EventArgs args)
+		{
+			this.LoadProperties();
 		}
 	}
 

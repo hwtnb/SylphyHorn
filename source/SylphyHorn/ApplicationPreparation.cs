@@ -41,7 +41,7 @@ namespace SylphyHorn
 			};
 			this._hookService.Suspended += () =>
 			{
-				this.ResizePropertyList();
+				SettingsService.ResizeList();
 			};
 		}
 
@@ -118,7 +118,7 @@ namespace SylphyHorn
 				switch (t.Status)
 				{
 					case TaskStatus.RanToCompletion:
-						this.OverrideVirtualDesktopsIfNeeded();
+						SettingsService.Synchronize();
 						this.RegisterActions();
 						this.RegisterVirtualDesktopEvents();
 						this.VirtualDesktopInitialized?.Invoke();
@@ -135,36 +135,12 @@ namespace SylphyHorn
 			}
 		}
 
-		private void OverrideVirtualDesktopsIfNeeded()
-		{
-			if (ProductInfo.IsWindows11OrLater)
-			{
-				var generalSettings = Settings.General;
-				var hasSettings = generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0;
-				if (hasSettings && generalSettings.OverrideDesktopsOnStartup)
-				{
-					this.FitDesktopsWithPropertyList();
-					this.UpdateDesktopSettingsByPropertyList();
-				}
-				else
-				{
-					this.ResizePropertyList();
-					this.ApplyDesktopSettingsToPropertyList();
-				}
-			}
-			else
-			{
-				this.ResizePropertyList();
-			}
-			WallpaperService.SetPosition(VirtualDesktop.Current);
-		}
-
 		private void RegisterVirtualDesktopEvents()
 		{
 			var idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
 			VirtualDesktop.Created += (sender, args) =>
 			{
-				this.ResizePropertyList();
+				SettingsService.ResizeList();
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
@@ -178,7 +154,7 @@ namespace SylphyHorn
 				{
 					positionSettings.Value[i].Value = positionSettings.Value[i + 1].Value;
 				}
-				this.ResizePropertyList();
+				SettingsService.ResizeList();
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
@@ -188,7 +164,7 @@ namespace SylphyHorn
 
 			VirtualDesktop.Moved += (sender, args) =>
 			{
-				this.ApplyDesktopSettingsToPropertyList();
+				SettingsService.SynchronizeWithWindows();
 				Settings.General.DesktopBackgroundPositions.Move(args.OldIndex, args.NewIndex);
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
@@ -200,7 +176,7 @@ namespace SylphyHorn
 				var index = desktop.Index;
 				var names = Settings.General.DesktopNames.Value;
 
-				if (index >= names.Count) this.ResizePropertyList();
+				if (index >= names.Count) SettingsService.ResizeList();
 
 				var targetName = names[index];
 				targetName.Value = args.NewName;
@@ -213,7 +189,7 @@ namespace SylphyHorn
 				var index = desktop.Index;
 				var paths = Settings.General.DesktopBackgroundImagePaths.Value;
 
-				if (index >= paths.Count) this.ResizePropertyList();
+				if (index >= paths.Count) SettingsService.ResizeList();
 
 				var targetPath = paths[index];
 				targetPath.Value = args.NewPath;
@@ -376,76 +352,6 @@ namespace SylphyHorn
 				register(() => shortcut, hWnd => hWnd.MoveToIndex(i))
 					.AddTo(this._disposable);
 			};
-		}
-
-		private void ResizePropertyList()
-		{
-			var desktopCount = VirtualDesktopService.Count;
-			Settings.General.DesktopNames.Resize(desktopCount);
-			Settings.General.DesktopBackgroundImagePaths.Resize(desktopCount);
-			Settings.General.DesktopBackgroundPositions.Resize(desktopCount);
-			Settings.ShortcutKey.SwitchToIndices.Resize(desktopCount);
-			Settings.ShortcutKey.MoveToIndices.Resize(desktopCount);
-			Settings.ShortcutKey.SwapDesktopIndices.Resize(desktopCount);
-			Settings.MouseShortcut.SwitchToIndices.Resize(desktopCount);
-			Settings.MouseShortcut.MoveToIndices.Resize(desktopCount);
-			Settings.MouseShortcut.SwapDesktopIndices.Resize(desktopCount);
-		}
-
-		private void ApplyDesktopSettingsToPropertyList()
-		{
-			// Only for Window 11
-			var desktops = VirtualDesktop.GetDesktops();
-			Array.ForEach(Settings.General.DesktopNames.Value.ToArray(), prop => prop.Value = desktops[prop.Index].Name);
-			Array.ForEach(Settings.General.DesktopBackgroundImagePaths.Value.ToArray(), prop => prop.Value = desktops[prop.Index].WallpaperPath);
-		}
-
-		private void UpdateDesktopSettingsByPropertyList()
-		{
-			// Only for Window 11
-			var desktops = VirtualDesktop.GetDesktops();
-			var desktopNames = Settings.General.DesktopNames.Value.Select(prop => prop.Value).ToArray();
-			var wallpaperPaths = Settings.General.DesktopBackgroundImagePaths.Value.Select(prop => prop.Value).ToArray();
-			for (int i = 0; i < desktopNames.Length; ++i)
-			{
-				desktops[i].Name = desktopNames[i];
-			}
-			for (int i = 0; i < wallpaperPaths.Length; ++i)
-			{
-				desktops[i].WallpaperPath = wallpaperPaths[i];
-			}
-		}
-
-		private void FitDesktopsWithPropertyList()
-		{
-			var generalSettings = Settings.General;
-			var nameCount = generalSettings.DesktopNames.Count;
-			var wallpaperCount = generalSettings.DesktopBackgroundImagePaths.Count;
-			var settingsCount = nameCount >= wallpaperCount ? nameCount : wallpaperCount;
-			if (nameCount < settingsCount)
-			{
-				generalSettings.DesktopNames.Resize(settingsCount);
-			}
-			else if (wallpaperCount < settingsCount)
-			{
-				generalSettings.DesktopBackgroundImagePaths.Resize(settingsCount);
-			}
-			var desktops = VirtualDesktop.GetDesktops();
-			var currentCount = desktops.Length;
-			if (settingsCount > currentCount)
-			{
-				for (var i = currentCount; i < settingsCount; ++i)
-				{
-					VirtualDesktop.Create();
-				}
-			}
-			else if (settingsCount < currentCount)
-			{
-				for (var i = settingsCount; i < currentCount; ++i)
-				{
-					desktops[i].Remove();
-				}
-			}
 		}
 	}
 }

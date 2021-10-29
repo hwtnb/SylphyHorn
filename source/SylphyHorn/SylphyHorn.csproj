@@ -241,6 +241,7 @@
     <Compile Include="Serialization\Settings.cs" />
     <Compile Include="Services\KeyHelper.cs" />
     <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\ShortcutKeyPressedEventArgs.cs" />
     <Compile Include="Services\VirtualDesktopService.cs" />
     <Compile Include="Services\WallpaperService.cs" />

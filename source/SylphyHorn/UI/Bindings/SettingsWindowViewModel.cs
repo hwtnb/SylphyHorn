@@ -581,6 +581,7 @@ namespace SylphyHorn.UI.Bindings
 				_exportOrImportFolder = Path.GetDirectoryName(filePath);
 				provider.ImportAsync(filePath)
 					.ContinueWith(_ => provider.SaveAsync())
+					.ContinueWith(_ => SettingsService.Synchronize())
 					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
 					.Wait();
 			}
@@ -604,6 +605,7 @@ namespace SylphyHorn.UI.Bindings
 				var provider = LocalSettingsProvider.Instance;
 				provider.Clear();
 				provider.SaveAsync()
+					.ContinueWith(_ => SettingsService.Synchronize())
 					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
 					.Wait();
 			}
