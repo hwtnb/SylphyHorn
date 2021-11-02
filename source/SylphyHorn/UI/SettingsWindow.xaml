@@ -17,7 +17,7 @@
 				   d:DataContext="{d:DesignInstance bindings:SettingsWindowViewModel}"
 				   Icon="/SylphyHorn;component/.assets/app.white.ico"
 				   Title="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Title}"
-				   Width="720"
+				   Width="760"
 				   Height="600"
 				   Background="{DynamicResource ThemeBrushKey}"
 				   Foreground="{DynamicResource ActiveForegroundBrushKey}"
@@ -289,7 +289,7 @@
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_Settings}"
 								   Style="{DynamicResource HeaderStyleKey}"
 								   Margin="0,0,0,8" />
-						<StackPanel Margin="8,0,0,0">
+						<StackPanel Margin="8,0,0,0" Grid.IsSharedSizeScope="True">
 							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=OverrideDesktopsOnStartup.Value, Mode=TwoWay}"
 									  IsEnabled="{Binding IsWindows11OrLater}"
 									  Visibility="{Binding IsWindows11OrLater, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -304,20 +304,19 @@
 							<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1}"
 									   TextWrapping="Wrap"
 									   Margin="20,0,0,0" />
-							<Grid Margin="0,8,8,0">
+							<Grid Margin="0,8,0,0">
 								<Grid.RowDefinitions>
-									<RowDefinition Height="*" />
 									<RowDefinition Height="*" />
 									<RowDefinition Height="*" />
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*" MaxWidth="800" />
+									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
 
 								<Grid Grid.Row="0"
 									  Margin="0">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="*" />
+										<ColumnDefinition SharedSizeGroup="DesktopColumn" />
 									</Grid.ColumnDefinitions>
 									<ItemsControl ItemsSource="{Binding Desktops, Mode=TwoWay}"
 												  Grid.Row="0">
@@ -330,10 +329,9 @@
 											<DataTemplate>
 												<Grid>
 													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="Auto"
-																		  SharedSizeGroup="KeyHeader" />
+														<ColumnDefinition Width="Auto" />
 														<ColumnDefinition Width="2" />
-														<ColumnDefinition Width="*" MinWidth="245" MaxWidth="560" />
+														<ColumnDefinition Width="316" />
 														<ColumnDefinition Width="Auto" />
 														<ColumnDefinition Width="124" />
 													</Grid.ColumnDefinitions>
@@ -361,6 +359,7 @@
 																		 Grid.Column="2"
 																		 Text="{Binding Path='Name', Mode=TwoWay}"
 																		 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames}"
+																		 MaxWidth="312"
 																		 Margin="2" />
 													<metro2:CallMethodButton Grid.Row="1" Grid.Column="3"
 																			 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CloseDesktop}"
@@ -379,6 +378,7 @@
 																		 Text="{Binding WallpaperPath, Mode=TwoWay}"
 																		 Prompt="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_SourceImageFile}"
 																		 IsEnabled="{Binding IsWallpaperEnabled}"
+																		 MaxWidth="312"
 																		 Margin="2" />
 													<metro2:CallMethodButton Grid.Row="2" Grid.Column="3"
 																			 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Common_Reference}"
@@ -541,12 +541,24 @@
 									</ItemsControl>
 								</Grid>
 
-								<Border Grid.Row="1" Height="20" />
-								<metro2:CallMethodButton Grid.Row="2"
-														 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CreateDesktop}"
-														 MethodTarget="{Binding}"
-														 MethodName="CreateDesktop"
-														 Margin="0" />
+
+								<Grid Grid.Row="1"
+									  Margin="0">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="*" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition SharedSizeGroup="DesktopColumn" />
+									</Grid.ColumnDefinitions>
+									<Border Grid.Row="0" Height="20" />
+									<metro2:CallMethodButton Grid.Row="1"
+															 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_CreateDesktop}"
+															 MethodTarget="{Binding}"
+															 MethodName="CreateDesktop"
+															 Margin="0" />
+								</Grid>
+
 							</Grid>
 						</StackPanel>
 					</StackPanel>
@@ -641,6 +653,7 @@
 								<metro:PromptTextBox Grid.Column="2"
 													 Text="{Binding NotificationFontFamily, Mode=TwoWay}"
 													 MinWidth="200"
+													 MaxWidth="310"
 													 Margin="1,0,0,0"
 													 HorizontalAlignment="Left">
 									<metro:PromptTextBox.Prompt>
