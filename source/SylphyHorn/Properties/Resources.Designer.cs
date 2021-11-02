@@ -574,7 +574,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Mouse shortcut に類似しているローカライズされた文字列を検索します。
+        ///   Mouse に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_MouseShortcut {
             get {

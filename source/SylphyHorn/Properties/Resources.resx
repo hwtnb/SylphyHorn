@@ -289,7 +289,7 @@
     <value>Reset settings to default. This will delete all settings.</value>
   </data>
   <data name="Settings_MouseShortcut" xml:space="preserve">
-    <value>Mouse shortcut</value>
+    <value>Mouse</value>
   </data>
   <data name="Settings_MoveWindowToAdjacentDesktop" xml:space="preserve">
     <value>Move active window to adjacent desktop</value>
