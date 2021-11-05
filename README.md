@@ -1,9 +1,9 @@
-# SylphyHorn
+# SylphyHornPlus
 
-SylphyHornPlus is Virtual Desktop Tools for Windows 11 and 10.
+SylphyHornPlus is Virtual Desktop Tools for Windows 11 and 10.  
 Provides global hotkeys, switching notification, change background and several functions to virtual desktop.
 
-This app is a fork of SylphyHorn with better support for Windows 11.
+This app is a fork of SylphyHorn with better support for Windows 11.  
 New features are below:
 
 * Add support for Windows 11.
@@ -46,7 +46,7 @@ Please download beta version from [Releases](https://github.com/hwtnb/SylphyHorn
 ![](https://user-images.githubusercontent.com/56633452/140468237-33203a2f-fe08-4e20-8ffa-9c724e6e0a67.png)
 ![](https://user-images.githubusercontent.com/56633452/140468242-cac44131-b49e-4ed6-bb98-2be88c56b27e.png)
 
-* Control and manage Windows virtual desktops
+* Control and manage Windows virtual desktops  
 Windows 11
 ![](https://user-images.githubusercontent.com/56633452/140468239-7bcc81a9-58b1-434b-8e80-12fa9332651a.png)
 ![](https://user-images.githubusercontent.com/56633452/140468244-4a714ccd-dcb2-491f-b76c-2cbf186dbda7.png)
