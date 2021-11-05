@@ -63,5 +63,9 @@ namespace SylphyHorn.Properties
 		internal static int OSBuild => Environment.OSVersion.Version.Build;
 
 		internal static bool IsWindows11OrLater => OSBuild >= 22000;
+
+		internal static bool IsNameSupportBuild => OSBuild >= 18975;
+
+		internal static bool IsWallpaperSupportBuild => OSBuild >= 21337;
 	}
 }

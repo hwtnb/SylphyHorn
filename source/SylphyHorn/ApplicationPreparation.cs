@@ -160,6 +160,23 @@ namespace SylphyHorn
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
 			};
 
+			if (ProductInfo.IsNameSupportBuild)
+			{
+				VirtualDesktop.Renamed += (sender, args) =>
+				{
+					var desktop = args.Source;
+					var index = desktop.Index;
+					var names = Settings.General.DesktopNames.Value;
+
+					if (index >= names.Count) SettingsService.ResizeList();
+
+					var targetName = names[index];
+					targetName.Value = args.NewName;
+
+					LocalSettingsProvider.Instance.SaveAsync().Wait();
+				};
+			}
+
 			if (!ProductInfo.IsWindows11OrLater) return;
 
 			VirtualDesktop.Moved += (sender, args) =>
@@ -169,19 +186,6 @@ namespace SylphyHorn
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
 				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
-			};
-			VirtualDesktop.Renamed += (sender, args) =>
-			{
-				var desktop = args.Source;
-				var index = desktop.Index;
-				var names = Settings.General.DesktopNames.Value;
-
-				if (index >= names.Count) SettingsService.ResizeList();
-
-				var targetName = names[index];
-				targetName.Value = args.NewName;
-
-				LocalSettingsProvider.Instance.SaveAsync().Wait();
 			};
 			VirtualDesktop.WallpaperChanged += (sender, args) =>
 			{

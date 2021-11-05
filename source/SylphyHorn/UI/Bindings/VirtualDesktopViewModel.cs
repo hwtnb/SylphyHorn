@@ -137,10 +137,28 @@ namespace SylphyHorn.UI.Bindings
 			// for Windows 10
 			if (!ProductInfo.IsWindows11OrLater)
 			{
-				this._nameFunc = n =>
+				if (ProductInfo.IsNameSupportBuild)
 				{
-					if (this._name.Value != n) this._name.Value = n;
-				};
+					if (name.Value != desktop.Name)
+					{
+						name.Value = desktop.Name;
+					}
+					this._nameFunc = n =>
+					{
+						if (this._name.Value != n)
+						{
+							this._name.Value = n;
+							this._desktop.Name = n;
+						}
+					};
+				}
+				else
+				{
+					this._nameFunc = n =>
+					{
+						if (this._name.Value != n) this._name.Value = n;
+					};
+				}
 				name.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Name))).AddTo(this);
 				settings.ChangeBackgroundEachDesktop.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsWallpaperEnabled))).AddTo(this);
 				return;
