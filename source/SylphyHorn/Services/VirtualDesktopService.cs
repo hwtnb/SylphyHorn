@@ -3,7 +3,8 @@ using System.Linq;
 using System.Media;
 using SylphyHorn.Serialization;
 using WindowsDesktop;
-using WindowsInput.Native;
+using GregsStack.InputSimulatorStandard;
+using GregsStack.InputSimulatorStandard.Native;
 
 namespace SylphyHorn.Services
 {
@@ -317,7 +318,7 @@ namespace SylphyHorn.Services
 
 		#region Task View
 
-		private static readonly WindowsInput.InputSimulator Input = new WindowsInput.InputSimulator();
+		private static readonly InputSimulator Input = new InputSimulator();
 
 		public static void ShowTaskView()
 		{
