@@ -12,7 +12,7 @@ namespace SylphyHorn.Services
 
 		public static void Synchronize(bool overrideDesktops)
 		{
-			if (ProductInfo.IsWindows11OrLater)
+			if (ProductInfo.IsNameSupportBuild)
 			{
 				var generalSettings = Settings.General;
 				overrideDesktops = overrideDesktops && (generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0);
@@ -43,14 +43,10 @@ namespace SylphyHorn.Services
 
 		public static void SynchronizeWithWindows()
 		{
-			// Only for Window 11
+			// for OS Build 18975 or later
 			var desktops = VirtualDesktop.GetDesktops();
-			var generalSettings = Settings.General;
 
-			Array.ForEach(generalSettings.DesktopNames.Value.ToArray(),
-				prop => prop.Value = desktops[prop.Index].Name);
-			Array.ForEach(generalSettings.DesktopBackgroundImagePaths.Value.ToArray(),
-				prop => prop.Value = desktops[prop.Index].WallpaperPath);
+			_synchronizeWithWindowsAction(desktops);
 		}
 
 		#endregion
@@ -94,19 +90,89 @@ namespace SylphyHorn.Services
 			Settings.MouseShortcut.SwapDesktopIndices.Resize(desktopCount);
 		}
 
+		private static Action<VirtualDesktop[]> _synchronizeWithWindowsAction = new Func<Action<VirtualDesktop[]>>(() =>
+		{
+			if (ProductInfo.IsWallpaperSupportBuild)
+			{
+				return desktops =>
+				{
+					SynchronizeDesktopNamesCore(desktops);
+					SynchronizeWallpaperPathsCore(desktops);
+				};
+			}
+			else if (ProductInfo.IsNameSupportBuild)
+			{
+				return SynchronizeDesktopNamesCore;
+			}
+			else
+			{
+				return _ => { };
+			}
+		})();
+
+		private static void SynchronizeDesktopNamesCore(VirtualDesktop[] desktops)
+		{
+			// for OS Build 18975 or later
+			var generalSettings = Settings.General;
+
+			Array.ForEach(generalSettings.DesktopNames.Value.ToArray(),
+				prop => prop.Value = desktops[prop.Index].Name);
+		}
+
+		private static void SynchronizeWallpaperPathsCore(VirtualDesktop[] desktops)
+		{
+			// for OS Build 21337 or later
+			var generalSettings = Settings.General;
+
+			Array.ForEach(generalSettings.DesktopBackgroundImagePaths.Value.ToArray(),
+				prop => prop.Value = desktops[prop.Index].WallpaperPath);
+		}
+
+		private static Action<VirtualDesktop[]> _updateByListAction = new Func<Action<VirtualDesktop[]>>(() =>
+		{
+			if (ProductInfo.IsWallpaperSupportBuild)
+			{
+				return desktops =>
+				{
+					UpdateDesktopNamesCore(desktops);
+					UpdateWallpaperPathsCore(desktops);
+				};
+			}
+			else if (ProductInfo.IsNameSupportBuild)
+			{
+				return UpdateDesktopNamesCore;
+			}
+			else
+			{
+				return _ => { };
+			}
+		})();
+
 		private static void UpdateWindowsDesktopsByList()
 		{
-			// Only for Window 11
+			// for OS Build 18975 or later
 			var desktops = VirtualDesktop.GetDesktops();
+			_updateByListAction(desktops);
+		}
+
+		private static void UpdateDesktopNamesCore(VirtualDesktop[] desktops)
+		{
+			// for OS Build 18975 or later
 			var generalSettings = Settings.General;
 
 			var desktopNames = generalSettings.DesktopNames.Value.Select(prop => prop.Value).ToArray();
-			var wallpaperPaths = generalSettings.DesktopBackgroundImagePaths.Value.Select(prop => prop.Value).ToArray();
-
 			for (int i = 0; i < desktopNames.Length; ++i)
 			{
 				desktops[i].Name = desktopNames[i];
 			}
+		}
+
+		private static void UpdateWallpaperPathsCore(VirtualDesktop[] desktops)
+		{
+			// for OS Build 21337 or later
+			var generalSettings = Settings.General;
+
+			var wallpaperPaths = generalSettings.DesktopBackgroundImagePaths.Value.Select(prop => prop.Value).ToArray();
 			for (int i = 0; i < wallpaperPaths.Length; ++i)
 			{
 				desktops[i].WallpaperPath = wallpaperPaths[i];

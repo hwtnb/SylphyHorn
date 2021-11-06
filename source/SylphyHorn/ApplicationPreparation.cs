@@ -177,7 +177,7 @@ namespace SylphyHorn
 				};
 			}
 
-			if (!ProductInfo.IsWindows11OrLater) return;
+			if (!ProductInfo.IsWallpaperSupportBuild) return;
 
 			VirtualDesktop.Moved += (sender, args) =>
 			{
@@ -261,7 +261,7 @@ namespace SylphyHorn
 					.AddTo(this._disposable);
 			}
 
-			if (ProductInfo.IsWindows11OrLater)
+			if (ProductInfo.IsReorderingSupportBuild)
 			{
 				register(() => settings.SwapDesktopLeft.ToShortcutKey(), _ => VirtualDesktopService.SwapCurrentForLeft())
 					.AddTo(this._disposable);

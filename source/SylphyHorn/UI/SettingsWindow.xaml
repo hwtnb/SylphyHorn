@@ -291,8 +291,8 @@
 								   Margin="0,0,0,8" />
 						<StackPanel Margin="8,0,0,0" Grid.IsSharedSizeScope="True">
 							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=OverrideDesktopsOnStartup.Value, Mode=TwoWay}"
-									  IsEnabled="{Binding IsWindows11OrLater}"
-									  Visibility="{Binding IsWindows11OrLater, Converter={StaticResource BooleanToVisibilityConverter}}">
+									  IsEnabled="{Binding IsNameSupport}"
+									  Visibility="{Binding IsNameSupport, Converter={StaticResource BooleanToVisibilityConverter}}">
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_OverrideSettingsOnStartup}" />
 							</CheckBox>
 							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=ChangeBackgroundEachDesktop.Value, Mode=TwoWay}"
@@ -420,15 +420,15 @@
 																   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_Reorder}"
 																   VerticalAlignment="Center"
 																   HorizontalAlignment="Right"
-																   Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																   Visibility="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
 																   Margin="0,0,2,0"
 																   Foreground="{DynamicResource ForegroundBrushKey}" />
 														<metro2:CallMethodButton Grid.Column="2"
 																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopPrevious}"
 																				 MethodTarget="{Binding}"
 																				 MethodName="MoveToPrevious"
-																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 IsEnabled="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
 																				 Margin="2"
 																				 Padding="0">
 															<ContentControl.Content>
@@ -441,8 +441,8 @@
 																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopNext}"
 																				 MethodTarget="{Binding}"
 																				 MethodName="MoveToNext"
-																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 IsEnabled="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
 																				 Margin="2"
 																				 Padding="0">
 															<ContentControl.Content>
@@ -455,8 +455,8 @@
 																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopFirst}"
 																				 MethodTarget="{Binding}"
 																				 MethodName="MoveToFirst"
-																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 IsEnabled="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
 																				 Margin="2"
 																				 Padding="0">
 															<ContentControl.Content>
@@ -469,8 +469,8 @@
 																				 ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_MoveDesktopLast}"
 																				 MethodTarget="{Binding}"
 																				 MethodName="MoveToLast"
-																				 IsEnabled="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-																				 Visibility="{Binding Path=DataContext.IsWindows11OrLater, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+																				 IsEnabled="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+																				 Visibility="{Binding Path=DataContext.IsReorderingSupport, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}"
 																				 Margin="2"
 																				 Padding="0">
 															<ContentControl.Content>
@@ -1177,10 +1177,10 @@
 							</UniformGrid>
 							<UniformGrid Grid.Column="2"
 										 Columns="1">
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopLeft.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopRight.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopFirst.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopLast.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopLeft.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopRight.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopFirst.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopLast.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
 							</UniformGrid>
 						</Grid>
 						<Border Height="16" />
@@ -1219,7 +1219,7 @@
 							</ItemsControl>
 							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwapDesktopIndices.Value, Mode=TwoWay}"
 										  Grid.Column="2"
-										  IsEnabled="{Binding IsWindows11OrLater}"
+										  IsEnabled="{Binding IsReorderingSupport}"
 										  Visibility="Visible">
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>
@@ -1583,10 +1583,10 @@
 							</UniformGrid>
 							<UniformGrid Grid.Column="2"
 										 Columns="1">
-								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopLeft.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
-								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopRight.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
-								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopFirst.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
-								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopLast.Value, Mode=TwoWay}" IsEnabled="{Binding IsWindows11OrLater}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopLeft.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopRight.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopFirst.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopLast.Value, Mode=TwoWay}" IsEnabled="{Binding IsReorderingSupport}" />
 							</UniformGrid>
 						</Grid>
 						<Border Height="16" />
@@ -1625,7 +1625,7 @@
 							</ItemsControl>
 							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwapDesktopIndices.Value, Mode=TwoWay}"
 										  Grid.Column="2"
-										  IsEnabled="{Binding IsWindows11OrLater}"
+										  IsEnabled="{Binding IsReorderingSupport}"
 										  Visibility="Visible">
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>

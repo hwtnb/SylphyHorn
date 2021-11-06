@@ -67,5 +67,7 @@ namespace SylphyHorn.Properties
 		internal static bool IsNameSupportBuild => OSBuild >= 18975;
 
 		internal static bool IsWallpaperSupportBuild => OSBuild >= 21337;
+
+		internal static bool IsReorderingSupportBuild => IsWallpaperSupportBuild;
 	}
 }

@@ -23,7 +23,7 @@ namespace SylphyHorn.Services
 			VirtualDesktop.CurrentChanged += this.VirtualDesktopOnCurrentChanged;
 			VirtualDesktopService.WindowPinned += this.VirtualDesktopServiceOnWindowPinned;
 
-			if (ProductInfo.IsWindows11OrLater) VirtualDesktop.Moved += this.VirtualDesktopOnMoved;
+			if (ProductInfo.IsReorderingSupportBuild) VirtualDesktop.Moved += this.VirtualDesktopOnMoved;
 		}
 
 		private void VirtualDesktopOnCurrentChanged(object sender, VirtualDesktopChangedEventArgs e)

@@ -23,7 +23,7 @@ namespace SylphyHorn.Services
 
 		private WallpaperService()
 		{
-			if (ProductInfo.IsWindows11OrLater)
+			if (ProductInfo.IsWallpaperSupportBuild)
 			{
 				VirtualDesktop.CurrentChanged += this.VirtualDesktopOnCurrentChanged;
 			}

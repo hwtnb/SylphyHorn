@@ -47,9 +47,11 @@ namespace SylphyHorn.UI.Bindings
 
 		public bool RestartRequired => _restartRequired;
 
-		public bool IsWindows11OrLater => ProductInfo.IsWindows11OrLater;
+		public bool IsWindows10OrEarlier => !ProductInfo.IsWallpaperSupportBuild;
 
-		public bool IsWindows10OrEarlier => !this.IsWindows11OrLater;
+		public bool IsNameSupport => ProductInfo.IsNameSupportBuild;
+
+		public bool IsReorderingSupport => ProductInfo.IsReorderingSupportBuild;
 
 		#region HasStartupLink notification property
 
@@ -623,7 +625,7 @@ namespace SylphyHorn.UI.Bindings
 
 		private void SynchronizeDesktopsWithSettingsIfRequired()
 		{
-			if (this.IsWindows10OrEarlier || !HasDesktopSettings())
+			if (!this.IsNameSupport || !HasDesktopSettings())
 			{
 				SettingsService.Synchronize(overrideDesktops: false);
 				return;

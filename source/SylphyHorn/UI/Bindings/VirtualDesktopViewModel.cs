@@ -50,7 +50,7 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
-		public bool IsWallpaperEnabled => ProductInfo.IsWindows11OrLater || Settings.General.ChangeBackgroundEachDesktop;
+		public bool IsWallpaperEnabled => ProductInfo.IsWallpaperSupportBuild || Settings.General.ChangeBackgroundEachDesktop;
 
 		#region WallpaperPath notification property
 
@@ -135,7 +135,7 @@ namespace SylphyHorn.UI.Bindings
 			this.CompositeDisposable.Add(listener);
 
 			// for Windows 10
-			if (!ProductInfo.IsWindows11OrLater)
+			if (!ProductInfo.IsWallpaperSupportBuild)
 			{
 				if (ProductInfo.IsNameSupportBuild)
 				{
@@ -315,7 +315,7 @@ namespace SylphyHorn.UI.Bindings
 			position.Subscribe(_ => this.RaisePropertyChanged(nameof(this.Position))).AddTo(this);
 
 			// for Windows 10
-			if (!ProductInfo.IsWindows11OrLater)
+			if (!ProductInfo.IsWallpaperSupportBuild)
 			{
 				var generalSettings = Settings.General;
 				this._pathFunc = p =>
