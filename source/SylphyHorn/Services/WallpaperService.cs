@@ -13,26 +13,26 @@ namespace SylphyHorn.Services
 	{
 		private static readonly WallpaperPosition _defaultPosition = WallpaperPosition.Fill;
 
-		private static readonly ImageFormatSupportDetector[] detectors =
+		private static readonly ImageFormatSupportDetector[] _detectors =
 		{
 			new JpegXrSupportDetector(),
 			new WebPSupportDetector(),
-			new HEIFSupportDetector(),
+			new HeifSupportDetector(),
 		};
 
-		public static readonly Tuple<string, string, string>[] DefaultSupportedFormats = new Tuple<string, string, string>[]
+		private static readonly Tuple<string, string, string>[] _defaultSupportedFormats =
 		{
-			new Tuple<string, string, string>("JPEG", "JPEG", "*.jpg;*.jpeg;*.jpe;*.jfif"),
-			new Tuple<string, string, string>("PNG", "PNG", "*.png"),
-			new Tuple<string, string, string>("BMP", "Bitmap", "*.bmp;*.dib"),
-			new Tuple<string, string, string>("GIF", "GIF", "*.gif"),
-			new Tuple<string, string, string>("TIFF", "TIFF", "*.tif;*.tiff"),
+			Tuple.Create("JPEG", "JPEG", "*.jpg;*.jpeg;*.jpe;*.jfif"),
+			Tuple.Create("PNG", "PNG", "*.png"),
+			Tuple.Create("BMP", "Bitmap", "*.bmp;*.dib"),
+			Tuple.Create("GIF", "GIF", "*.gif"),
+			Tuple.Create("TIFF", "TIFF", "*.tif;*.tiff"),
 		};
 
 		public static readonly string SupportedFormats = CreateSupportFormatText();
-		public static string[] SupportedFileTypes { get; } = DefaultSupportedFormats
+		public static string[] SupportedFileTypes { get; } = _defaultSupportedFormats
 			.Select(f => f.Item1)
-			.Concat(detectors.Where(d => d.IsSupported).Select(d => d.FileType))
+			.Concat(_detectors.Where(d => d.IsSupported).Select(d => d.FileType))
 			.ToArray();
 
 		public static WallpaperService Instance { get; } = new WallpaperService();
@@ -131,17 +131,17 @@ namespace SylphyHorn.Services
 		{
 			var defaultExtensions = string.Join(
 				";",
-				DefaultSupportedFormats
+				_defaultSupportedFormats
 					.Select(f => f.Item3)
-					.Concat(detectors.Where(d => d.IsSupported)
+					.Concat(_detectors.Where(d => d.IsSupported)
 						.SelectMany(d => d.Extensions.Select(e => $"*{e}"))));
 
 			return $"Image File ({defaultExtensions})|{defaultExtensions}|" +
 				string.Join(
 					"|",
-					DefaultSupportedFormats
+					_defaultSupportedFormats
 						.Select(f => $"{f.Item2} ({f.Item3})|{f.Item3}")
-						.Concat(detectors.Where(d => d.IsSupported)
+						.Concat(_detectors.Where(d => d.IsSupported)
 							.Select(d => d.FormatInfo)));
 		}
 
