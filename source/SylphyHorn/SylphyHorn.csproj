@@ -345,7 +345,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include=".assets\tasktray.ico" />
+    <Resource Include=".assets\tasktray.dark.ico" />
+    <Resource Include=".assets\tasktray.light.ico" />
     <Resource Include=".assets\app.white.ico" />
     <Resource Include=".assets\app.green.ico" />
   </ItemGroup>
@@ -353,7 +354,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include=".assets\tasktray-light.ico" />
     <Content Include="AppxManifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

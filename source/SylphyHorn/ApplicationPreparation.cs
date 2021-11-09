@@ -55,13 +55,13 @@ namespace SylphyHorn
 		{
 			if (this._taskTrayIcon == null)
 			{
-				const string iconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray.ico";
-				const string lightIconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray-light.ico";
+				const string iconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray.dark.ico";
+				const string lightIconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray.light.ico";
 
 				if (!Uri.TryCreate(iconUri, UriKind.Absolute, out var uri)) return null;
 				if (!Uri.TryCreate(lightIconUri, UriKind.Absolute, out var lightUri)) return null;
 
-				var icon = IconHelper.GetIconFromResource(uri);
+				var darkIcon = IconHelper.GetIconFromResource(uri);
 				var lightIcon = IconHelper.GetIconFromResource(lightUri);
 				var menus = new[]
 				{
@@ -72,7 +72,7 @@ namespace SylphyHorn
 #endif
 				};
 
-				this._taskTrayIcon = new TaskTrayIcon(icon, lightIcon, menus);
+				this._taskTrayIcon = new TaskTrayIcon(darkIcon, lightIcon, menus);
 			}
 
 			return this._taskTrayIcon;

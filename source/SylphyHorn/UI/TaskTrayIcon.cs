@@ -14,18 +14,18 @@ namespace SylphyHorn.UI
 	public class TaskTrayIcon : IDisposable
 	{
 		private Icon _icon;
-		private readonly Icon _defaultIcon;
+		private readonly Icon _darkIcon;
 		private readonly Icon _lightIcon;
 		private readonly TaskTrayIconItem[] _items;
 		private NotifyIcon _notifyIcon;
 		private DynamicInfoTrayIcon _infoIcon;
 
-		public TaskTrayIcon(Icon icon, Icon lightIcon, TaskTrayIconItem[] items)
+		public TaskTrayIcon(Icon darkIcon, Icon lightIcon, TaskTrayIconItem[] items)
 		{
-			this._defaultIcon = icon;
+			this._darkIcon = darkIcon;
 			this._lightIcon = lightIcon;
 
-			this._icon = WindowsTheme.SystemTheme.Current == Theme.Light ? this._lightIcon : this._defaultIcon;
+			this._icon = WindowsTheme.SystemTheme.Current == Theme.Light ? this._lightIcon : this._darkIcon;
 			this._items = items;
 
 			WindowsTheme.SystemTheme.Changed += this.OnSystemThemeChanged;
@@ -72,13 +72,13 @@ namespace SylphyHorn.UI
 			{
 				VisualHelper.InvokeOnUIDispatcher(() => this.UpdateWithDesktopInfo(desktop ?? VirtualDesktop.Current));
 			}
-			else if (this._icon != this._defaultIcon && this._icon != this._lightIcon)
+			else if (this._icon != this._darkIcon && this._icon != this._lightIcon)
 			{
 				this._infoIcon = null;
 
 				this.ChangeIcon(WindowsTheme.SystemTheme.Current == Theme.Light
 					? this._lightIcon
-					: this._defaultIcon);
+					: this._darkIcon);
 			}
 		}
 
@@ -144,7 +144,7 @@ namespace SylphyHorn.UI
 			{
 				this.ChangeIcon(e == Theme.Light
 					? this._lightIcon
-					: this._defaultIcon);
+					: this._darkIcon);
 			}
 		}
 
@@ -155,7 +155,7 @@ namespace SylphyHorn.UI
 
 		private void ChangeIcon(Icon newIcon)
 		{
-			if (this._icon != this._defaultIcon && this._icon != this._lightIcon)
+			if (this._icon != this._darkIcon && this._icon != this._lightIcon)
 			{
 				this._icon?.Dispose();
 			}
