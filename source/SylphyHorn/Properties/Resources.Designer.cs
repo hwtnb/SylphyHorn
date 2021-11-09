@@ -1148,5 +1148,14 @@ namespace SylphyHorn.Properties {
                 return ResourceManager.GetString("TaskTray_Menu_Settings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Desktop {0}/{1} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TaskTray_TooltipText_DesktopCount {
+            get {
+                return ResourceManager.GetString("TaskTray_TooltipText_DesktopCount", resourceCulture);
+            }
+        }
     }
 }

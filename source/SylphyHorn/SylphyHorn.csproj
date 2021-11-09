@@ -197,6 +197,7 @@
     <Compile Include="Annotations\LightAttribute.cs" />
     <Compile Include="ApplicationPreparation.cs" />
     <Compile Include="CommandLineArgs.cs" />
+    <Compile Include="Interop\ColorHelper.cs" />
     <Compile Include="Interop\DotnetVersion.cs" />
     <Compile Include="Interop\IconHelper.cs" />
     <Compile Include="Interop\IDesktopWallpaper.cs" />
@@ -258,6 +259,9 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interop\UwpBridge.cs" />
+    <Compile Include="UI\TaskTrayTestWindow.xaml.cs" Condition="'$(Configuration)' == 'Debug'">
+      <DependentUpon>TaskTrayTestWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Styles\Controls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -305,6 +309,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\TaskTrayTestWindow.xaml" Condition="'$(Configuration)' == 'Debug'">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\ShortcutKeyDetector.cs" />
@@ -345,6 +353,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include=".assets\tasktray-light.ico" />
     <Content Include="AppxManifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

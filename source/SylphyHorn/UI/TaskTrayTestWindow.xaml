@@ -1,0 +1,345 @@
+﻿<metro:AcrylicBlurWindow x:Class="SylphyHorn.UI.TaskTrayTestWindow"
+						 x:Name="TaskTrayTestWindowInstance"
+						 x:FieldModifier="private"
+						 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+						 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						 xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+						 mc:Ignorable="d"
+						 Title="TaskTrayTestWindow"
+						 SizeToContent="WidthAndHeight">
+	<metro:AcrylicBlurWindow.Resources>
+		<Style TargetType="{x:Type RadioButton}">
+			<Setter Property="Foreground"
+					Value="{Binding ElementName=TaskTrayTestWindowInstance, Path=Foreground}" />
+		</Style>
+	</metro:AcrylicBlurWindow.Resources>
+	
+	<DockPanel>
+		<!-- #region Caption area -->
+		<DockPanel x:Name="CaptionBar"
+				   x:FieldModifier="private"
+				   DockPanel.Dock="Top"
+				   metro:MetroWindow.IsCaptionBar="True">
+			<Border DockPanel.Dock="Bottom"
+					Height="8" />
+
+			<StackPanel DockPanel.Dock="Right"
+						Orientation="Horizontal"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Top"
+						WindowChrome.IsHitTestVisibleInChrome="True">
+				<metro:SystemButtons />
+			</StackPanel>
+			<TextBlock Text="TasktrayTestWindow"
+					   FontFamily="Segoe UI Light, Meiryo UI"
+					   FontSize="18"
+					   Margin="12,8" />
+		</DockPanel>
+		<!-- #endregion -->
+
+		<StackPanel Margin="12,0,12,12">
+			<StackPanel.Resources>
+				<Style TargetType="{x:Type TextBlock}">
+					<Setter Property="VerticalAlignment"
+							Value="Center" />
+					<Setter Property="HorizontalAlignment"
+							Value="Center" />
+					<Setter Property="TextOptions.TextFormattingMode"
+							Value="Display" />
+				</Style>
+
+				<Style TargetType="{x:Type Border}">
+					<Setter Property="Margin"
+							Value="1" />
+					<Setter Property="Width"
+							Value="18" />
+					<Setter Property="Height"
+							Value="18" />
+					<Setter Property="BorderBrush"
+							Value="Red" />
+					<Setter Property="BorderThickness"
+							Value="1" />
+				</Style>
+				
+				<Style TargetType="{x:Type Image}">
+					<Setter Property="RenderOptions.BitmapScalingMode"
+							Value="NearestNeighbor" />
+				</Style>
+			</StackPanel.Resources>
+
+			<StackPanel Orientation="Horizontal">
+				<RadioButton x:Name="DarkRadioButton"
+							 x:FieldModifier="private"
+							 Content="Dark"
+							 IsChecked="True" />
+				<Rectangle Width="12" />
+				<RadioButton x:Name="LightRadioButton"
+							 x:FieldModifier="private"
+							 Content="Light" />
+				<Rectangle Width="12" />
+				<RadioButton x:Name="AccentRadioButton"
+							 x:FieldModifier="private"
+							 Content="Accent" />
+			</StackPanel>
+
+			<UniformGrid Columns="14">
+				<TextBlock Text="Sample"
+						   HorizontalAlignment="Center" />
+				<Border>
+					<TextBlock Text="1/3"
+							   LineHeight="{Binding HorizontalFontSize, Mode=OneTime}"
+							   FontSize="{Binding HorizontalFontSize, Mode=OneTime}"
+							   FontFamily="{Binding FontFamily, Mode=OneTime}"
+							   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+				</Border>
+				<Border>
+					<TextBlock Text="2/7"
+							   LineHeight="{Binding HorizontalFontSize, Mode=OneTime}"
+							   FontSize="{Binding HorizontalFontSize, Mode=OneTime}"
+							   FontFamily="{Binding FontFamily, Mode=OneTime}"
+							   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+				</Border>
+				<Border>
+					<TextBlock Text="9/9"
+							   LineHeight="{Binding HorizontalFontSize, Mode=OneTime}"
+							   FontSize="{Binding HorizontalFontSize, Mode=OneTime}"
+							   FontFamily="{Binding FontFamily, Mode=OneTime}"
+							   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="5"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="10"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="2"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="100"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="14"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="100"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="99"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="100"
+								   LineHeight="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontSize="{Binding VerticalFontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="5"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="1000"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="52"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="1000"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="834"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="1000"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="999"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="1000"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="1000"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="1024"
+								   LineHeight="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontSize="{Binding Vertical1000FontSize, Mode=OneTime}"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+				<Border>
+					<UniformGrid Columns="1">
+						<TextBlock Text="100000"
+								   LineHeight="4"
+								   FontSize="4"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+						<TextBlock Text="16777216"
+								   LineHeight="4"
+								   FontSize="4"
+								   FontFamily="{Binding FontFamily, Mode=OneTime}"
+								   FontWeight="{Binding FontWeight, Mode=OneTime}" />
+					</UniformGrid>
+				</Border>
+			</UniformGrid>
+
+			<ItemsControl ItemsSource="{Binding Scales}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<DataTemplate.Resources>
+							<Style TargetType="{x:Type Border}">
+								<Setter Property="Margin"
+										Value="1" />
+								<Setter Property="HorizontalAlignment"
+										Value="Center" />
+								<Setter Property="BorderBrush"
+										Value="Red" />
+								<Setter Property="BorderThickness"
+										Value="1" />
+							</Style>
+						</DataTemplate.Resources>
+
+						<UniformGrid Columns="14">
+							<TextBlock Text="{Binding Header, Mode=OneTime}"
+									   HorizontalAlignment="Center"
+									   VerticalAlignment="Center" />
+							<Border>
+								<Image Source="{Binding Icon1By3, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon2By7, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon9By9, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon5By10, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon2By100, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon14By100, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon99By100, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon5By1000, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon52By1000, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon834By1000, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon999By1000, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon1000By1024, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+							<Border>
+								<Image Source="{Binding Icon100000By16777216, Mode=OneTime}"
+									   Width="{Binding Width, Mode=OneTime}"
+									   Height="{Binding Height, Mode=OneTime}" />
+							</Border>
+						</UniformGrid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+		
+	</DockPanel>
+</metro:AcrylicBlurWindow>

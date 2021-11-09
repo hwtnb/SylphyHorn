@@ -480,4 +480,7 @@
   <data name="TaskTray_Menu_Settings" xml:space="preserve">
     <value>設定</value>
   </data>
+  <data name="TaskTray_TooltipText_DesktopCount" xml:space="preserve">
+    <value>デスクトップ {0}/{1}</value>
+  </data>
 </root>

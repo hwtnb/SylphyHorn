@@ -56,17 +56,23 @@ namespace SylphyHorn
 			if (this._taskTrayIcon == null)
 			{
 				const string iconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray.ico";
+				const string lightIconUri = "pack://application:,,,/SylphyHorn;Component/.assets/tasktray-light.ico";
 
 				if (!Uri.TryCreate(iconUri, UriKind.Absolute, out var uri)) return null;
+				if (!Uri.TryCreate(lightIconUri, UriKind.Absolute, out var lightUri)) return null;
 
 				var icon = IconHelper.GetIconFromResource(uri);
+				var lightIcon = IconHelper.GetIconFromResource(lightUri);
 				var menus = new[]
 				{
 					new TaskTrayIconItem(Resources.TaskTray_Menu_Settings, ShowSettings, () => Application.Args.CanSettings),
 					new TaskTrayIconItem(Resources.TaskTray_Menu_Exit, this._shutdownAction),
+#if DEBUG
+					new TaskTrayIconItem("Tasktray Icon Test", () => new TaskTrayTestWindow().Show()),
+#endif
 				};
 
-				this._taskTrayIcon = new TaskTrayIcon(icon, menus);
+				this._taskTrayIcon = new TaskTrayIcon(icon, lightIcon, menus);
 			}
 
 			return this._taskTrayIcon;
