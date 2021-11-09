@@ -19,7 +19,10 @@ namespace SylphyHorn.UI.Controls
 			{
 				if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) return null;
 
-				using (var stream = new FileStream((string)value, FileMode.Open))
+				var filename = (string)value;
+				if (string.IsNullOrEmpty(filename)) return null;
+
+				using (var stream = new FileStream(filename, FileMode.Open))
 				{
 					var decoder = BitmapDecoder.Create(
 						stream,

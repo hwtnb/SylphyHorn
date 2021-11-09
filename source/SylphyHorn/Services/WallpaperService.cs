@@ -11,13 +11,29 @@ namespace SylphyHorn.Services
 {
 	public class WallpaperService : IDisposable
 	{
-		private const WallpaperPosition _defaultPosition = WallpaperPosition.Fill;
+		private static readonly WallpaperPosition _defaultPosition = WallpaperPosition.Fill;
 
-		public static readonly string SupportedFormats =
-			"Image File (*.jpg;*.jpeg;*.jfif;*.png;*.bmp)|*.jpg;*.jpeg;*.jfif;*.png;*.bmp|" +
-			"JPEG (*.jpg;*.jpeg;*.jfif)|*.jpg;*.jpeg;*.jfif|" +
-			"PNG (*.png)|*.png|" +
-			"Bitmap (*.bmp)|*.bmp";
+		private static readonly ImageFormatSupportDetector[] detectors =
+		{
+			new JpegXrSupportDetector(),
+			new WebPSupportDetector(),
+			new HEIFSupportDetector(),
+		};
+
+		public static readonly Tuple<string, string, string>[] DefaultSupportedFormats = new Tuple<string, string, string>[]
+		{
+			new Tuple<string, string, string>("JPEG", "JPEG", "*.jpg;*.jpeg;*.jpe;*.jfif"),
+			new Tuple<string, string, string>("PNG", "PNG", "*.png"),
+			new Tuple<string, string, string>("BMP", "Bitmap", "*.bmp;*.dib"),
+			new Tuple<string, string, string>("GIF", "GIF", "*.gif"),
+			new Tuple<string, string, string>("TIFF", "TIFF", "*.tif;*.tiff"),
+		};
+
+		public static readonly string SupportedFormats = CreateSupportFormatText();
+		public static string[] SupportedFileTypes { get; } = DefaultSupportedFormats
+			.Select(f => f.Item1)
+			.Concat(detectors.Where(d => d.IsSupported).Select(d => d.FileType))
+			.ToArray();
 
 		public static WallpaperService Instance { get; } = new WallpaperService();
 
@@ -111,14 +127,32 @@ namespace SylphyHorn.Services
 			return Tuple.Create(Color.FromRgb(colorref.R, colorref.G, colorref.B), path);
 		}
 
+		private static string CreateSupportFormatText()
+		{
+			var defaultExtensions = string.Join(
+				";",
+				DefaultSupportedFormats
+					.Select(f => f.Item3)
+					.Concat(detectors.Where(d => d.IsSupported)
+						.SelectMany(d => d.Extensions.Select(e => $"*{e}"))));
+
+			return $"Image File ({defaultExtensions})|{defaultExtensions}|" +
+				string.Join(
+					"|",
+					DefaultSupportedFormats
+						.Select(f => $"{f.Item2} ({f.Item3})|{f.Item3}")
+						.Concat(detectors.Where(d => d.IsSupported)
+							.Select(d => d.FormatInfo)));
+		}
+
 		private static WallpaperPosition Parse(string options)
 		{
 			var options2 = options.ToLower();
+			if (options2.StartsWith("fil")) return WallpaperPosition.Fill;
+			if (options2.StartsWith("sp")) return WallpaperPosition.Span;
 			if (options2[0] == 'c') return WallpaperPosition.Center;
 			if (options2[0] == 't') return WallpaperPosition.Tile;
-			if (options2.StartsWith("sp")) return WallpaperPosition.Span;
 			if (options2[0] == 's') return WallpaperPosition.Stretch;
-			if (options2.StartsWith("fil")) return WallpaperPosition.Fill;
 			if (options2[0] == 'f') return WallpaperPosition.Fit;
 			return WallpaperPosition.Fill;
 		}

@@ -139,7 +139,7 @@
     <value>背景画像:</value>
   </data>
   <data name="Settings_Background_Note1" xml:space="preserve">
-    <value>サポートされている画像形式: JPG, PNG, BMP</value>
+    <value>サポートされている画像形式:</value>
   </data>
   <data name="Settings_Background_Note2" xml:space="preserve">
     <value>メモ: 仮想デスクトップ番号をファイル名とした画像ファイルを用意してください (例: "1.png", "2.png", ...)。</value>

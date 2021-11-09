@@ -123,6 +123,24 @@
 					<Setter Property="Margin"
 							Value="0,8" />
 				</Style>
+				<Style x:Key="SubHeaderStyleKey"
+					   TargetType="{x:Type TextBlock}">
+					<Setter Property="Foreground"
+							Value="{DynamicResource ForegroundBrushKey}" />
+					<Setter Property="FontWeight"
+							Value="SemiBold" />
+					<Setter Property="Margin"
+							Value="8,4,8,4" />
+					<Setter Property="FontSize"
+							Value="13" />
+					<Style.Triggers>
+						<Trigger Property="IsEnabled"
+								 Value="False">
+							<Setter Property="Foreground"
+									Value="{DynamicResource InactiveForegroundBrushKey}" />
+						</Trigger>
+					</Style.Triggers>
+				</Style>
 				<Style x:Key="TabitemStyleKey"
 					   TargetType="{x:Type TextBlock}"
 					   BasedOn="{StaticResource VerticalTabHeaderTextStyleKey}">
@@ -301,9 +319,11 @@
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_ChangeBackground}" />
 							</CheckBox>
 							<Border Height="8" />
-							<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1}"
-									   TextWrapping="Wrap"
-									   Margin="20,0,0,0" />
+							<TextBlock TextWrapping="Wrap"
+									   Margin="20,0,0,0">
+								<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Background_Note1, Mode=OneWay}" />
+								<Run Text="{Binding Source={x:Static services:WallpaperService.SupportedFileTypes}, Mode=OneWay, Converter={StaticResource ArrayToStringConverter}}" />
+							</TextBlock>
 							<Grid Margin="0,8,0,0">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="*" />

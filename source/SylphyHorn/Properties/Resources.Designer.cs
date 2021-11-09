@@ -124,7 +124,7 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Supported image formats: JPEG, PNG, BMP に類似しているローカライズされた文字列を検索します。
+        ///   Supported image formats: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Background_Note1 {
             get {

@@ -139,7 +139,7 @@
     <value>Wallpaper:</value>
   </data>
   <data name="Settings_Background_Note1" xml:space="preserve">
-    <value>Supported image formats: JPEG, PNG, BMP</value>
+    <value>Supported image formats:</value>
   </data>
   <data name="Settings_Background_Note2" xml:space="preserve">
     <value>Note: Please prepare image files with the virtual desktop number as filename (e.g. "1.png", "2.png", ...).</value>
