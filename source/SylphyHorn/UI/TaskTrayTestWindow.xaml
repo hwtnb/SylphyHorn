@@ -1,20 +1,20 @@
-﻿<metro:AcrylicBlurWindow x:Class="SylphyHorn.UI.TaskTrayTestWindow"
-						 x:Name="TaskTrayTestWindowInstance"
-						 x:FieldModifier="private"
-						 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-						 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-						 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-						 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-						 xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
-						 mc:Ignorable="d"
-						 Title="TaskTrayTestWindow"
-						 SizeToContent="WidthAndHeight">
-	<metro:AcrylicBlurWindow.Resources>
+﻿<metro:BlurWindow x:Class="SylphyHorn.UI.TaskTrayTestWindow"
+				  x:Name="TaskTrayTestWindowInstance"
+				  x:FieldModifier="private"
+				  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				  xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+				  mc:Ignorable="d"
+				  Title="TaskTrayTestWindow"
+				  SizeToContent="WidthAndHeight">
+	<metro:BlurWindow.Resources>
 		<Style TargetType="{x:Type RadioButton}">
 			<Setter Property="Foreground"
 					Value="{Binding ElementName=TaskTrayTestWindowInstance, Path=Foreground}" />
 		</Style>
-	</metro:AcrylicBlurWindow.Resources>
+	</metro:BlurWindow.Resources>
 	
 	<DockPanel>
 		<!-- #region Caption area -->
@@ -342,4 +342,4 @@
 		</StackPanel>
 		
 	</DockPanel>
-</metro:AcrylicBlurWindow>
+</metro:BlurWindow>
