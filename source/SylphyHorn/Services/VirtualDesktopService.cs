@@ -322,12 +322,24 @@ namespace SylphyHorn.Services
 
 		public static void ShowTaskView()
 		{
-			Input.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
+			Input.Keyboard
+				.KeyUp(VirtualKeyCode.CONTROL)
+				.KeyUp(VirtualKeyCode.SHIFT)
+				.KeyUp(VirtualKeyCode.MENU)
+				.KeyUp(VirtualKeyCode.LWIN)
+				.KeyUp(VirtualKeyCode.RWIN)
+				.ModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
 		}
 
 		public static void ShowWindowSwitch()
 		{
-			Input.Keyboard.ModifiedKeyStroke(new[] {VirtualKeyCode.CONTROL, VirtualKeyCode.MENU}, VirtualKeyCode.TAB);
+			Input.Keyboard
+				.KeyUp(VirtualKeyCode.CONTROL)
+				.KeyUp(VirtualKeyCode.SHIFT)
+				.KeyUp(VirtualKeyCode.MENU)
+				.KeyUp(VirtualKeyCode.LWIN)
+				.KeyUp(VirtualKeyCode.RWIN)
+				.ModifiedKeyStroke(new[] {VirtualKeyCode.CONTROL, VirtualKeyCode.MENU}, VirtualKeyCode.TAB);
 		}
 
 		#endregion
