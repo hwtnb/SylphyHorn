@@ -100,7 +100,7 @@ namespace SylphyHorn
 				}
 				else
 				{
-					MessageBox.Show("This applications is supported on Windows 10 Anniversary Update (build 14393) or later.", "Not supported", MessageBoxButton.OK, MessageBoxImage.Stop);
+					MessageBox.Show("This application is supported on Windows 10 Anniversary Update (build 14393) or later.", "Not supported", MessageBoxButton.OK, MessageBoxImage.Stop);
 					this.Shutdown();
 				}
 			}
