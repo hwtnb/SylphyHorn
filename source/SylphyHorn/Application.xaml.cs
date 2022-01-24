@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using Livet;
@@ -44,6 +46,13 @@ namespace SylphyHorn
 			if (appInstance.IsFirst || Args.Restarted.HasValue)
 #endif
 			{
+				if (!this.WaitUntilExplorerStarts())
+				{
+					MessageBox.Show("This application must start after Explorer is launched.", "Not ready", MessageBoxButton.OK, MessageBoxImage.Stop);
+					this.Shutdown();
+					return;
+				}
+
 				if (ProductInfo.OSBuild >= 14393)
 				{
 					this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
@@ -123,6 +132,28 @@ namespace SylphyHorn
 		{
 			LoggingService.Instance.Register(args.Exception);
 			args.Handled = true;
+		}
+
+		private bool WaitUntilExplorerStarts()
+		{
+			const string explorerProcessName = "explorer";
+			if (Process.GetProcessesByName(explorerProcessName).Length > 0)
+			{
+				return true;
+			}
+
+			const int tryCount = 5;
+			const int timeout = 5000;
+			const int interval = timeout / tryCount;
+			for (var i = 0; i < tryCount; ++i)
+			{
+				Thread.Sleep(interval);
+				if (Process.GetProcessesByName(explorerProcessName).Length > 0)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		#region IDisposable members
