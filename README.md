@@ -20,6 +20,9 @@ New features are below:
 
 Please download beta version from [Releases](https://github.com/hwtnb/SylphyHornPlusWin11/releases).
 
+### Note: Update from the original or other forks
+Please delete cache data (VirtualDesktop.*****.generated.dll) at %UserProfile%\AppData\Local\grabacr.net\SylphyHorn\assemblies before SylphyHornPlus starts.
+
 
 ## Requirements
 
