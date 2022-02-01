@@ -83,10 +83,12 @@ namespace SylphyHorn.Services
 		{
 			Settings.ShortcutKey.SwitchToIndices.Resize(desktopCount);
 			Settings.ShortcutKey.MoveToIndices.Resize(desktopCount);
+			Settings.ShortcutKey.MoveToIndicesAndSwitch.Resize(desktopCount);
 			Settings.ShortcutKey.SwapDesktopIndices.Resize(desktopCount);
 
 			Settings.MouseShortcut.SwitchToIndices.Resize(desktopCount);
 			Settings.MouseShortcut.MoveToIndices.Resize(desktopCount);
+			Settings.MouseShortcut.MoveToIndicesAndSwitch.Resize(desktopCount);
 			Settings.MouseShortcut.SwapDesktopIndices.Resize(desktopCount);
 		}
 

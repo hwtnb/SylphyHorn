@@ -1164,6 +1164,55 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+										  Grid.Column="0"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock VerticalAlignment="Center"
+												   Foreground="{DynamicResource ForegroundBrushKey}">
+											<TextBlock.Text>
+												<MultiBinding StringFormat="{}{0} {1}:">
+													<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
+													<Binding Path="NumberText" />
+												</MultiBinding>
+											</TextBlock.Text>
+										</TextBlock>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+										  Grid.Column="2"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<controls:ShortcutKeyBox Current="{Binding Path='Value', Mode=TwoWay}" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Grid>
 					</StackPanel>
 				</ScrollViewer>
 			</TabItem>
@@ -1556,6 +1605,55 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndices.Value, Mode=TwoWay}"
+										  Grid.Column="2"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<controls:MouseShortcutBox Current="{Binding Path='Value', Mode=TwoWay}" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+										  Grid.Column="0"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock VerticalAlignment="Center"
+												   Foreground="{DynamicResource ForegroundBrushKey}">
+											<TextBlock.Text>
+												<MultiBinding StringFormat="{}{0} {1}:">
+													<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
+													<Binding Path="NumberText" />
+												</MultiBinding>
+											</TextBlock.Text>
+										</TextBlock>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
 										  Grid.Column="2"
 										  Visibility="Visible">
 								<ItemsControl.ItemsPanel>

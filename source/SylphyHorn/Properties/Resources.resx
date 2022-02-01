@@ -321,6 +321,9 @@
   <data name="Settings_MoveWindowToSpecifiedDesktop" xml:space="preserve">
     <value>Move active window to specified desktop</value>
   </data>
+  <data name="Settings_MoveWindowToSpecifiedDesktopAndSwitch" xml:space="preserve">
+    <value>Move active window to specified desktop and switch to it</value>
+  </data>
   <data name="Settings_MultipleDisplays" xml:space="preserve">
     <value>Destination displays</value>
   </data>

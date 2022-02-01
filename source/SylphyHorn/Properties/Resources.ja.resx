@@ -321,6 +321,9 @@
   <data name="Settings_MoveWindowToSpecifiedDesktop" xml:space="preserve">
     <value>アクティブ ウィンドウを指定の仮想デスクトップへ移動</value>
   </data>
+  <data name="Settings_MoveWindowToSpecifiedDesktopAndSwitch" xml:space="preserve">
+    <value>アクティブ ウィンドウを指定の仮想デスクトップへ移動して切り替え</value>
+  </data>
   <data name="Settings_MultipleDisplays" xml:space="preserve">
     <value>通知先のディスプレイ</value>
   </data>

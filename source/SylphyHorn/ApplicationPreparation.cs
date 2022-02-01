@@ -345,6 +345,12 @@ namespace SylphyHorn
 				RegisterMovingToSpecifiedDesktop(index, moveToIndices[index].ToShortcutKey());
 			}
 
+			var moveToIndicesAndSwitch = settings.MoveToIndicesAndSwitch.Value;
+			for (var index = 0; index < desktopCount && index < moveToIndicesAndSwitch.Count; ++index)
+			{
+				RegisterMovingToSpecifiedDesktopAndSwitch(index, moveToIndicesAndSwitch[index].ToShortcutKey());
+			}
+
 			void RegisterSpecifiedDesktopSwitching(int i, ShortcutKey shortcut)
 			{
 				register(() => shortcut, _ => VirtualDesktopService.GetByIndex(i)?.Switch())
@@ -360,6 +366,12 @@ namespace SylphyHorn
 			void RegisterMovingToSpecifiedDesktop(int i, ShortcutKey shortcut)
 			{
 				register(() => shortcut, hWnd => hWnd.MoveToIndex(i))
+					.AddTo(this._disposable);
+			};
+
+			void RegisterMovingToSpecifiedDesktopAndSwitch(int i, ShortcutKey shortcut)
+			{
+				register(() => shortcut, hWnd => hWnd.MoveToIndex(i)?.Switch())
 					.AddTo(this._disposable);
 			};
 		}
