@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,9 @@ namespace SylphyHorn.UI.Controls
 		private Key _pressedKey = Key.None;
 		private ItemsControl _modifiersPresneter;
 		private Keytop _keyPresenter;
+		private IDisposable _hookDisposable;
+
+		public static HookService HookService { get; set; }
 
 		#region Current 依存関係プロパティ
 
@@ -67,7 +71,15 @@ namespace SylphyHorn.UI.Controls
 		{
 			base.OnGotKeyboardFocus(e);
 
+			this._hookDisposable = HookService?.Suspend();
 			this.UpdateText();
+		}
+
+		protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+		{
+			base.OnGotKeyboardFocus(e);
+
+			this._hookDisposable?.Dispose();
 		}
 
 		protected override void OnPreviewKeyDown(KeyEventArgs e)

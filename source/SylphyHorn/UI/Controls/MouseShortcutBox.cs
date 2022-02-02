@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +30,9 @@ namespace SylphyHorn.UI.Controls
 		private ItemsControl _subPresneter;
 		private Keytop _mainPresenter;
 		private bool _focus;
+		private IDisposable _hookDisposable;
+
+		public static HookService HookService { get; set; }
 
 		#region Current 依存関係プロパティ
 
@@ -72,6 +76,7 @@ namespace SylphyHorn.UI.Controls
 				this.CurrentAsKeys = null;
 				this._pressedButton = VirtualKey.None;
 				this._pressedSubs.Clear();
+				this._hookDisposable = HookService?.Suspend();
 				this._focus = true;
 			}
 
@@ -95,6 +100,7 @@ namespace SylphyHorn.UI.Controls
 				this.UpdateText();
 			}
 
+			this._hookDisposable?.Dispose();
 			this._focus = false;
 
 			e.Handled = true;

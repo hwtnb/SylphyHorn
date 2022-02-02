@@ -17,6 +17,7 @@ using MetroTrilithon.Threading.Tasks;
 using SylphyHorn.Properties;
 using SylphyHorn.Serialization;
 using SylphyHorn.Services;
+using SylphyHorn.UI.Controls;
 using WindowsDesktop;
 
 namespace SylphyHorn.UI.Bindings
@@ -391,6 +392,9 @@ namespace SylphyHorn.UI.Bindings
 		public SettingsWindowViewModel(HookService hookService)
 		{
 			this._hookService = hookService;
+			ShortcutKeyBox.HookService = hookService;
+			MouseShortcutBox.HookService = hookService;
+
 			this._startup = new Startup();
 			this._startupScheduler = new StartupScheduler();
 
@@ -519,7 +523,11 @@ namespace SylphyHorn.UI.Bindings
 		protected override void InitializeCore()
 		{
 			base.InitializeCore();
-			this._hookService.Suspend()
+			Disposable.Create(() =>
+				{
+					ShortcutKeyBox.HookService = null;
+					MouseShortcutBox.HookService = null;
+				})
 				.AddTo(this);
 		}
 

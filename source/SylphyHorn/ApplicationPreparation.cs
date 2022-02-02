@@ -39,10 +39,6 @@ namespace SylphyHorn
 			{
 				this.RegisterActions();
 			};
-			this._hookService.Suspended += () =>
-			{
-				SettingsService.ResizeList();
-			};
 		}
 
 		public void RegisterActions()
@@ -79,22 +75,19 @@ namespace SylphyHorn
 
 			void ShowSettings()
 			{
-				using (this._hookService.Suspend())
+				if (SettingsWindow.Instance != null)
 				{
-					if (SettingsWindow.Instance != null)
+					SettingsWindow.Instance.Activate();
+				}
+				else
+				{
+					SettingsWindow.Instance = new SettingsWindow
 					{
-						SettingsWindow.Instance.Activate();
-					}
-					else
-					{
-						SettingsWindow.Instance = new SettingsWindow
-						{
-							DataContext = new SettingsWindowViewModel(this._hookService),
-						};
+						DataContext = new SettingsWindowViewModel(this._hookService),
+					};
 
-						SettingsWindow.Instance.ShowDialog();
-						SettingsWindow.Instance = null;
-					}
+					SettingsWindow.Instance.ShowDialog();
+					SettingsWindow.Instance = null;
 				}
 			}
 		}
