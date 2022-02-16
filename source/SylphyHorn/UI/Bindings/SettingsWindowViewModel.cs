@@ -588,6 +588,8 @@ namespace SylphyHorn.UI.Bindings
 
 			if (message.Response != null && message.Response.Length > 0 && !string.IsNullOrEmpty(message.Response[0]))
 			{
+				var hookDisposable = this._hookService?.Suspend();
+
 				var filePath = message.Response[0];
 				_exportOrImportFolder = Path.GetDirectoryName(filePath);
 
@@ -595,6 +597,7 @@ namespace SylphyHorn.UI.Bindings
 
 				this.SynchronizeDesktopsWithSettingsIfRequired();
 				this.NotifyOfAllPropertiesChanged();
+				hookDisposable?.Dispose();
 
 				provider.SaveAsync().Forget();
 			}
@@ -615,12 +618,15 @@ namespace SylphyHorn.UI.Bindings
 
 			if (message.Response ?? false)
 			{
+				var hookDisposable = this._hookService?.Suspend();
+
 				var provider = LocalSettingsProvider.Instance;
 				provider.Clear();
 				provider.SaveAsync()
 					.ContinueWith(_ => SettingsService.Synchronize(overrideDesktops: false))
 					.ContinueWith(_ => this._Desktops = VirtualDesktopViewModel.CreateAll())
 					.ContinueWith(_ => this.NotifyOfAllPropertiesChanged())
+					.ContinueWith(_ => hookDisposable?.Dispose())
 					.Forget();
 			}
 		}
