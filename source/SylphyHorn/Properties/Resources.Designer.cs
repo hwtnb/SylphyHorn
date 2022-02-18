@@ -889,6 +889,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Operate SylphyHornPlus に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_OperateSylphyHorn {
+            get {
+                return ResourceManager.GetString("Settings_OperateSylphyHorn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Pin window: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Pin {
@@ -939,6 +948,15 @@ namespace SylphyHorn.Properties {
         public static string Settings_ShortcutKey {
             get {
                 return ResourceManager.GetString("Settings_ShortcutKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show settings: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ShowSettings {
+            get {
+                return ResourceManager.GetString("Settings_ShowSettings", resourceCulture);
             }
         }
         

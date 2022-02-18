@@ -393,6 +393,9 @@
   <data name="Settings_Notification_Display_Duration_Milliseconds" xml:space="preserve">
     <value>ミリ秒</value>
   </data>
+  <data name="Settings_OperateSylphyHorn" xml:space="preserve">
+    <value>SylphyHornPlus の操作</value>
+  </data>
   <data name="Settings_Pin" xml:space="preserve">
     <value>ピン留め:</value>
   </data>
@@ -410,6 +413,9 @@
   </data>
   <data name="Settings_ShortcutKey" xml:space="preserve">
     <value>キー設定</value>
+  </data>
+  <data name="Settings_ShowSettings" xml:space="preserve">
+    <value>設定を表示:</value>
   </data>
   <data name="Settings_Startup" xml:space="preserve">
     <value>起動</value>

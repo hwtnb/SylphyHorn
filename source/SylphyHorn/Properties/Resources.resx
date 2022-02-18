@@ -393,6 +393,9 @@
   <data name="Settings_Notification_Display_Duration_Milliseconds" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="Settings_OperateSylphyHorn" xml:space="preserve">
+    <value>Operate SylphyHornPlus</value>
+  </data>
   <data name="Settings_Pin" xml:space="preserve">
     <value>Pin window:</value>
   </data>
@@ -410,6 +413,9 @@
   </data>
   <data name="Settings_ShortcutKey" xml:space="preserve">
     <value>Shortcut key</value>
+  </data>
+  <data name="Settings_ShowSettings" xml:space="preserve">
+    <value>Show settings:</value>
   </data>
   <data name="Settings_Startup" xml:space="preserve">
     <value>Startup</value>

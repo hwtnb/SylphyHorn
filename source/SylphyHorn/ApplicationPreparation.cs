@@ -61,7 +61,7 @@ namespace SylphyHorn
 				var lightIcon = IconHelper.GetIconFromResource(lightUri);
 				var menus = new[]
 				{
-					new TaskTrayIconItem(Resources.TaskTray_Menu_Settings, ShowSettings, () => Application.Args.CanSettings),
+					new TaskTrayIconItem(Resources.TaskTray_Menu_Settings, this.ShowSettings, () => Application.Args.CanSettings),
 					new TaskTrayIconItem(Resources.TaskTray_Menu_Exit, this._shutdownAction),
 #if DEBUG
 					new TaskTrayIconItem("Tasktray Icon Test", () => new TaskTrayTestWindow().Show()),
@@ -72,23 +72,23 @@ namespace SylphyHorn
 			}
 
 			return this._taskTrayIcon;
+		}
 
-			void ShowSettings()
+		private void ShowSettings()
+		{
+			if (SettingsWindow.Instance != null)
 			{
-				if (SettingsWindow.Instance != null)
+				SettingsWindow.Instance.Activate();
+			}
+			else
+			{
+				SettingsWindow.Instance = new SettingsWindow
 				{
-					SettingsWindow.Instance.Activate();
-				}
-				else
-				{
-					SettingsWindow.Instance = new SettingsWindow
-					{
-						DataContext = new SettingsWindowViewModel(this._hookService),
-					};
+					DataContext = new SettingsWindowViewModel(this._hookService),
+				};
 
-					SettingsWindow.Instance.ShowDialog();
-					SettingsWindow.Instance = null;
-				}
+				SettingsWindow.Instance.ShowDialog();
+				SettingsWindow.Instance = null;
 			}
 		}
 
@@ -341,6 +341,12 @@ namespace SylphyHorn
 				.AddTo(this._disposable);
 
 			register(() => settings.TogglePinApp.ToShortcutKey(), hWnd => hWnd.TogglePinApp())
+				.AddTo(this._disposable);
+
+			register(() => settings.ShowSettings.ToShortcutKey(), _ =>
+				{
+					if (Application.Args.CanSettings) this.ShowSettings();
+				})
 				.AddTo(this._disposable);
 
 			var desktopCount = VirtualDesktopService.Count;
