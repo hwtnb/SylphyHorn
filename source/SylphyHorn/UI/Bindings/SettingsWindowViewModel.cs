@@ -468,7 +468,11 @@ namespace SylphyHorn.UI.Bindings
 				new EventListener<EventHandler<VirtualDesktopDestroyEventArgs>>(
 					h => VirtualDesktop.Destroyed += h,
 					h => VirtualDesktop.Destroyed -= h,
-					(sender, args) => this.Desktops = VirtualDesktopViewModel.CreateAll()));
+					(sender, args) =>
+					{
+						SettingsService.Synchronize(overrideDesktops: false);
+						this.Desktops = VirtualDesktopViewModel.CreateAll();
+					}));
 			this.CompositeDisposable.Add(
 				new EventListener<EventHandler<VirtualDesktopMovedEventArgs>>(
 					h => VirtualDesktop.Moved += h,

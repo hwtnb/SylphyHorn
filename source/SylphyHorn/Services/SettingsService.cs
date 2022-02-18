@@ -18,8 +18,10 @@ namespace SylphyHorn.Services
 				overrideDesktops = overrideDesktops && (generalSettings.DesktopNames.Count > 0 || generalSettings.DesktopBackgroundImagePaths.Count > 0);
 				if (overrideDesktops)
 				{
+					SuspendResizing();
 					FitWindowsDesktopsWithList();
 					UpdateWindowsDesktopsByList();
+					ResumeResizing();
 					ResizeShortcutList();
 				}
 				else
@@ -55,6 +57,8 @@ namespace SylphyHorn.Services
 
 		public static void ResizeList()
 		{
+			if (!_allowResize) return;
+
 			var desktopCount = VirtualDesktopService.Count;
 
 			ResizeDesktopListCore(desktopCount);
@@ -63,6 +67,8 @@ namespace SylphyHorn.Services
 
 		public static void ResizeShortcutList()
 		{
+			if (!_allowResize) return;
+
 			var desktopCount = VirtualDesktopService.Count;
 
 			ResizeShortcutListCore(desktopCount);
@@ -71,6 +77,12 @@ namespace SylphyHorn.Services
 		#endregion
 
 		#region private methods
+
+		private static bool _allowResize = true;
+
+		private static void SuspendResizing() => _allowResize = false;
+
+		private static void ResumeResizing() => _allowResize = true;
 
 		private static void ResizeDesktopListCore(int desktopCount)
 		{
@@ -142,11 +154,15 @@ namespace SylphyHorn.Services
 			}
 			else if (ProductInfo.IsNameSupportBuild)
 			{
-				return UpdateDesktopNamesCore;
+				return desktops =>
+				{
+					UpdateDesktopNamesCore(desktops);
+					UpdateWallpaperPathsCoreForWin10();
+				};
 			}
 			else
 			{
-				return _ => { };
+				return _ => UpdateWallpaperPathsCoreForWin10();
 			}
 		})();
 
@@ -181,6 +197,13 @@ namespace SylphyHorn.Services
 			}
 		}
 
+		private static void UpdateWallpaperPathsCoreForWin10()
+		{
+			if (!Settings.General.ChangeBackgroundEachDesktop) return;
+
+			WallpaperService.SetWallpaperAndPosition(VirtualDesktop.Current);
+		}
+
 		private static void FitWindowsDesktopsWithList()
 		{
 			var generalSettings = Settings.General;
@@ -196,6 +219,10 @@ namespace SylphyHorn.Services
 			else if (wallpaperCount < settingsCount)
 			{
 				generalSettings.DesktopBackgroundImagePaths.Resize(settingsCount);
+			}
+			if (generalSettings.DesktopBackgroundPositions.Count < settingsCount)
+			{
+				generalSettings.DesktopBackgroundPositions.Resize(settingsCount);
 			}
 
 			var desktops = VirtualDesktop.GetDesktops();

@@ -139,10 +139,6 @@ namespace SylphyHorn.UI.Bindings
 			{
 				if (ProductInfo.IsNameSupportBuild)
 				{
-					if (name.Value != desktop.Name)
-					{
-						name.Value = desktop.Name;
-					}
 					this._nameFunc = n =>
 					{
 						if (this._name.Value != n)
@@ -165,10 +161,6 @@ namespace SylphyHorn.UI.Bindings
 			}
 
 			// for Windows 11 or later
-			if (name.Value != desktop.Name)
-			{
-				name.Value = desktop.Name;
-			}
 			this._nameFunc = n =>
 			{
 				if (this._name.Value != n)
@@ -208,40 +200,12 @@ namespace SylphyHorn.UI.Bindings
 		public static VirtualDesktopViewModel[] CreateAll()
 		{
 			var desktops = VirtualDesktop.GetDesktops();
-			var desktopCount = desktops.Length;
-			var settings = Settings.General;
-			if (settings.DesktopNames.Count != desktopCount)
-			{
-				settings.DesktopNames.Resize(desktopCount);
-			}
-			if (settings.DesktopBackgroundImagePaths.Count != desktopCount)
-			{
-				settings.DesktopBackgroundImagePaths.Resize(desktopCount);
-			}
-			if (settings.DesktopBackgroundPositions.Count != desktopCount)
-			{
-				settings.DesktopBackgroundPositions.Resize(desktopCount);
-			}
 			return desktops.Select((d, i) => new VirtualDesktopViewModel(i, d)).ToArray();
 		}
 
 		public static VirtualDesktopViewModel Create(VirtualDesktop desktop)
 		{
 			var desktopIndex = desktop.Index;
-			var requiredCount = desktopIndex + 1;
-			var settings = Settings.General;
-			if (settings.DesktopNames.Count < requiredCount)
-			{
-				settings.DesktopNames.Resize(requiredCount);
-			}
-			if (settings.DesktopBackgroundImagePaths.Count < requiredCount)
-			{
-				settings.DesktopBackgroundImagePaths.Resize(requiredCount);
-			}
-			if (settings.DesktopBackgroundPositions.Count < requiredCount)
-			{
-				settings.DesktopBackgroundPositions.Resize(requiredCount);
-			}
 			return new VirtualDesktopViewModel(desktopIndex, desktop);
 		}
 
