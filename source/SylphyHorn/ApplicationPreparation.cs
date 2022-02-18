@@ -136,29 +136,6 @@ namespace SylphyHorn
 
 		private void RegisterVirtualDesktopEvents()
 		{
-			var idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
-			VirtualDesktop.Created += (sender, args) =>
-			{
-				SettingsService.ResizeList();
-
-				LocalSettingsProvider.Instance.SaveAsync().Wait();
-				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
-			};
-			VirtualDesktop.Destroyed += (sender, args) =>
-			{
-				var destroyedIndex = Array.IndexOf(idCaches, args.Destroyed.Id);
-				if (destroyedIndex < 0) return;
-				var positionSettings = Settings.General.DesktopBackgroundPositions;
-				for (var i = destroyedIndex; i + 1 < positionSettings.Count; ++i)
-				{
-					positionSettings.Value[i].Value = positionSettings.Value[i + 1].Value;
-				}
-				SettingsService.ResizeList();
-
-				LocalSettingsProvider.Instance.SaveAsync().Wait();
-				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
-			};
-
 			if (ProductInfo.IsNameSupportBuild)
 			{
 				VirtualDesktop.Renamed += (sender, args) =>
@@ -176,7 +153,54 @@ namespace SylphyHorn
 				};
 			}
 
-			if (!ProductInfo.IsWallpaperSupportBuild) return;
+			var idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+			VirtualDesktop.Created += (sender, args) =>
+			{
+				SettingsService.ResizeList();
+
+				LocalSettingsProvider.Instance.SaveAsync().Wait();
+				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+			};
+			if (ProductInfo.IsWallpaperSupportBuild)
+			{
+				VirtualDesktop.Destroyed += (sender, args) =>
+				{
+					var destroyedIndex = Array.IndexOf(idCaches, args.Destroyed.Id);
+					if (destroyedIndex < 0) return;
+					var positionSettings = Settings.General.DesktopBackgroundPositions;
+					for (var i = destroyedIndex; i + 1 < positionSettings.Count; ++i)
+					{
+						positionSettings.Value[i].Value = positionSettings.Value[i + 1].Value;
+					}
+					SettingsService.ResizeList();
+
+					LocalSettingsProvider.Instance.SaveAsync().Wait();
+					idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+				};
+			}
+			else
+			{
+				VirtualDesktop.Destroyed += (sender, args) =>
+				{
+					var destroyedIndex = Array.IndexOf(idCaches, args.Destroyed.Id);
+					if (destroyedIndex < 0) return;
+					var pathSettings = Settings.General.DesktopBackgroundImagePaths;
+					for (var i = destroyedIndex; i + 1 < pathSettings.Count; ++i)
+					{
+						pathSettings.Value[i].Value = pathSettings.Value[i + 1].Value;
+					}
+					var positionSettings = Settings.General.DesktopBackgroundPositions;
+					for (var i = destroyedIndex; i + 1 < positionSettings.Count; ++i)
+					{
+						positionSettings.Value[i].Value = positionSettings.Value[i + 1].Value;
+					}
+					SettingsService.ResizeList();
+
+					LocalSettingsProvider.Instance.SaveAsync().Wait();
+					idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+				};
+				return;
+			}
 
 			VirtualDesktop.Moved += (sender, args) =>
 			{
