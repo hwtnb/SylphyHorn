@@ -41,18 +41,18 @@ namespace SylphyHorn
 				this.SetupShortcut();
 			}
 
+			if (!this.WaitUntilExplorerStarts())
+			{
+				MessageBox.Show("This application must start after Explorer is launched.", "Not ready", MessageBoxButton.OK, MessageBoxImage.Stop);
+				this.Shutdown();
+				return;
+			}
+
 #if !DEBUG
 			var appInstance = new MetroTrilithon.Desktop.ApplicationInstance().AddTo(this);
 			if (appInstance.IsFirst || Args.Restarted.HasValue)
 #endif
 			{
-				if (!this.WaitUntilExplorerStarts())
-				{
-					MessageBox.Show("This application must start after Explorer is launched.", "Not ready", MessageBoxButton.OK, MessageBoxImage.Stop);
-					this.Shutdown();
-					return;
-				}
-
 				if (ProductInfo.OSBuild >= 14393)
 				{
 					this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
