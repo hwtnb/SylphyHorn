@@ -31,7 +31,7 @@
       <uap:VisualElements DisplayName="SylphyHorn"
                           Square150x150Logo=".assets\Square150x150Logo.scale-100.png"
                           Square44x44Logo=".assets\Square44x44Logo.scale-100.png"
-                          Description="Virtual Desktop Tools for Windows 10."
+                          Description="Virtual Desktop Tools for Windows 11 and 10."
                           BackgroundColor="transparent" />
       <Extensions>
         <desktop:Extension Category="windows.startupTask"
