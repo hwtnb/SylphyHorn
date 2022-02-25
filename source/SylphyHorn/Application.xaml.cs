@@ -70,7 +70,6 @@ namespace SylphyHorn
 
 					var preparation = new ApplicationPreparation(this.HookService, this.Shutdown, this);
 					this.TaskTrayIcon = preparation.CreateTaskTrayIcon().AddTo(this);
-					this.TaskTrayIcon.Show();
 
 					if (Settings.General.FirstTime)
 					{
@@ -80,9 +79,17 @@ namespace SylphyHorn
 						LocalSettingsProvider.Instance.SaveAsync().Forget();
 					}
 
-					preparation.VirtualDesktopInitialized += () => this.TaskTrayIcon.Reload();
-					preparation.VirtualDesktopInitializationCanceled += () => { }; // ToDo
-					preparation.VirtualDesktopInitializationFailed += ex => LoggingService.Instance.Register(ex);
+					preparation.VirtualDesktopInitialized += () =>
+					{
+						this.TaskTrayIcon.Show();
+						this.TaskTrayIcon.Reload();
+					};
+					preparation.VirtualDesktopInitializationCanceled += () => this.Shutdown(); // ToDo
+					preparation.VirtualDesktopInitializationFailed += ex =>
+					{
+						this.TaskTrayIcon.Show();
+						LoggingService.Instance.Register(ex);
+					};
 					preparation.PrepareVirtualDesktop();
 
 					NotificationService.Instance.AddTo(this);
