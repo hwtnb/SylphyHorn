@@ -15,8 +15,8 @@
 					   Title="{Binding Title}"
 					   Width="500"
 					   Height="100"
-					   MinWidth="500"
-					   MinHeight="100"
+					   MinWidth="{Binding WindowMinWidth}"
+					   MinHeight="{Binding WindowMinHeight}"
 					   SizeToContent="WidthAndHeight"
 					   ResizeMode="NoResize"
 					   Topmost="True"
@@ -82,10 +82,14 @@
 				   Text="{Binding Header}"
 				   FontFamily="{Binding FontFamily}"
 				   FontSize="18"
+				   HorizontalAlignment="{Binding HeaderAlignment}"
+				   Visibility="{Binding HeaderVisibility}"
 				   Margin="2,0,0,-4" />
 		<TextBlock DockPanel.Dock="Top"
 				   Text="{Binding Body}"
 				   FontFamily="{Binding FontFamily}"
-				   FontSize="32" />
+				   FontSize="32"
+				   HorizontalAlignment="{Binding BodyAlignment}"
+				   Visibility="{Binding BodyVisibility}" />
 	</DockPanel>
 </ui:NotificationWindow>

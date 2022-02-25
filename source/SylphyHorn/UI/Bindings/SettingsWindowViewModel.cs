@@ -331,9 +331,29 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
-		public string PreviewNotificationText => Settings.General.UseDesktopName && this.CurrentDesktop != null
-			? $"Desktop {this.CurrentDesktop.NumberText}: {this.CurrentDesktop.Name}"
-			: $"Current Desktop: Desktop {(this.CurrentDesktop != null ? this.CurrentDesktop.NumberText : "1")}";
+		public Visibility PreviewNotificationHeaderVisibility => Settings.General.SimpleNotification
+			? Visibility.Collapsed
+			: Visibility.Visible;
+
+		public string PreviewNotificationText
+		{
+			get
+			{
+				if (Settings.General.UseDesktopName && this.CurrentDesktop != null)
+				{
+					return Settings.General.SimpleNotification
+						? $"{this.CurrentDesktop.NumberText}. {this.CurrentDesktop.Name}"
+						: $"Desktop {this.CurrentDesktop.NumberText}: {this.CurrentDesktop.Name}";
+				}
+				else
+				{
+					var numberText = this.CurrentDesktop != null ? this.CurrentDesktop.NumberText : "1";
+					return Settings.General.SimpleNotification
+						? $"Desktop {numberText}"
+						: $"Current Desktop: Desktop {numberText}";
+				}
+			}
+		}
 
 		#region NotificationBackgroundColor notification property
 
@@ -494,6 +514,12 @@ namespace SylphyHorn.UI.Bindings
 				log => new LogViewModel(log),
 				DispatcherHelper.UIDispatcher);
 
+			Settings.General.SimpleNotification
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.PreviewNotificationText)))
+				.AddTo(this);
+			Settings.General.SimpleNotification
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.PreviewNotificationHeaderVisibility)))
+				.AddTo(this);
 			Settings.General.UseDesktopName
 				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.PreviewNotificationText)))
 				.AddTo(this);

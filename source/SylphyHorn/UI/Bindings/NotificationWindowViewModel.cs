@@ -1,4 +1,5 @@
-﻿using MetroTrilithon.Mvvm;
+﻿using System.Windows;
+using MetroTrilithon.Mvvm;
 using SylphyHorn.Serialization;
 
 namespace SylphyHorn.UI.Bindings
@@ -59,6 +60,28 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		#region Visibility 変更通知プロパティ
 
+		public Visibility HeaderVisibility => string.IsNullOrEmpty(this.Header) ? Visibility.Collapsed : Visibility.Visible;
+
+		public Visibility BodyVisibility => Visibility.Visible;
+
+		#endregion
+
+		#region Alignment 変更通知プロパティ
+
+		public string HeaderAlignment => "Left";
+
+		public string BodyAlignment => Settings.General.SimpleNotification ? "Center" : "Left";
+
+		#endregion
+
+		#region WindowMinSize 変更通知プロパティ
+
+		public int WindowMinWidth => Settings.General.SimpleNotification ? 210 : 500;
+
+		public int WindowMinHeight => 100;
+
+		#endregion
 	}
 }

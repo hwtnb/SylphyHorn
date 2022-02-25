@@ -393,6 +393,9 @@
   <data name="Settings_Notification_Display_Duration_Milliseconds" xml:space="preserve">
     <value>ミリ秒</value>
   </data>
+  <data name="Settings_Notification_SimpleMode" xml:space="preserve">
+    <value>シンプルな通知モード</value>
+  </data>
   <data name="Settings_OperateSylphyHorn" xml:space="preserve">
     <value>SylphyHornPlus の操作</value>
   </data>

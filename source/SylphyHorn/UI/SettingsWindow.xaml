@@ -688,6 +688,9 @@
 						<Border Height="16" />
 
 						<StackPanel Margin="8,0,0,0">
+							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=SimpleNotification.Value, Mode=TwoWay}">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_SimpleMode}" />
+							</CheckBox>
 							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
 							</CheckBox>
@@ -870,7 +873,8 @@
 											   Foreground="{Binding NotificationForeground}"
 											   FontFamily="{Binding NotificationFontFamilyOrDefault}"
 											   FontSize="11"
-											   Margin="1,0,0,-4" />
+											   Margin="1,0,0,-4"
+											   Visibility="{Binding PreviewNotificationHeaderVisibility}" />
 									<TextBlock DockPanel.Dock="Top"
 											   Text="{Binding PreviewNotificationText}"
 											   Foreground="{Binding NotificationForeground}"

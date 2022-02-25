@@ -65,7 +65,7 @@ namespace SylphyHorn.Services
 		private static IDisposable ShowSwitchedDesktopWindow(int newNumber)
 		{
 			return ShowDesktopWindow(
-				header: "Virtual Desktop Switched",
+				header: Settings.General.SimpleNotification ? "" : "Virtual Desktop Switched",
 				body: CreateNotificationBodyText(newNumber));
 
 			string CreateNotificationBodyText(int number)
@@ -76,11 +76,14 @@ namespace SylphyHorn.Services
 				if (!generalSttings.UseDesktopName || desktopNames.Count < number ||
 					desktopNames[i].Value == null || desktopNames[i].Value.Length == 0)
 				{
-					return "Current Desktop: Desktop " + number.ToString();
+					var prefix = generalSttings.SimpleNotification ? "" : "Current Desktop: ";
+					return prefix + "Desktop " + number.ToString();
 				}
 				else
 				{
-					return $"Desktop {number}: {desktopNames[i].Value}";
+					return generalSttings.SimpleNotification
+						? $"{number}. {desktopNames[i].Value}"
+						: $"Desktop {number}: {desktopNames[i].Value}";
 				}
 			};
 		}
@@ -88,7 +91,7 @@ namespace SylphyHorn.Services
 		private static IDisposable ShowMovedDesktopWindow(int currentNumber, int newNumber, int oldNumber)
 		{
 			return ShowDesktopWindow(
-				header: $"Desktop {oldNumber} Moved to Desktop {newNumber}",
+				header: Settings.General.SimpleNotification ? $"Desktop {oldNumber} => Desktop {newNumber}" : $"Desktop {oldNumber} Moved to Desktop {newNumber}",
 				body: CreateNotificationBodyText(currentNumber));
 
 			string CreateNotificationBodyText(int number)
@@ -99,11 +102,14 @@ namespace SylphyHorn.Services
 				if (!generalSttings.UseDesktopName || desktopNames.Count < number ||
 					desktopNames[i].Value == null || desktopNames[i].Value.Length == 0)
 				{
-					return "Reordered Current Desktop: Desktop " + number.ToString();
+					var prefix = generalSttings.SimpleNotification ? "" : "Reordered Current Desktop: ";
+					return prefix + "Desktop " + number.ToString();
 				}
 				else
 				{
-					return $"Reordered Desktop {number}: {desktopNames[i].Value}";
+					return generalSttings.SimpleNotification
+						? $"{number}. {desktopNames[i].Value}"
+						: $"Reordered Desktop {number}: {desktopNames[i].Value}";
 				}
 			};
 		}
@@ -154,12 +160,19 @@ namespace SylphyHorn.Services
 
 		private static IDisposable ShowPinWindow(IntPtr hWnd, PinOperations operation)
 		{
-			var vmodel = new NotificationWindowViewModel
-			{
-				Title = ProductInfo.Title,
-				Header = "Virtual Desktop",
-				Body = $"{(operation.HasFlag(PinOperations.Pin) ? "Pinned" : "Unpinned")} this {(operation.HasFlag(PinOperations.Window) ? "window" : "application")}",
-			};
+			var vmodel = Settings.General.SimpleNotification
+				? new NotificationWindowViewModel
+				{
+					Title = ProductInfo.Title,
+					Header = "",
+					Body = $"{(operation.HasFlag(PinOperations.Window) ? "Window" : "Application")} {(operation.HasFlag(PinOperations.Pin) ? "Pinned" : "Unpinned")}",
+				}
+				: new NotificationWindowViewModel
+				{
+					Title = ProductInfo.Title,
+					Header = "Virtual Desktop",
+					Body = $"{(operation.HasFlag(PinOperations.Pin) ? "Pinned" : "Unpinned")} this {(operation.HasFlag(PinOperations.Window) ? "window" : "application")}",
+				};
 			var source = new CancellationTokenSource();
 			var window = new PinWindow(hWnd)
 			{

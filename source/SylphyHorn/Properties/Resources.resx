@@ -393,6 +393,9 @@
   <data name="Settings_Notification_Display_Duration_Milliseconds" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="Settings_Notification_SimpleMode" xml:space="preserve">
+    <value>Simple notification mode</value>
+  </data>
   <data name="Settings_OperateSylphyHorn" xml:space="preserve">
     <value>Operate SylphyHornPlus</value>
   </data>

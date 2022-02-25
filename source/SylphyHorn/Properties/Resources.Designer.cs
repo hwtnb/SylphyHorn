@@ -754,6 +754,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Simple notification mode に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Notification_SimpleMode {
+            get {
+                return ResourceManager.GetString("Settings_Notification_SimpleMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Notification font family に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_NotificationFontFamily {
