@@ -53,9 +53,9 @@ namespace SylphyHorn.Serialization
 				if (string.IsNullOrEmpty(currentPath))
 				{
 					currentPath = Settings.General.DesktopBackgroundImagePaths.Value
-						.FirstOrDefault(p => !string.IsNullOrEmpty(p));
+						.FirstOrDefault(p => !string.IsNullOrEmpty(p.Value)) ?? "";
 				}
-				return currentPath ?? "";
+				return currentPath;
 			}
 
 			return path.Value;
