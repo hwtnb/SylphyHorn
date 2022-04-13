@@ -318,6 +318,7 @@ namespace SylphyHorn.UI.Bindings
 				if (this._path.Value != p)
 				{
 					this._path.Value = p;
+					WallpaperService.SetWallpaperEnabled(!string.IsNullOrEmpty(p));
 					desktop.WallpaperPath = p;
 				}
 			};

@@ -106,6 +106,12 @@ namespace SylphyHorn.Services
 			if (oldPosition != newPosition) dw.SetPosition(newPosition);
 		}
 
+		public static void SetWallpaperEnabled(bool enabled)
+		{
+			var dw = DesktopWallpaperFactory.Create();
+			dw.Enable(enabled);
+		}
+
 		public static void SetBackgroundColor(Color color)
 		{
 			var dw = DesktopWallpaperFactory.Create();
