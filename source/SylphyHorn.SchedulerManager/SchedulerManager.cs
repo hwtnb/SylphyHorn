@@ -1,23 +1,25 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
+using System.Threading;
 using TaskScheduler;
 
 namespace SylphyHorn
 {
-    class SchedulerManager
-    {
-        static void Main(string[] args)
-        {
-            if (args.Length < 1)
+	class SchedulerManager
+	{
+		static void Main(string[] args)
+		{
+			if (args.Length < 1)
 			{
 				Environment.Exit(-1);
 			}
 			var command = args[0];
-			var appPath = args[1];
-			var process = new SchedulerProcess(appPath);
+			var process = args.Length > 1 ? new SchedulerProcess(appPath: args[1]) : new SchedulerProcess();
 			switch (command)
 			{
 				case "register":
@@ -26,16 +28,25 @@ namespace SylphyHorn
 				case "unregister":
 					Environment.Exit(process.Unregister());
 					break;
+				case "start":
+					Environment.Exit(process.Start());
+					break;
+				case "stop":
+					Environment.Exit(process.Stop());
+					break;
+				case "restart":
+					Environment.Exit(process.Restart());
+					break;
 				case "hastask":
 					Environment.Exit(Convert.ToInt32(process.HasTask));
 					break;
 			}
 
 		}
-    }
+	}
 
-    class SchedulerProcess
-    {
+	class SchedulerProcess
+	{
 		private const string _schedulerDir = "\\";
 		private const string _defaultAppName = "SylphyHorn";
 		private const string _defaultAppExtension = ".exe";
@@ -56,6 +67,10 @@ namespace SylphyHorn
 
 		public SchedulerProcess(string appPath)
 		{
+			if (string.IsNullOrEmpty(appPath) || !File.Exists(appPath))
+			{
+				throw new ArgumentNullException($"Error: app path ({appPath}) is invalid.");
+			}
 			this._appPath = $"\"{appPath}\"";
 			this._appName = Path.GetFileNameWithoutExtension(appPath);
 			this._taskName = this._appName + " Startup";
@@ -159,6 +174,68 @@ namespace SylphyHorn
 			return 0;
 		}
 
+		public int Start()
+		{
+			var task = this.FindStartupTask();
+			if (task == null)
+			{
+				return -1;
+			}
+			task.Run(null);
+			return 0;
+		}
+
+		public int Stop()
+		{
+			var task = this.FindStartupTask();
+			if (task == null)
+			{
+				return -1;
+			}
+			task.Stop(0);
+			return 0;
+		}
+
+		public int Restart()
+		{
+			var task = this.FindStartupTask();
+			if (task == null || task.State == _TASK_STATE.TASK_STATE_DISABLED)
+			{
+				return -1;
+			}
+
+			var taskActions = task.Definition.Actions;
+			var appPath = taskActions.Count > 0
+				? ((IExecAction)taskActions[1])?.Path ?? this._appPath
+				: this._appPath;
+			appPath = Regex.Replace(appPath, @"^""(.+)""$", "$1");
+			if (string.IsNullOrEmpty(appPath) || !File.Exists(appPath))
+			{
+				throw new FileNotFoundException($"Error: app path ({appPath}) is invalid.");
+			}
+			else if (task.State == _TASK_STATE.TASK_STATE_RUNNING)
+			{
+				task.Stop(0);
+			}
+
+			var appName = Path.GetFileNameWithoutExtension(appPath);
+			var totalTime = 0;
+			const int timeout = 30000;
+			const int interval = 100;
+			while (Process.GetProcessesByName(appName).Length > 0)
+			{
+				Thread.Sleep(interval);
+				totalTime += interval;
+				if (totalTime >= timeout)
+				{
+					return -1;
+				}
+			}
+
+			task.Run(null);
+			return 0;
+		}
+
 		private ITaskDefinition CreateTaskDefinition(ITaskService taskService)
 		{
 			var taskDefinition = taskService.NewTask(0);
@@ -192,7 +269,7 @@ namespace SylphyHorn
 			trigger.Enabled = true;
 
 			/* Operation Settings */
-			execAction.Path = _appPath;
+			execAction.Path = this._appPath;
 			//execAction.Arguments = "";
 
 			return taskDefinition;
@@ -242,5 +319,5 @@ namespace SylphyHorn
 			var appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 			return Path.Combine(appDir, SchedulerProcess._defaultAppName + SchedulerProcess._defaultAppExtension);
 		}
-    }
+	}
 }
