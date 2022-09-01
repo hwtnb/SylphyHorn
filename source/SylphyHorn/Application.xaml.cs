@@ -89,6 +89,7 @@ namespace SylphyHorn
 					{
 						this.TaskTrayIcon.Show();
 						LoggingService.Instance.Register(ex);
+						this.RestartOrShutdown("Virtual desktop initialization is failed.", "Virtual Desktop Initialization Failed");
 					};
 					preparation.PrepareVirtualDesktop();
 
@@ -161,6 +162,29 @@ namespace SylphyHorn
 				}
 			}
 			return false;
+		}
+
+		private void RestartOrShutdown(string message, string caption)
+		{
+			var result = MessageBox.Show(
+				$"{message}\n\nDo you want to restart {ProductInfo.Title} now?",
+				caption,
+				MessageBoxButton.YesNo,
+				MessageBoxImage.Stop
+			);
+			if (result == MessageBoxResult.Yes)
+			{
+				try
+				{
+					Restart();
+				}
+				catch
+				{
+					this.Shutdown();
+					return;
+				}
+			}
+			this.Shutdown();
 		}
 
 		#region IDisposable members
