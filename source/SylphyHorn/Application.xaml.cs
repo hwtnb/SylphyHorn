@@ -9,7 +9,6 @@ using Livet;
 using MetroRadiance.UI;
 using MetroTrilithon.Lifetime;
 using MetroTrilithon.Threading.Tasks;
-using StatefulModel;
 using SylphyHorn.Properties;
 using SylphyHorn.Serialization;
 using SylphyHorn.Services;
@@ -26,7 +25,7 @@ namespace SylphyHorn
 			= false;
 #endif
 
-		private readonly MultipleDisposable _compositeDisposable = new MultipleDisposable();
+		private readonly LivetCompositeDisposable _compositeDisposable = new LivetCompositeDisposable();
 
 		internal HookService HookService { get; private set; }
 

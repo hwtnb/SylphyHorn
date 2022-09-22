@@ -14,7 +14,6 @@ namespace SylphyHorn.Properties
 			new LicenseInfo("Open.WinKeyboardHook"),
 			new LicenseInfo("InputSimulatorPlus"),
 			new LicenseInfo("Livet"),
-			new LicenseInfo("StatefulModel"),
 			new LicenseInfo("MetroRadiance"),
 			new LicenseInfo("MetroTrilithon"),
 		};
