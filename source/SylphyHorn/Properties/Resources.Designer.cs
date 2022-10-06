@@ -1132,6 +1132,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Toggle desktop notification: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ToggleDesktopNotification {
+            get {
+                return ResourceManager.GetString("Settings_ToggleDesktopNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show current desktop info in tray に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_ToggleTrayIconInfo {

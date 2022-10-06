@@ -349,6 +349,9 @@ namespace SylphyHorn
 				})
 				.AddTo(this._disposable);
 
+			register(() => settings.ToggleDesktopNotification.ToShortcutKey(), _ => NotificationService.Instance.ToggleCurrentDesktop())
+				.AddTo(this._disposable);
+
 			var desktopCount = VirtualDesktopService.Count;
 			var switchToIndices = settings.SwitchToIndices.Value;
 			for (var index = 0; index < desktopCount && index < switchToIndices.Count; ++index)

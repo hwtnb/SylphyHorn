@@ -37,6 +37,18 @@ namespace SylphyHorn.Services
 			CloseResidentWindows();
 		}
 
+		public void ToggleCurrentDesktop()
+		{
+			if (_residentWindows.Count(window => window.IsVisible) == 0)
+			{
+				this.ShowCurrentDesktop();
+			}
+			else
+			{
+				this.HideCurrentDesktop();
+			}
+		}
+
 		private NotificationService()
 		{
 			VirtualDesktop.CurrentChanged += this.VirtualDesktopOnCurrentChanged;
