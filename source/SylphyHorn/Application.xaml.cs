@@ -82,6 +82,10 @@ namespace SylphyHorn
 					{
 						this.TaskTrayIcon.Show();
 						this.TaskTrayIcon.Reload();
+						if (Settings.General.AlwaysShowDesktopNotification)
+						{
+							NotificationService.Instance.ShowCurrentDesktop();
+						}
 					};
 					preparation.VirtualDesktopInitializationCanceled += () => this.Shutdown(); // ToDo
 					preparation.VirtualDesktopInitializationFailed += ex =>

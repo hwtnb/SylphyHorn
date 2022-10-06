@@ -19,6 +19,8 @@ namespace SylphyHorn.Serialization
 
 		public SerializableProperty<bool> NotificationWhenSwitchedDesktop => this.Cache(key => new SerializableProperty<bool>(key, this._provider, NotificationWhenSwitchedDesktopDefaultValue));
 
+		public SerializableProperty<bool> AlwaysShowDesktopNotification => this.Cache(key => new SerializableProperty<bool>(key, this._provider, AlwaysShowDesktopNotificationDefaultValue));
+
 		public SerializableProperty<bool> SimpleNotification => this.Cache(key => new SerializableProperty<bool>(key, this._provider));
 
 		public SerializableProperty<int> NotificationDuration => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationDurationDefaultValue));
@@ -58,6 +60,8 @@ namespace SylphyHorn.Serialization
 		#region default values
 
 		public static bool NotificationWhenSwitchedDesktopDefaultValue { get; } = true;
+
+		public static bool AlwaysShowDesktopNotificationDefaultValue { get; } = false;
 
 		public static int NotificationDurationDefaultValue { get; } = 2500 /* milliseconds */;
 

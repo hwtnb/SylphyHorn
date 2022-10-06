@@ -384,6 +384,9 @@
   <data name="Settings_NotificationWindowStyle_System" xml:space="preserve">
     <value>システムに合わせる</value>
   </data>
+  <data name="Settings_Notification_AlwaysShowDesktop" xml:space="preserve">
+    <value>デスクトップの情報を常に表示する</value>
+  </data>
   <data name="Settings_Notification_Display" xml:space="preserve">
     <value>仮想デスクトップ切り替え時に通知を表示する</value>
   </data>

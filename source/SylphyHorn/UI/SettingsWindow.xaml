@@ -213,6 +213,13 @@
 								<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_Display_Duration_Milliseconds, Mode=OneWay}" />
 							</TextBlock>
 						</StackPanel>
+						<StackPanel Margin="8,8,0,0">
+							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=AlwaysShowDesktopNotification.Value, Mode=TwoWay}">
+								<TextBlock>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_AlwaysShowDesktop, Mode=OneWay}" />
+								</TextBlock>
+							</CheckBox>
+						</StackPanel>
 						<Border Height="8" />
 
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_TrayIcon}"

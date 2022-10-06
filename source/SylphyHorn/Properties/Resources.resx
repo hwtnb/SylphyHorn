@@ -384,6 +384,9 @@
   <data name="Settings_NotificationWindowStyle_System" xml:space="preserve">
     <value>Match to System</value>
   </data>
+  <data name="Settings_Notification_AlwaysShowDesktop" xml:space="preserve">
+    <value>Always show current desktop</value>
+  </data>
   <data name="Settings_Notification_Display" xml:space="preserve">
     <value>Display a notification when switched virtual desktop</value>
   </data>

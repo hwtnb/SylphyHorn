@@ -727,6 +727,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Always show current desktop に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Notification_AlwaysShowDesktop {
+            get {
+                return ResourceManager.GetString("Settings_Notification_AlwaysShowDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Display a notification when switched virtual desktop に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Notification_Display {

@@ -514,6 +514,20 @@ namespace SylphyHorn.UI.Bindings
 				log => new LogViewModel(log),
 				DispatcherHelper.UIDispatcher);
 
+			Settings.General.AlwaysShowDesktopNotification
+				.Subscribe(alwaysShow =>
+				{
+					if (alwaysShow)
+					{
+						NotificationService.Instance.ShowCurrentDesktop();
+					}
+					else
+					{
+						NotificationService.Instance.HideCurrentDesktop();
+					}
+				})
+				.AddTo(this);
+
 			Settings.General.SimpleNotification
 				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.PreviewNotificationText)))
 				.AddTo(this);
