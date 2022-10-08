@@ -602,7 +602,7 @@
 							  VerticalScrollBarVisibility="Auto">
 					<StackPanel Margin="16,0,16,16"
 								Focusable="True">
-						<Grid>
+						<Grid Margin="0,-8,0,0">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="210" />
 								<ColumnDefinition Width="32" />
@@ -612,7 +612,7 @@
 									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MultipleDisplays}"
 									   Style="{DynamicResource HeaderStyleKey}" />
 							<TextBlock Grid.Column="2"
-									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowPlacement}"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowMinSize}"
 									   Style="{DynamicResource HeaderStyleKey}" />
 						</Grid>
 						<StackPanel Margin="8,0,0,0">
@@ -633,7 +633,63 @@
 													  MinWidth="200"
 													  Margin="1,0,0,0"
 													  HorizontalAlignment="Left" />
-								<metro:PromptComboBox Grid.Column="2"
+								<TextBlock Grid.Column="2"
+										   Margin="1,0,0,0">
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowMinSize_Width, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding NotificationMinWidth, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowMinSize_Width_SimpleMode, StringFormat=({0}, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding SimpleNotificationMinWidth, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowMinSize_Width_PinWindow, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding PinWindowMinWidth, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,-2,-7" />
+									</InlineUIContainer>
+									<Run Text=") " />
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowMinSize_Height, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding NotificationMinHeight, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+								</TextBlock>
+							</Grid>
+						</StackPanel>
+						<Border Height="8" />
+
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="210" />
+								<ColumnDefinition Width="32" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Column="0"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowPlacement}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+							<TextBlock Grid.Column="2"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontSize}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+						</Grid>
+						<StackPanel Margin="8,0,0,0">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="210" />
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<metro:PromptComboBox Grid.Column="0"
 													  ItemsSource="{Binding Placements}"
 													  DisplayMemberPath="Display"
 													  SelectedValuePath="Value"
@@ -643,6 +699,30 @@
 													  MinWidth="200"
 													  Margin="1,0,0,0"
 													  HorizontalAlignment="Left" />
+								<TextBlock Grid.Column="2" VerticalAlignment="Top"
+										   Margin="1,0,0,0">
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontSize_Header, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding NotificationHeaderFontSize, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontSize_Body, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding NotificationBodyFontSize, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontSize_LineSpacing, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding NotificationLineSpacing, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+								</TextBlock>
 							</Grid>
 						</StackPanel>
 						<Border Height="8" />
@@ -679,10 +759,11 @@
 													  HorizontalAlignment="Left" />
 								<metro:PromptTextBox Grid.Column="2"
 													 Text="{Binding NotificationFontFamily, Mode=TwoWay}"
-													 MinWidth="200"
-													 MaxWidth="310"
+													 MinWidth="313"
+													 MaxWidth="360"
 													 Margin="1,0,0,0"
-													 HorizontalAlignment="Left">
+													 HorizontalAlignment="Left"
+													 VerticalAlignment="Top">
 									<metro:PromptTextBox.Prompt>
 										<MultiBinding StringFormat="{}{0} ({1}) ">
 											<Binding Source="{x:Static serialization:Settings.General}" Path="NotificationFontFamilyDefaultValue" />
@@ -692,17 +773,69 @@
 								</metro:PromptTextBox>
 							</Grid>
 						</StackPanel>
-						<Border Height="16" />
+						<Border Height="8" />
 
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="210" />
+								<ColumnDefinition Width="32" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Column="0"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+							<TextBlock Grid.Column="2"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_Others}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+						</Grid>
 						<StackPanel Margin="8,0,0,0">
-							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=SimpleNotification.Value, Mode=TwoWay}">
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_SimpleMode}" />
-							</CheckBox>
-							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
-							</CheckBox>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="210" />
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<TextBlock Grid.Column="0"
+										   Margin="1,0,0,0"
+										   VerticalAlignment="Top">
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment_Header, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptComboBox ItemsSource="{Binding NotificationTextAlignments}"
+															  DisplayMemberPath="Display"
+															  SelectedValuePath="Value"
+															  SelectedValue="{Binding NotificationHeaderAlignment, Mode=TwoWay}"
+															  Prompt=""
+															  IsReadOnly="True"
+															  MinWidth="60"
+															  Margin="2,0,2,-7"
+															  HorizontalAlignment="Left" />
+									</InlineUIContainer>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment_Body, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptComboBox ItemsSource="{Binding NotificationTextAlignments}"
+															  DisplayMemberPath="Display"
+															  SelectedValuePath="Value"
+															  SelectedValue="{Binding NotificationBodyAlignment, Mode=TwoWay}"
+															  Prompt=""
+															  IsReadOnly="True"
+															  MinWidth="60"
+															  Margin="2,0,2,-7"
+															  HorizontalAlignment="Left" />
+									</InlineUIContainer>
+								</TextBlock>
+								<StackPanel Grid.Column="2"
+											Margin="1,0,0,0"
+											VerticalAlignment="Top">
+									<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=SimpleNotification.Value, Mode=TwoWay}">
+										<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_SimpleMode}" />
+									</CheckBox>
+									<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
+										<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
+									</CheckBox>
+								</StackPanel>
+							</Grid>
 						</StackPanel>
-						<Border Height="48" />
+						<Border Height="12" />
 
 						<Canvas>
 							<Canvas.Resources>
@@ -735,28 +868,28 @@
 											<Setter Property="Canvas.Left"
 													Value="90" />
 											<Setter Property="Canvas.Top"
-													Value="110" />
+													Value="88" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.BottomLeft}">
 											<Setter Property="Canvas.Left"
 													Value="0" />
 											<Setter Property="Canvas.Top"
-													Value="205" />
+													Value="184" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.BottomCenter}">
 											<Setter Property="Canvas.Left"
 													Value="90" />
 											<Setter Property="Canvas.Top"
-													Value="205" />
+													Value="184" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.BottomRight}">
 											<Setter Property="Canvas.Left"
 													Value="180" />
 											<Setter Property="Canvas.Top"
-													Value="205" />
+													Value="184" />
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -766,37 +899,37 @@
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.TopLeft}">
 											<Setter Property="Margin"
-													Value="0,0,-180,-220" />
+													Value="0,0,-140,-198" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.TopCenter}">
 											<Setter Property="Margin"
-													Value="-90,0,-90,-220" />
+													Value="-70,0,-70,-198" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.TopRight}">
 											<Setter Property="Margin"
-													Value="-180,0,0,-220" />
+													Value="-140,0,0,-198" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.Center}">
 											<Setter Property="Margin"
-													Value="-90,-110,-90,-110" />
+													Value="-70,-99,-70,-99" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.BottomLeft}">
 											<Setter Property="Margin"
-													Value="0,-205,-180,-15" />
+													Value="0,-183,-140,-15" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.BottomCenter}">
 											<Setter Property="Margin"
-													Value="-90,-205,-90,-15" />
+													Value="-70,-183,-70,-15" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding Placement}"
 													 Value="{x:Static bindings:WindowPlacement.BottomRight}">
 											<Setter Property="Margin"
-													Value="-180,-205,0,-15" />
+													Value="-140,-183,0,-15" />
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
@@ -842,19 +975,19 @@
 								</Style>
 							</Canvas.Resources>
 							<Rectangle Fill="{Binding PreviewBackgroundBrush}"
-									   Width="480"
-									   Height="270" />
+									   Width="440"
+									   Height="248" />
 							<Image Source="{Binding PreviewBackgroundPath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
 								   Stretch="Uniform"
 								   VerticalAlignment="Top"
-								   Width="480"
-								   Height="270" />
+								   Width="440"
+								   Height="248" />
 
 							<Grid x:Name="PreviewRoot"
-								  Width="300"
+								  Width="260"
 								  Height="50"
 								  Style="{StaticResource PreviewGridStyle}">
-								<ContentControl Width="300"
+								<ContentControl Width="260"
 												Height="50"
 												ClipToBounds="True">
 									<ContentControl.CacheMode>
@@ -863,8 +996,8 @@
 									<Rectangle x:Name="PreviewBlurImage"
 											   Fill="{Binding NotificationBackground}"
 											   VerticalAlignment="Top"
-											   Width="480"
-											   Height="270"
+											   Width="440"
+											   Height="248"
 											   Visibility="{Binding HasPreviewWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}"
 											   Style="{StaticResource PreviewBlurImageStyle}">
 										<Rectangle.Effect>
@@ -880,13 +1013,15 @@
 											   Foreground="{Binding NotificationForeground}"
 											   FontFamily="{Binding NotificationFontFamilyOrDefault}"
 											   FontSize="11"
-											   Margin="1,0,0,-4"
+											   Margin="1,0,1,-4"
+											   HorizontalAlignment="{Binding NotificationHeaderAlignment}"
 											   Visibility="{Binding PreviewNotificationHeaderVisibility}" />
 									<TextBlock DockPanel.Dock="Top"
 											   Text="{Binding PreviewNotificationText}"
 											   Foreground="{Binding NotificationForeground}"
 											   FontFamily="{Binding NotificationFontFamilyOrDefault}"
-											   FontSize="21" />
+											   FontSize="21"
+											   HorizontalAlignment="{Binding NotificationBodyAlignment}" />
 								</DockPanel>
 								<Border BorderBrush="#AAAAAA"
 										SnapsToDevicePixels="True"
@@ -894,9 +1029,9 @@
 							</Grid>
 
 							<Rectangle Fill="{Binding TaskbarBackground}"
-									   Width="480"
+									   Width="440"
 									   Height="15"
-									   Canvas.Top="255" />
+									   Canvas.Top="233" />
 						</Canvas>
 					</StackPanel>
 				</ScrollViewer>

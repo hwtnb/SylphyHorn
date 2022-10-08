@@ -77,19 +77,20 @@
 	</i:Interaction.Triggers>
 
 	<DockPanel VerticalAlignment="Center"
-			   Margin="16,12,24,12">
+			   Margin="16,12,16,12">
 		<TextBlock DockPanel.Dock="Top"
 				   Text="{Binding Header}"
 				   FontFamily="{Binding FontFamily}"
-				   FontSize="18"
+				   FontSize="{Binding HeaderFontSize}"
 				   HorizontalAlignment="{Binding HeaderAlignment}"
 				   Visibility="{Binding HeaderVisibility}"
-				   Margin="2,0,0,-4" />
+				   Margin="{Binding HeaderMargin}" />
 		<TextBlock DockPanel.Dock="Top"
 				   Text="{Binding Body}"
 				   FontFamily="{Binding FontFamily}"
-				   FontSize="32"
+				   FontSize="{Binding BodyFontSize}"
 				   HorizontalAlignment="{Binding BodyAlignment}"
-				   Visibility="{Binding BodyVisibility}" />
+				   Visibility="{Binding BodyVisibility}"
+				   Margin="{Binding BodyMargin}" />
 	</DockPanel>
 </ui:NotificationWindow>

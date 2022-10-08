@@ -40,6 +40,8 @@ namespace SylphyHorn.UI.Bindings
 
 		public IReadOnlyCollection<DisplayViewModel<BlurWindowThemeMode>> NotificationWindowStyles { get; }
 
+		public IReadOnlyCollection<DisplayViewModel<HorizontalAlignment>> NotificationTextAlignments { get; }
+
 		public bool IsDisplayEnabled { get; }
 
 		public IReadOnlyCollection<DisplayViewModel<uint>> Displays { get; }
@@ -257,6 +259,138 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		#region NotificationHeaderAlignment notification property
+
+		public HorizontalAlignment NotificationHeaderAlignment
+		{
+			get => (HorizontalAlignment)Settings.General.NotificationHeaderAlignment.Value;
+			set
+			{
+				if ((HorizontalAlignment)Settings.General.NotificationHeaderAlignment.Value != value)
+				{
+					Settings.General.NotificationHeaderAlignment.Value = (uint)value;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region NotificationBodyAlignment notification property
+
+		public HorizontalAlignment NotificationBodyAlignment
+		{
+			get => (HorizontalAlignment)Settings.General.NotificationBodyAlignment.Value;
+			set
+			{
+				if ((HorizontalAlignment)Settings.General.NotificationBodyAlignment.Value != value)
+				{
+					Settings.General.NotificationBodyAlignment.Value = (uint)value;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region NotificationMinWidth notification property
+
+		public int? NotificationMinWidth
+		{
+			get => Settings.General.NotificationMinWidth.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.NotificationMinWidthDefaultValue;
+				if (param <= 0)
+				{
+					param = GeneralSettings.NotificationMinWidthDefaultValue;
+				}
+
+				if (Settings.General.NotificationMinWidth.Value != param)
+				{
+					Settings.General.NotificationMinWidth.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region SimpleNotificationMinWidth notification property
+
+		public int? SimpleNotificationMinWidth
+		{
+			get => Settings.General.SimpleNotificationMinWidth.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.SimpleNotificationMinWidthDefaultValue;
+				if (param <= 0)
+				{
+					param = GeneralSettings.SimpleNotificationMinWidthDefaultValue;
+				}
+
+				if (Settings.General.SimpleNotificationMinWidth.Value != param)
+				{
+					Settings.General.SimpleNotificationMinWidth.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region PinWindowMinWidth notification property
+
+		public int? PinWindowMinWidth
+		{
+			get => Settings.General.PinWindowMinWidth.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.PinWindowMinWidthDefaultValue;
+				if (param <= 0)
+				{
+					param = GeneralSettings.PinWindowMinWidthDefaultValue;
+				}
+
+				if (Settings.General.PinWindowMinWidth.Value != param)
+				{
+					Settings.General.PinWindowMinWidth.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region NotificationMinHeight notification property
+
+		public int? NotificationMinHeight
+		{
+			get => Settings.General.NotificationMinHeight.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.NotificationMinHeightDefaultValue;
+				if (param <= 0)
+				{
+					param = GeneralSettings.NotificationMinHeightDefaultValue;
+				}
+
+				if (Settings.General.NotificationMinHeight.Value != param)
+				{
+					Settings.General.NotificationMinHeight.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
 		#region NotificationFontFamily notification property
 
 		public string NotificationFontFamily
@@ -287,6 +421,73 @@ namespace SylphyHorn.UI.Bindings
 					: defaultFont;
 			}
 		}
+
+		#region NotificationHeaderFontSize notification property
+
+		public int? NotificationHeaderFontSize
+		{
+			get => Settings.General.NotificationHeaderFontSize.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.NotificationHeaderFontSizeDefaultValue;
+				if (param <= 0)
+				{
+					param = GeneralSettings.NotificationHeaderFontSizeDefaultValue;
+				}
+
+				if (Settings.General.NotificationHeaderFontSize.Value != param)
+				{
+					Settings.General.NotificationHeaderFontSize.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region NotificationBodyFontSize notification property
+
+		public int? NotificationBodyFontSize
+		{
+			get => Settings.General.NotificationBodyFontSize.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.NotificationBodyFontSizeDefaultValue;
+				if (param <= 0)
+				{
+					param = GeneralSettings.NotificationBodyFontSizeDefaultValue;
+				}
+
+				if (Settings.General.NotificationBodyFontSize.Value != param)
+				{
+					Settings.General.NotificationBodyFontSize.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region NotificationLineSpacing notification property
+
+		public int? NotificationLineSpacing
+		{
+			get => Settings.General.NotificationLineSpacing.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.NotificationLineSpacingDefaultValue;
+				if (Settings.General.NotificationLineSpacing.Value != param)
+				{
+					Settings.General.NotificationLineSpacing.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
 
 		public bool HasPreviewWallpaper => !string.IsNullOrEmpty(this.PreviewBackgroundPath);
 
@@ -452,6 +653,13 @@ namespace SylphyHorn.UI.Bindings
 				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_Dark, Value = BlurWindowThemeMode.Dark, },
 				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_Accent, Value = BlurWindowThemeMode.Accent, },
 				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_System, Value = BlurWindowThemeMode.System, },
+			}.ToList();
+
+			this.NotificationTextAlignments = new[]
+			{
+				new DisplayViewModel<HorizontalAlignment> { Display = Resources.Settings_NotificationTextAlignment_Left, Value = HorizontalAlignment.Left, },
+				new DisplayViewModel<HorizontalAlignment> { Display = Resources.Settings_NotificationTextAlignment_Center, Value = HorizontalAlignment.Center, },
+				new DisplayViewModel<HorizontalAlignment> { Display = Resources.Settings_NotificationTextAlignment_Right, Value = HorizontalAlignment.Right, },
 			}.ToList();
 
 			this.Displays = new[] { new DisplayViewModel<uint> { Display = Resources.Settings_MultipleDisplays_CurrentDisplay, Value = 0, } }

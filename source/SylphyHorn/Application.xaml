@@ -23,6 +23,7 @@
 			<converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
 			<converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
 			<converters2:ArrayToStringConverter x:Key="ArrayToStringConverter" />
+			<converters2:NullableIntToStringConverter x:Key="NullableIntToStringConverter" />
 			<controls:UnlockImageConverter x:Key="UnlockImageConverter" />
 		</ResourceDictionary>
 	</Application.Resources>

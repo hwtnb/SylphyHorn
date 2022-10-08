@@ -60,6 +60,41 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		#region FontSize 変更通知プロパティ
+
+		public int HeaderFontSize => Settings.General.NotificationHeaderFontSize;
+
+		public int BodyFontSize => Settings.General.NotificationBodyFontSize;
+
+		#endregion
+
+		#region Margin 変更通知プロパティ
+
+		public string HeaderMargin
+		{
+			get
+			{
+				var alignment = (HorizontalAlignment)Settings.General.NotificationHeaderAlignment.Value;
+				var lineSpacing = Settings.General.NotificationLineSpacing.Value;
+				if (alignment == HorizontalAlignment.Left)
+				{
+					return $"2,0,0,{lineSpacing}";
+				}
+				else if (alignment == HorizontalAlignment.Right)
+				{
+					return $"0,0,6,{lineSpacing}";
+				}
+				else
+				{
+					return $"0,0,0,{lineSpacing}";
+				}
+			}
+		}
+
+		public string BodyMargin => Settings.General.SimpleNotification.Value ? "0,-4,4,0" : "0,0,4,0";
+
+		#endregion
+
 		#region Visibility 変更通知プロパティ
 
 		public Visibility HeaderVisibility => string.IsNullOrEmpty(this.Header) ? Visibility.Collapsed : Visibility.Visible;
@@ -70,17 +105,19 @@ namespace SylphyHorn.UI.Bindings
 
 		#region Alignment 変更通知プロパティ
 
-		public string HeaderAlignment => "Left";
+		public string HeaderAlignment => ((HorizontalAlignment)Settings.General.NotificationHeaderAlignment.Value).ToString();
 
-		public string BodyAlignment => Settings.General.SimpleNotification ? "Center" : "Left";
+		public string BodyAlignment => ((HorizontalAlignment)Settings.General.NotificationBodyAlignment.Value).ToString();
 
 		#endregion
 
 		#region WindowMinSize 変更通知プロパティ
 
-		public int WindowMinWidth => Settings.General.SimpleNotification ? 210 : 500;
+		public int WindowMinWidth => Settings.General.SimpleNotification ? Settings.General.SimpleNotificationMinWidth : Settings.General.NotificationMinWidth;
 
-		public int WindowMinHeight => 100;
+		public int PinWindowMinWidth => Settings.General.PinWindowMinWidth;
+
+		public int WindowMinHeight => Settings.General.NotificationMinHeight;
 
 		#endregion
 	}

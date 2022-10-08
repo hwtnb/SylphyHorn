@@ -763,6 +763,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Other options に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Notification_Others {
+            get {
+                return ResourceManager.GetString("Settings_Notification_Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Simple notification mode に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Notification_SimpleMode {
@@ -781,7 +790,142 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
-        ///   Notification window placement に類似しているローカライズされた文字列を検索します。
+        ///   Notification font size に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationFontSize {
+            get {
+                return ResourceManager.GetString("Settings_NotificationFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Body: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationFontSize_Body {
+            get {
+                return ResourceManager.GetString("Settings_NotificationFontSize_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Header: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationFontSize_Header {
+            get {
+                return ResourceManager.GetString("Settings_NotificationFontSize_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Line Spacing: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationFontSize_LineSpacing {
+            get {
+                return ResourceManager.GetString("Settings_NotificationFontSize_LineSpacing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Notification text alignment に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationTextAlignment {
+            get {
+                return ResourceManager.GetString("Settings_NotificationTextAlignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Body: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationTextAlignment_Body {
+            get {
+                return ResourceManager.GetString("Settings_NotificationTextAlignment_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Center に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationTextAlignment_Center {
+            get {
+                return ResourceManager.GetString("Settings_NotificationTextAlignment_Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Header: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationTextAlignment_Header {
+            get {
+                return ResourceManager.GetString("Settings_NotificationTextAlignment_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Left に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationTextAlignment_Left {
+            get {
+                return ResourceManager.GetString("Settings_NotificationTextAlignment_Left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Right に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationTextAlignment_Right {
+            get {
+                return ResourceManager.GetString("Settings_NotificationTextAlignment_Right", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Notification window minimum size に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowMinSize {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowMinSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Height: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowMinSize_Height {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowMinSize_Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Width: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowMinSize_Width {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowMinSize_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Pin: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowMinSize_Width_PinWindow {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowMinSize_Width_PinWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Simple: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowMinSize_Width_SimpleMode {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowMinSize_Width_SimpleMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Notification placement に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_NotificationWindowPlacement {
             get {

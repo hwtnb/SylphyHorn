@@ -342,8 +342,53 @@
   <data name="Settings_NotificationFontFamily" xml:space="preserve">
     <value>Notification font family</value>
   </data>
+  <data name="Settings_NotificationFontSize" xml:space="preserve">
+    <value>Notification font size</value>
+  </data>
+  <data name="Settings_NotificationFontSize_Body" xml:space="preserve">
+    <value>Body:</value>
+  </data>
+  <data name="Settings_NotificationFontSize_Header" xml:space="preserve">
+    <value>Header:</value>
+  </data>
+  <data name="Settings_NotificationFontSize_LineSpacing" xml:space="preserve">
+    <value>Line Spacing:</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment" xml:space="preserve">
+    <value>Notification text alignment</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Body" xml:space="preserve">
+    <value>Body:</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Header" xml:space="preserve">
+    <value>Header:</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize" xml:space="preserve">
+    <value>Notification window minimum size</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Height" xml:space="preserve">
+    <value>Height:</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Width" xml:space="preserve">
+    <value>Width:</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Width_PinWindow" xml:space="preserve">
+    <value>Pin:</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Width_SimpleMode" xml:space="preserve">
+    <value>Simple:</value>
+  </data>
   <data name="Settings_NotificationWindowPlacement" xml:space="preserve">
-    <value>Notification window placement</value>
+    <value>Notification placement</value>
   </data>
   <data name="Settings_NotificationWindowPlacement_BottomCenter" xml:space="preserve">
     <value>Bottom center</value>
@@ -395,6 +440,9 @@
   </data>
   <data name="Settings_Notification_Display_Duration_Milliseconds" xml:space="preserve">
     <value>ms</value>
+  </data>
+  <data name="Settings_Notification_Others" xml:space="preserve">
+    <value>Other options</value>
   </data>
   <data name="Settings_Notification_SimpleMode" xml:space="preserve">
     <value>Simple notification mode</value>

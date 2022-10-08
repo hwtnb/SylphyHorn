@@ -43,7 +43,25 @@ namespace SylphyHorn.Serialization
 
 		public SerializableProperty<uint> NotificationWindowStyle => this.Cache(key => new SerializableProperty<uint>(key, this._provider, NotificationWindowStyleDefaultValue));
 
+		public SerializableProperty<uint> NotificationHeaderAlignment => this.Cache(key => new SerializableProperty<uint>(key, this._provider, NotificationHeaderAlignmentDefaultValue));
+
+		public SerializableProperty<uint> NotificationBodyAlignment => this.Cache(key => new SerializableProperty<uint>(key, this._provider, NotificationBodyAlignmentDefaultValue));
+
 		public SerializableProperty<string> NotificationFontFamily => this.Cache(key => new SerializableProperty<string>(key, this._provider));
+
+		public SerializableProperty<int> NotificationHeaderFontSize => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationHeaderFontSizeDefaultValue));
+
+		public SerializableProperty<int> NotificationBodyFontSize => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationBodyFontSizeDefaultValue));
+
+		public SerializableProperty<int> NotificationLineSpacing => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationLineSpacingDefaultValue));
+
+		public SerializableProperty<int> NotificationMinWidth => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationMinWidthDefaultValue));
+
+		public SerializableProperty<int> SimpleNotificationMinWidth => this.Cache(key => new SerializableProperty<int>(key, this._provider, SimpleNotificationMinWidthDefaultValue));
+
+		public SerializableProperty<int> PinWindowMinWidth => this.Cache(key => new SerializableProperty<int>(key, this._provider, PinWindowMinWidthDefaultValue));
+
+		public SerializableProperty<int> NotificationMinHeight => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationMinHeightDefaultValue));
 
 		public SerializableProperty<bool> TrayShowDesktop => this.Cache(key => new SerializableProperty<bool>(key, this._provider, TrayShowDesktopDefaultValue));
 
@@ -70,6 +88,24 @@ namespace SylphyHorn.Serialization
 		public static uint PlacementDefaultValue { get; } = 5 /* Center */;
 
 		public static uint NotificationWindowStyleDefaultValue { get; } = 4 /* BlurWindowThemeMode.System */;
+
+		public static uint NotificationHeaderAlignmentDefaultValue { get; } = 0 /* Left */;
+
+		public static uint NotificationBodyAlignmentDefaultValue { get; } = 0 /* Left */;
+
+		public static int NotificationHeaderFontSizeDefaultValue { get; } = 18 /* px */;
+
+		public static int NotificationBodyFontSizeDefaultValue { get; } = 32 /* px */;
+
+		public static int NotificationLineSpacingDefaultValue { get; } = -4;
+
+		public static int NotificationMinWidthDefaultValue { get; } = 500 /* px */;
+
+		public static int SimpleNotificationMinWidthDefaultValue { get; } = 210 /* px */;
+
+		public static int PinWindowMinWidthDefaultValue { get; } = 400 /* px */;
+
+		public static int NotificationMinHeightDefaultValue { get; } = 100 /* px */;
 
 		public static string NotificationFontFamilyDefaultValue { get; } = "Segoe UI Light, Yu Gothic UI Light, Meiryo UI";
 

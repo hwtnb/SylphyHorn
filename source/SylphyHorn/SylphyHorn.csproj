@@ -210,61 +210,58 @@
     <Compile Include="Interop\PhysicalMonitor.cs" />
     <Compile Include="Interop\Platform.cs" />
     <Compile Include="Interop\SystemEnvironment.cs" />
-    <Compile Include="Properties\Directories.cs" />
-    <Compile Include="Properties\LicenseInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Services\ImageFormatSupportDetector.cs" />
-    <Compile Include="UI\Bindings\BindableTextViewModel.cs" />
-    <Compile Include="UI\Bindings\HeaderContentViewModel.cs" />
-    <Compile Include="UI\Bindings\VirtualDesktopViewModel.cs" />
-    <Compile Include="UI\Bindings\WindowPlacement.cs" />
     <Compile Include="Services\IMouseInterceptor.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\MonitorService.cs" />
     <Compile Include="Services\MouseInterceptor.cs" />
     <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\Helpers.cs" />
+    <Compile Include="Services\HookService.cs" />
+    <Compile Include="Services\KeyHelper.cs" />
+    <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\ShortcutKey.cs" />
+    <Compile Include="Services\ShortcutKeyDetector.cs" />
+    <Compile Include="Services\ShortcutKeyPressedEventArgs.cs" />
+    <Compile Include="Services\VirtualDesktopService.cs" />
+    <Compile Include="Services\WallpaperService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StartupScheduler.cs" />
+    <Compile Include="UI\Bindings\BindableTextViewModel.cs" />
+    <Compile Include="UI\Bindings\HeaderContentViewModel.cs" />
+    <Compile Include="UI\Bindings\NotificationWindowViewModel.cs" />
+    <Compile Include="UI\Bindings\SettingsWindowViewModel.cs" />
+    <Compile Include="UI\Bindings\VirtualDesktopViewModel.cs" />
+    <Compile Include="UI\Bindings\WindowPlacement.cs" />
+    <Compile Include="UI\Controls\ArrayToStringConverter.cs" />
+    <Compile Include="UI\Controls\ClosingStoryboardBehavior.cs" />
     <Compile Include="UI\Controls\Keytop.cs" />
     <Compile Include="UI\Controls\MouseShortcutBox.cs" />
+    <Compile Include="UI\Controls\NullableIntToStringConverter.cs" />
+    <Compile Include="UI\Controls\ShortcutKeyBox.cs" />
     <Compile Include="UI\Controls\UnlockImageConverter.cs" />
-    <Compile Include="UI\Controls\ArrayToStringConverter.cs" />
     <Compile Include="UI\DynamicInfoTrayIcon.cs" />
     <Compile Include="UI\NotificationWindow.cs" />
     <Compile Include="UI\PinWindow.xaml.cs">
       <DependentUpon>PinWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SwitchWindow.xaml.cs">
+      <DependentUpon>SwitchWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TaskTrayIcon.cs" />
-    <Compile Include="Services\Helpers.cs" />
+    <Compile Include="UI\TaskTrayTestWindow.xaml.cs" Condition="'$(Configuration)' == 'Debug'">
+      <DependentUpon>TaskTrayTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Serialization\LocalSettingsProperty.cs" />
     <Compile Include="Serialization\LocalSettingsProvider.cs" />
     <Compile Include="Serialization\SerializableDictionary.cs" />
     <Compile Include="Serialization\SerializationExtensions.cs" />
     <Compile Include="Serialization\Settings.cs" />
-    <Compile Include="Services\KeyHelper.cs" />
-    <Compile Include="Services\NotificationService.cs" />
-    <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Services\ShortcutKeyPressedEventArgs.cs" />
-    <Compile Include="Services\VirtualDesktopService.cs" />
-    <Compile Include="Services\WallpaperService.cs" />
-    <Compile Include="UI\Bindings\NotificationWindowViewModel.cs" />
-    <Compile Include="UI\Bindings\SettingsWindowViewModel.cs" />
-    <Compile Include="UI\Controls\ClosingStoryboardBehavior.cs" />
-    <Compile Include="UI\Controls\ShortcutKeyBox.cs" />
-    <Compile Include="UI\SwitchWindow.xaml.cs">
-      <DependentUpon>SwitchWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Interop\UwpBridge.cs" />
-    <Compile Include="UI\TaskTrayTestWindow.xaml.cs" Condition="'$(Configuration)' == 'Debug'">
-      <DependentUpon>TaskTrayTestWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="Styles\Controls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -298,7 +295,6 @@
     <Compile Include="Application.Static.cs">
       <DependentUpon>Application.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\HookService.cs" />
     <Compile Include="Interop\NativeMethods.cs" />
     <Page Include="UI\PinWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -318,11 +314,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\ShortcutKeyDetector.cs" />
-    <Compile Include="Properties\ProductInfo.cs" />
-    <Compile Include="Services\ShortcutKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Directories.cs" />
+    <Compile Include="Properties\LicenseInfo.cs" />
+    <Compile Include="Properties\ProductInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include=".build\post-build.ps1" />
     <None Include="app.manifest">

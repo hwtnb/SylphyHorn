@@ -342,6 +342,51 @@
   <data name="Settings_NotificationFontFamily" xml:space="preserve">
     <value>通知ウィンドウのフォントファミリ</value>
   </data>
+  <data name="Settings_NotificationFontSize" xml:space="preserve">
+    <value>通知ウィンドウのフォントサイズ</value>
+  </data>
+  <data name="Settings_NotificationFontSize_Body" xml:space="preserve">
+    <value>本文:</value>
+  </data>
+  <data name="Settings_NotificationFontSize_Header" xml:space="preserve">
+    <value>ヘッダー:</value>
+  </data>
+  <data name="Settings_NotificationFontSize_LineSpacing" xml:space="preserve">
+    <value>行間:</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment" xml:space="preserve">
+    <value>通知テキストの配置</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Body" xml:space="preserve">
+    <value>本文:</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Center" xml:space="preserve">
+    <value>中央</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Header" xml:space="preserve">
+    <value>ヘッダー:</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Left" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="Settings_NotificationTextAlignment_Right" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize" xml:space="preserve">
+    <value>通知ウィンドウの最小サイズ</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Height" xml:space="preserve">
+    <value>高さ:</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Width" xml:space="preserve">
+    <value>幅:</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Width_PinWindow" xml:space="preserve">
+    <value>ピン留め:</value>
+  </data>
+  <data name="Settings_NotificationWindowMinSize_Width_SimpleMode" xml:space="preserve">
+    <value>シンプル:</value>
+  </data>
   <data name="Settings_NotificationWindowPlacement" xml:space="preserve">
     <value>通知ウィンドウの配置</value>
   </data>
@@ -395,6 +440,9 @@
   </data>
   <data name="Settings_Notification_Display_Duration_Milliseconds" xml:space="preserve">
     <value>ミリ秒</value>
+  </data>
+  <data name="Settings_Notification_Others" xml:space="preserve">
+    <value>その他のオプション</value>
   </data>
   <data name="Settings_Notification_SimpleMode" xml:space="preserve">
     <value>シンプルな通知モード</value>

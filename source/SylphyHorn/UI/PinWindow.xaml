@@ -15,8 +15,8 @@
 					   Title="{Binding Title}"
 					   Width="400"
 					   Height="100"
-					   MinWidth="400"
-					   MinHeight="100"
+					   MinWidth="{Binding PinWindowMinWidth}"
+					   MinHeight="{Binding WindowMinHeight}"
 					   SizeToContent="WidthAndHeight"
 					   ResizeMode="NoResize"
 					   WindowStartupLocation="CenterScreen"
@@ -82,11 +82,13 @@
 		<TextBlock DockPanel.Dock="Top"
 				   Text="{Binding Header}"
 				   FontFamily="{Binding FontFamily}"
-				   FontSize="18"
-				   Margin="2,0,0,-4" />
+				   FontSize="{Binding HeaderFontSize}"
+				   HorizontalAlignment="{Binding HeaderAlignment}"
+				   Margin="{Binding HeaderMargin}" />
 		<TextBlock DockPanel.Dock="Top"
 				   Text="{Binding Body}"
 				   FontFamily="{Binding FontFamily}"
-				   FontSize="32" />
+				   FontSize="{Binding BodyFontSize}"
+				   HorizontalAlignment="{Binding BodyAlignment}" />
 	</DockPanel>
 </ui:NotificationWindow>
