@@ -60,7 +60,7 @@ namespace SylphyHorn
 					this.DispatcherUnhandledException += this.HandleDispatcherUnhandledException;
 					TaskLog.Occured += (sender, log) => LoggingService.Instance.Register(log);
 
-					LocalSettingsProvider.Instance.LoadAsync().Wait();
+					LocalSettingsProvider.Instance.LoadOrMigrateAsync().Wait();
 
 					Settings.General.Culture.Subscribe(x => ResourceService.Current.ChangeCulture(x)).AddTo(this);
 					ThemeService.Current.Register(this, Theme.Windows, Accent.Windows);

@@ -151,6 +151,8 @@ namespace SylphyHorn.Serialization
 			{
 				System.Diagnostics.Debug.WriteLine(ex);
 			}
+
+			this.IsLoaded = true;
 		}
 
 		protected abstract Task<IDictionary<string, object>> LoadAsyncCore();

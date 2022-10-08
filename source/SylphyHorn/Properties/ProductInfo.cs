@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace SylphyHorn.Properties
@@ -13,7 +14,9 @@ namespace SylphyHorn.Properties
 		private static readonly Lazy<string> _copyrightLazy = new Lazy<string>(() => ((AssemblyCopyrightAttribute)Attribute.GetCustomAttribute(_assembly, typeof(AssemblyCopyrightAttribute))).Copyright);
 		private static readonly Lazy<string> _trademarkLazy = new Lazy<string>(() => ((AssemblyTrademarkAttribute)Attribute.GetCustomAttribute(_assembly, typeof(AssemblyTrademarkAttribute))).Trademark);
 		private static readonly Lazy<string> _versionLazy = new Lazy<string>(() => $"{Version.ToString(3)}{(IsBetaRelease ? " β" : "")}{(Version.Revision == 0 ? "" : " rev." + Version.Revision)}");
-		private static readonly Lazy<string> _extraVersionLazy = new Lazy<string>(() => $"{((AssemblyMetadataAttribute)Attribute.GetCustomAttribute(_assembly, typeof(AssemblyMetadataAttribute))).Value}");
+		private static readonly Lazy<string> _extraVersionLazy = new Lazy<string>(() => $"{CustomAttributes.FirstOrDefault(attr => attr.Key == "ExtraVersion").Value}");
+		private static readonly Lazy<string> _originalCompanyLazy = new Lazy<string>(() => $"{CustomAttributes.FirstOrDefault(attr => attr.Key == "OriginalCompany").Value}");
+		private static readonly Lazy<string> _originalProductLazy = new Lazy<string>(() => $"{CustomAttributes.FirstOrDefault(attr => attr.Key == "OriginalProduct").Value}");
 
 
 		public static string Title => _titleLazy.Value;
@@ -33,6 +36,10 @@ namespace SylphyHorn.Properties
 		public static string VersionString => _versionLazy.Value;
 
 		public static string ExtraVersionString => _extraVersionLazy.Value;
+
+		public static string OriginalCompany => _originalCompanyLazy.Value;
+
+		public static string OriginalProduct => _originalProductLazy.Value;
 
 
 		public static bool IsBetaRelease
@@ -69,5 +76,7 @@ namespace SylphyHorn.Properties
 		internal static bool IsWallpaperSupportBuild => OSBuild >= 21337;
 
 		internal static bool IsReorderingSupportBuild => IsWallpaperSupportBuild;
+
+		private static AssemblyMetadataAttribute[] CustomAttributes => (AssemblyMetadataAttribute[])Attribute.GetCustomAttributes(_assembly, typeof(AssemblyMetadataAttribute));
 	}
 }

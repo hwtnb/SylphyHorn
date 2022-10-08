@@ -16,7 +16,7 @@ namespace SylphyHorn.Serialization
 		public static TimeSpan FileSystemHandlerThrottleDueTime { get; set; } = TimeSpan.FromMilliseconds(1500);
 
 		public static LocalSettingsProvider Instance { get; } = new LocalSettingsProvider();
-		
+
 		private readonly FileInfo _targetFile;
 
 		public bool Available { get; }
@@ -47,6 +47,31 @@ namespace SylphyHorn.Serialization
 			this.Available = true;
 		}
 
+
+		public async Task LoadOrMigrateAsync()
+		{
+			if (this.Available && this._targetFile.Exists)
+			{
+				await this.LoadAsync().ConfigureAwait(false);
+				return;
+			}
+
+			var path = Path.Combine(
+				Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+				ProductInfo.OriginalCompany,
+				ProductInfo.OriginalProduct,
+				this.Filename);
+
+			if (File.Exists(path))
+			{
+				await this.ImportAsync(path).ConfigureAwait(false);
+				await this.SaveAsync().ConfigureAwait(false);
+			}
+			else
+			{
+				await this.LoadAsync().ConfigureAwait(false);
+			}
+		}
 
 		protected override Task SaveAsyncCore(IDictionary<string, object> dic)
 		{
