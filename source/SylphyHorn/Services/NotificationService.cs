@@ -59,7 +59,14 @@ namespace SylphyHorn.Services
 
 		private void VirtualDesktopOnCurrentChanged(object sender, VirtualDesktopChangedEventArgs e)
 		{
-			if (!Settings.General.NotificationWhenSwitchedDesktop) return;
+			if (!Settings.General.NotificationWhenSwitchedDesktop)
+			{
+				if (Settings.General.AlwaysShowDesktopNotification)
+				{
+					VisualHelper.InvokeOnUIDispatcher(() => Instance.ShowCurrentDesktop());
+				}
+				return;
+			}
 
 			VisualHelper.InvokeOnUIDispatcher(() =>
 			{
@@ -72,7 +79,14 @@ namespace SylphyHorn.Services
 
 		private void VirtualDesktopOnMoved(object sender, VirtualDesktopMovedEventArgs e)
 		{
-			if (!Settings.General.NotificationWhenSwitchedDesktop) return;
+			if (!Settings.General.NotificationWhenSwitchedDesktop)
+			{
+				if (Settings.General.AlwaysShowDesktopNotification)
+				{
+					VisualHelper.InvokeOnUIDispatcher(() => Instance.ShowCurrentDesktop());
+				}
+				return;
+			}
 
 			VisualHelper.InvokeOnUIDispatcher(() =>
 			{
