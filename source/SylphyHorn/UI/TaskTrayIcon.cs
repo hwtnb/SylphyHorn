@@ -19,6 +19,7 @@ namespace SylphyHorn.UI
 		private readonly TaskTrayIconItem[] _items;
 		private NotifyIcon _notifyIcon;
 		private DynamicInfoTrayIcon _infoIcon;
+		private readonly string _showSettingsMenuName = Resources.TaskTray_Menu_Settings;
 
 		public TaskTrayIcon(Icon darkIcon, Icon lightIcon, TaskTrayIconItem[] items)
 		{
@@ -51,6 +52,8 @@ namespace SylphyHorn.UI
 				Visible = true,
 				ContextMenu = new ContextMenu(menus),
 			};
+
+			this._notifyIcon.MouseClick += this.OnIconClick;
 		}
 
 		public TaskTrayBaloon CreateBaloon() => new TaskTrayBaloon(this);
@@ -148,6 +151,17 @@ namespace SylphyHorn.UI
 			}
 		}
 
+		private void OnIconClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				if (this._items == null || this._items.Length == 0) return;
+
+				var showSettingsItem = this._items.FirstOrDefault(i => i.Text == this._showSettingsMenuName);
+				showSettingsItem?.ClickAction();
+			}
+		}
+
 		private void ChangeText(string newText)
 		{
 			this._notifyIcon.Text = newText;
@@ -171,6 +185,10 @@ namespace SylphyHorn.UI
 			WindowsTheme.ColorPrevalence.Changed -= this.OnColorPrevalenceChanged;
 			VirtualDesktop.CurrentChanged -= this.OnCurrentDesktopChanged;
 			VirtualDesktop.Destroyed -= this.OnDesktopDestroyed;
+			if (this._notifyIcon != null)
+			{
+				this._notifyIcon.MouseClick -= this.OnIconClick;
+			}
 
 			this._notifyIcon?.Dispose();
 			this._lightIcon?.Dispose();
