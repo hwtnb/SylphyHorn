@@ -17,6 +17,8 @@ namespace SylphyHorn
 
 		public bool IsExists => this.HasStartupTask();
 
+		public bool IsRunning => this.IsTaskRunning();
+
 		public bool IsEnabled => !Platform.IsUwp;
 
 		public bool IsAdministrator => _principal.IsInRole(WindowsBuiltInRole.Administrator);
@@ -104,6 +106,42 @@ namespace SylphyHorn
 			}
 		}
 
+		public void Restart()
+		{
+			if (Platform.IsUwp || !this.IsExists)
+			{
+				return;
+			}
+
+			var processInfo = this.CreateStartInfo(isRequiredAdmin: true);
+			processInfo.Arguments = "restart " + $"\"{this._appPath}\"";
+
+			try
+			{
+				using (var process = Process.Start(processInfo))
+				{ 
+					process.WaitForExit(_waitingTime);
+					if (!process.HasExited)
+					{
+						process.Kill();
+					}
+					var exitCode = process.ExitCode;
+					if (exitCode == -1)
+					{
+						throw new UnauthorizedAccessException();
+					}
+					else if (exitCode != 0)
+					{
+						throw new Exception(exitCode.ToString());
+					}
+				}
+			}
+			catch (System.ComponentModel.Win32Exception)
+			{
+				return;
+			}
+		}
+
 		private bool HasStartupTask()
 		{
 			if (Platform.IsUwp)
@@ -118,6 +156,35 @@ namespace SylphyHorn
 			{
 				using (var process = Process.Start(processInfo))
 				{ 
+					process.WaitForExit(_waitingTime);
+					if (!process.HasExited)
+					{
+						process.Kill();
+						return false;
+					}
+					return Convert.ToBoolean(process.ExitCode);
+				}
+			}
+			catch (System.ComponentModel.Win32Exception)
+			{
+				return false;
+			}
+		}
+
+		private bool IsTaskRunning()
+		{
+			if (Platform.IsUwp)
+			{
+				return false;
+			}
+
+			var processInfo = this.CreateStartInfo(isRequiredAdmin: false);
+			processInfo.Arguments = "isrunning " + $"\"{this._appPath}\"";
+
+			try
+			{
+				using (var process = Process.Start(processInfo))
+				{
 					process.WaitForExit(_waitingTime);
 					if (!process.HasExited)
 					{

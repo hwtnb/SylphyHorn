@@ -181,8 +181,9 @@ namespace SylphyHorn
 				{
 					Restart();
 				}
-				catch
+				catch (Exception ex)
 				{
+					LoggingService.Instance.Register(ex);
 					this.Shutdown();
 					return;
 				}

@@ -51,6 +51,13 @@ namespace SylphyHorn
 
 		private static void Restart()
 		{
+			var startupScheduler = new StartupScheduler();
+			if (startupScheduler.IsRunning)
+			{
+				startupScheduler.Restart();
+				return;
+			}
+
 			if (Args != null)
 			{
 				var restartCount = Args.Restarted ?? 0;

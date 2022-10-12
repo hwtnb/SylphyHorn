@@ -40,6 +40,9 @@ namespace SylphyHorn
 				case "hastask":
 					Environment.Exit(Convert.ToInt32(process.HasTask));
 					break;
+				case "isrunning":
+					Environment.Exit(Convert.ToInt32(process.IsRunning));
+					break;
 			}
 
 		}
@@ -57,6 +60,8 @@ namespace SylphyHorn
 		private readonly WindowsPrincipal _principal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
 
 		public bool HasTask => this.FindStartupTask() != null;
+
+		public bool IsRunning => this.FindStartupTask()?.State == _TASK_STATE.TASK_STATE_RUNNING;
 
 		public bool IsAdministrator => _principal.IsInRole(WindowsBuiltInRole.Administrator);
 
