@@ -167,6 +167,11 @@ namespace SylphyHorn
 				{
 					var destroyedIndex = Array.IndexOf(idCaches, args.Destroyed.Id);
 					if (destroyedIndex < 0) return;
+					var nameSettings = Settings.General.DesktopNames;
+					for (var i = destroyedIndex; i + 1 < nameSettings.Count; ++i)
+					{
+						nameSettings.Value[i].Value = nameSettings.Value[i + 1].Value;
+					}
 					var positionSettings = Settings.General.DesktopBackgroundPositions;
 					for (var i = destroyedIndex; i + 1 < positionSettings.Count; ++i)
 					{
@@ -184,6 +189,11 @@ namespace SylphyHorn
 				{
 					var destroyedIndex = Array.IndexOf(idCaches, args.Destroyed.Id);
 					if (destroyedIndex < 0) return;
+					var nameSettings = Settings.General.DesktopNames;
+					for (var i = destroyedIndex; i + 1 < nameSettings.Count; ++i)
+					{
+						nameSettings.Value[i].Value = nameSettings.Value[i + 1].Value;
+					}
 					var pathSettings = Settings.General.DesktopBackgroundImagePaths;
 					for (var i = destroyedIndex; i + 1 < pathSettings.Count; ++i)
 					{
