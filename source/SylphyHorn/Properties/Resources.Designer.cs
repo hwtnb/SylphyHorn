@@ -673,11 +673,29 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Previous: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_MoveWindowToSpecifiedDesktop_Previous {
+            get {
+                return ResourceManager.GetString("Settings_MoveWindowToSpecifiedDesktop_Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Move active window to specified desktop and switch to it に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_MoveWindowToSpecifiedDesktopAndSwitch {
             get {
                 return ResourceManager.GetString("Settings_MoveWindowToSpecifiedDesktopAndSwitch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Previous: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_MoveWindowToSpecifiedDesktopAndSwitch_Previous {
+            get {
+                return ResourceManager.GetString("Settings_MoveWindowToSpecifiedDesktopAndSwitch_Previous", resourceCulture);
             }
         }
         
@@ -1236,6 +1254,15 @@ namespace SylphyHorn.Properties {
         public static string Settings_SwitchSpecifiedDesktop {
             get {
                 return ResourceManager.GetString("Settings_SwitchSpecifiedDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Previous: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwitchSpecifiedDesktop_Previous {
+            get {
+                return ResourceManager.GetString("Settings_SwitchSpecifiedDesktop_Previous", resourceCulture);
             }
         }
         

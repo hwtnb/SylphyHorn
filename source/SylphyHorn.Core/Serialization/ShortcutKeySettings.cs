@@ -27,6 +27,10 @@ namespace SylphyHorn.Serialization
 
 		public ShortcutkeyProperty MoveNewAndSwitch => this.Cache(key => new ShortcutkeyProperty(key, this._provider, MoveNewAndSwitchDefaultValue));
 
+		public ShortcutkeyProperty MoveToPrevious => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty MoveToPreviousAndSwitch => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
 		public ShortcutkeyPropertyList MoveToIndices => this.Cache(key => new ShortcutkeyPropertyList(key, this._provider));
 
 		public ShortcutkeyPropertyList MoveToIndicesAndSwitch => this.Cache(key => new ShortcutkeyPropertyList(key, this._provider));
@@ -38,6 +42,8 @@ namespace SylphyHorn.Serialization
 		public ShortcutkeyProperty SwitchToLeft => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
 
 		public ShortcutkeyProperty SwitchToRight => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
+
+		public ShortcutkeyProperty SwitchToPrevious => this.Cache(key => new ShortcutkeyProperty(key, this._provider));
 
 		public ShortcutkeyPropertyList SwitchToIndices => this.Cache(key => new ShortcutkeyPropertyList(key, this._provider));
 

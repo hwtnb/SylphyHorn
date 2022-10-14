@@ -38,6 +38,11 @@ namespace SylphyHorn.Services
 				: current.GetRight();
 		}
 
+		public static VirtualDesktop GetPrevious()
+		{
+			return VirtualDesktop.History.Previous;
+		}
+
 		public static VirtualDesktop GetByIndex(int index)
 		{
 			var desktops = VirtualDesktop.GetDesktops();
@@ -92,6 +97,23 @@ namespace SylphyHorn.Services
 				{
 					VirtualDesktopHelper.MoveToDesktop(hWnd, right);
 					return right;
+				}
+			}
+
+			SystemSounds.Asterisk.Play();
+			return null;
+		}
+
+		public static VirtualDesktop MoveToPrevious(this IntPtr hWnd)
+		{
+			var current = VirtualDesktop.FromHwnd(hWnd);
+			if (current != null)
+			{
+				var previous = VirtualDesktop.History.Previous;
+				if (previous != null)
+				{
+					VirtualDesktopHelper.MoveToDesktop(hWnd, previous);
+					return previous;
 				}
 			}
 

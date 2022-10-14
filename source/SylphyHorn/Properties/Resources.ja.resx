@@ -324,6 +324,12 @@
   <data name="Settings_MoveWindowToSpecifiedDesktopAndSwitch" xml:space="preserve">
     <value>アクティブ ウィンドウを指定の仮想デスクトップへ移動して切り替え</value>
   </data>
+  <data name="Settings_MoveWindowToSpecifiedDesktopAndSwitch_Previous" xml:space="preserve">
+    <value>直前へ移動して切り替え:</value>
+  </data>
+  <data name="Settings_MoveWindowToSpecifiedDesktop_Previous" xml:space="preserve">
+    <value>直前へ移動:</value>
+  </data>
   <data name="Settings_MultipleDisplays" xml:space="preserve">
     <value>通知先のディスプレイ</value>
   </data>
@@ -509,6 +515,9 @@
   </data>
   <data name="Settings_SwitchSpecifiedDesktop" xml:space="preserve">
     <value>指定の仮想デスクトップへ切り替え</value>
+  </data>
+  <data name="Settings_SwitchSpecifiedDesktop_Previous" xml:space="preserve">
+    <value>直前へ切り替え:</value>
   </data>
   <data name="Settings_TaskView" xml:space="preserve">
     <value>タスク ビュー</value>

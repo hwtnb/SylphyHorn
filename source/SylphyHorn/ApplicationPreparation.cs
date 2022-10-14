@@ -255,6 +255,12 @@ namespace SylphyHorn
 			register(() => settings.MoveNewAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToNew()?.Switch())
 				.AddTo(this._disposable);
 
+			register(() => settings.MoveToPrevious.ToShortcutKey(), hWnd => hWnd.MoveToPrevious())
+				.AddTo(this._disposable);
+
+			register(() => settings.MoveToPreviousAndSwitch.ToShortcutKey(), hWnd => hWnd.MoveToPrevious()?.Switch())
+				.AddTo(this._disposable);
+
 			var isKeyboardSettings = settings as MouseShortcutSettings == null;
 			if (isKeyboardSettings)
 			{
@@ -284,6 +290,9 @@ namespace SylphyHorn
 
 				register(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
 					.AddTo(this._disposable);
+
+				register(() => settings.SwitchToPrevious.ToShortcutKey(), _ => VirtualDesktopService.GetPrevious()?.Switch())
+					.AddTo(this._disposable);
 			}
 			else
 			{
@@ -291,6 +300,9 @@ namespace SylphyHorn
 					.AddTo(this._disposable);
 
 				register(() => settings.SwitchToRight.ToShortcutKey(), _ => VirtualDesktopService.GetRight()?.Switch())
+					.AddTo(this._disposable);
+
+				register(() => settings.SwitchToPrevious.ToShortcutKey(), _ => VirtualDesktopService.GetPrevious()?.Switch())
 					.AddTo(this._disposable);
 			}
 

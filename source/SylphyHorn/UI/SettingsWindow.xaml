@@ -1165,6 +1165,21 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToPrevious.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
 						<Border Height="16" />
 
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_CloseDesktop}"
@@ -1310,6 +1325,21 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktop_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToPrevious.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
 						<Border Height="16" />
 
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
@@ -1358,6 +1388,21 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToPreviousAndSwitch.Value, Mode=TwoWay}" />
+							</UniformGrid>
 						</Grid>
 					</StackPanel>
 				</ScrollViewer>
@@ -1658,6 +1703,21 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwitchToPrevious.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
 						<Border Height="16" />
 
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_CloseDesktop}"
@@ -1799,6 +1859,21 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktop_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToPrevious.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
 						<Border Height="16" />
 
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
@@ -1847,6 +1922,21 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToPreviousAndSwitch.Value, Mode=TwoWay}" />
+							</UniformGrid>
 						</Grid>
 					</StackPanel>
 				</ScrollViewer>

@@ -324,6 +324,12 @@
   <data name="Settings_MoveWindowToSpecifiedDesktopAndSwitch" xml:space="preserve">
     <value>Move active window to specified desktop and switch to it</value>
   </data>
+  <data name="Settings_MoveWindowToSpecifiedDesktopAndSwitch_Previous" xml:space="preserve">
+    <value>Previous:</value>
+  </data>
+  <data name="Settings_MoveWindowToSpecifiedDesktop_Previous" xml:space="preserve">
+    <value>Previous:</value>
+  </data>
   <data name="Settings_MultipleDisplays" xml:space="preserve">
     <value>Destination displays</value>
   </data>
@@ -509,6 +515,9 @@
   </data>
   <data name="Settings_SwitchSpecifiedDesktop" xml:space="preserve">
     <value>Switch to specified desktop</value>
+  </data>
+  <data name="Settings_SwitchSpecifiedDesktop_Previous" xml:space="preserve">
+    <value>Previous:</value>
   </data>
   <data name="Settings_TaskView" xml:space="preserve">
     <value>Task View</value>
