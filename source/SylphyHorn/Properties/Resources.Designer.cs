@@ -1258,11 +1258,38 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Add に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwitchSpecifiedDesktop_Add {
+            get {
+                return ResourceManager.GetString("Settings_SwitchSpecifiedDesktop_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Previous: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_SwitchSpecifiedDesktop_Previous {
             get {
                 return ResourceManager.GetString("Settings_SwitchSpecifiedDesktop_Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove last に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwitchSpecifiedDesktop_RemoveLast {
+            get {
+                return ResourceManager.GetString("Settings_SwitchSpecifiedDesktop_RemoveLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Resize to fit desktops に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SwitchSpecifiedDesktop_ResizeToFit {
+            get {
+                return ResourceManager.GetString("Settings_SwitchSpecifiedDesktop_ResizeToFit", resourceCulture);
             }
         }
         

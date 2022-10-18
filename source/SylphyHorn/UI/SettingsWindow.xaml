@@ -1128,6 +1128,21 @@
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToPrevious.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
 							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToIndices.Value, Mode=TwoWay}"
 										  Grid.Column="0"
 										  Visibility="Visible">
@@ -1167,18 +1182,32 @@
 						</Grid>
 						<Grid Margin="8,0,0,0">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
-							<UniformGrid Columns="1">
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Previous}" />
-							</UniformGrid>
-							<UniformGrid Grid.Column="2"
-										 Columns="1">
-								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=SwitchToPrevious.Value, Mode=TwoWay}" />
-							</UniformGrid>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddShortcutList"
+													 MethodParameter="SwitchToIndices"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastShortcutList"
+													 MethodParameter="SwitchToIndices"
+													 IsEnabled="{Binding IsShortcutKeyOfSwitchToIndicesLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeShortcutListToFit"
+													 MethodParameter="SwitchToIndices"
+													 IsEnabled="{Binding IsShortcutKeyOfSwitchToIndicesLarger}"
+													 Margin="0" />
 						</Grid>
 						<Border Height="16" />
 
@@ -1288,50 +1317,6 @@
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndices.Value, Mode=TwoWay}"
-										  Grid.Column="0"
-										  Visibility="Visible">
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<UniformGrid Columns="1" />
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<TextBlock VerticalAlignment="Center"
-												   Foreground="{DynamicResource ForegroundBrushKey}">
-											<TextBlock.Text>
-												<MultiBinding StringFormat="{}{0} {1}:">
-													<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
-													<Binding Path="NumberText" />
-												</MultiBinding>
-											</TextBlock.Text>
-										</TextBlock>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndices.Value, Mode=TwoWay}"
-										  Grid.Column="2"
-										  Visibility="Visible">
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<UniformGrid Columns="1" />
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<controls:ShortcutKeyBox Current="{Binding Path='Value', Mode=TwoWay}" />
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</Grid>
-						<Grid Margin="8,0,0,0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="KeyHeader" />
-								<ColumnDefinition Width="8" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
 							<UniformGrid Columns="1">
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktop_Previous}" />
 							</UniformGrid>
@@ -1340,11 +1325,6 @@
 								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToPrevious.Value, Mode=TwoWay}" />
 							</UniformGrid>
 						</Grid>
-						<Border Height="16" />
-
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
-								   Style="{DynamicResource HeaderStyleKey}"
-								   Margin="0,0,0,8" />
 						<Grid Margin="8,0,0,0">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto"
@@ -1352,7 +1332,7 @@
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndices.Value, Mode=TwoWay}"
 										  Grid.Column="0"
 										  Visibility="Visible">
 								<ItemsControl.ItemsPanel>
@@ -1374,7 +1354,7 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndices.Value, Mode=TwoWay}"
 										  Grid.Column="2"
 										  Visibility="Visible">
 								<ItemsControl.ItemsPanel>
@@ -1389,6 +1369,40 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddShortcutList"
+													 MethodParameter="MoveToIndices"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastShortcutList"
+													 MethodParameter="MoveToIndices"
+													 IsEnabled="{Binding IsShortcutKeyOfMoveToIndicesLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeShortcutListToFit"
+													 MethodParameter="MoveToIndices"
+													 IsEnabled="{Binding IsShortcutKeyOfMoveToIndicesLarger}"
+													 Margin="0" />
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
 						<Grid Margin="8,0,0,0">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto"
@@ -1403,6 +1417,79 @@
 										 Columns="1">
 								<controls:ShortcutKeyBox Current="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToPreviousAndSwitch.Value, Mode=TwoWay}" />
 							</UniformGrid>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+										  Grid.Column="0"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock VerticalAlignment="Center"
+												   Foreground="{DynamicResource ForegroundBrushKey}">
+											<TextBlock.Text>
+												<MultiBinding StringFormat="{}{0} {1}:">
+													<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
+													<Binding Path="NumberText" />
+												</MultiBinding>
+											</TextBlock.Text>
+										</TextBlock>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.ShortcutKey}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+										  Grid.Column="2"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<controls:ShortcutKeyBox Current="{Binding Path='Value', Mode=TwoWay}" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddShortcutList"
+													 MethodParameter="MoveToIndicesAndSwitch"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastShortcutList"
+													 MethodParameter="MoveToIndicesAndSwitch"
+													 IsEnabled="{Binding IsShortcutKeyOfMoveToIndicesAndSwitchLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeShortcutListToFit"
+													 MethodParameter="MoveToIndicesAndSwitch"
+													 IsEnabled="{Binding IsShortcutKeyOfMoveToIndicesAndSwitchLarger}"
+													 Margin="0" />
 						</Grid>
 					</StackPanel>
 				</ScrollViewer>
@@ -1492,6 +1579,36 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddShortcutList"
+													 MethodParameter="SwapDesktopIndices"
+													 IsEnabled="{Binding IsReorderingSupport}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastShortcutList"
+													 MethodParameter="SwapDesktopIndices"
+													 IsEnabled="{Binding IsShortcutKeyOfSwapDesktopIndicesLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeShortcutListToFit"
+													 MethodParameter="SwapDesktopIndices"
+													 IsEnabled="{Binding IsShortcutKeyOfSwapDesktopIndicesLarger}"
+													 Margin="0" />
 						</Grid>
 					</StackPanel>
 				</ScrollViewer>
@@ -1666,6 +1783,21 @@
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
+							<UniformGrid Columns="1">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Previous}" />
+							</UniformGrid>
+							<UniformGrid Grid.Column="2"
+										 Columns="1">
+								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwitchToPrevious.Value, Mode=TwoWay}" />
+							</UniformGrid>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
 							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwitchToIndices.Value, Mode=TwoWay}"
 										  Grid.Column="0"
 										  Visibility="Visible">
@@ -1705,18 +1837,32 @@
 						</Grid>
 						<Grid Margin="8,0,0,0">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
-							<UniformGrid Columns="1">
-								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Previous}" />
-							</UniformGrid>
-							<UniformGrid Grid.Column="2"
-										 Columns="1">
-								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=SwitchToPrevious.Value, Mode=TwoWay}" />
-							</UniformGrid>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddMouseList"
+													 MethodParameter="SwitchToIndices"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastMouseList"
+													 MethodParameter="SwitchToIndices"
+													 IsEnabled="{Binding IsMouseOfSwitchToIndicesLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeMouseListToFit"
+													 MethodParameter="SwitchToIndices"
+													 IsEnabled="{Binding IsMouseOfSwitchToIndicesLarger}"
+													 Margin="0" />
 						</Grid>
 						<Border Height="16" />
 
@@ -1822,50 +1968,6 @@
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndices.Value, Mode=TwoWay}"
-										  Grid.Column="0"
-										  Visibility="Visible">
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<UniformGrid Columns="1" />
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<TextBlock VerticalAlignment="Center"
-												   Foreground="{DynamicResource ForegroundBrushKey}">
-											<TextBlock.Text>
-												<MultiBinding StringFormat="{}{0} {1}:">
-													<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
-													<Binding Path="NumberText" />
-												</MultiBinding>
-											</TextBlock.Text>
-										</TextBlock>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndices.Value, Mode=TwoWay}"
-										  Grid.Column="2"
-										  Visibility="Visible">
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<UniformGrid Columns="1" />
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<controls:MouseShortcutBox Current="{Binding Path='Value', Mode=TwoWay}" />
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</Grid>
-						<Grid Margin="8,0,0,0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"
-												  SharedSizeGroup="KeyHeader" />
-								<ColumnDefinition Width="8" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
 							<UniformGrid Columns="1">
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktop_Previous}" />
 							</UniformGrid>
@@ -1874,11 +1976,6 @@
 								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToPrevious.Value, Mode=TwoWay}" />
 							</UniformGrid>
 						</Grid>
-						<Border Height="16" />
-
-						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
-								   Style="{DynamicResource HeaderStyleKey}"
-								   Margin="0,0,0,8" />
 						<Grid Margin="8,0,0,0">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto"
@@ -1886,7 +1983,7 @@
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndices.Value, Mode=TwoWay}"
 										  Grid.Column="0"
 										  Visibility="Visible">
 								<ItemsControl.ItemsPanel>
@@ -1908,7 +2005,7 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
-							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndices.Value, Mode=TwoWay}"
 										  Grid.Column="2"
 										  Visibility="Visible">
 								<ItemsControl.ItemsPanel>
@@ -1923,6 +2020,40 @@
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
 						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddMouseList"
+													 MethodParameter="MoveToIndices"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastMouseList"
+													 MethodParameter="MoveToIndices"
+													 IsEnabled="{Binding IsMouseOfMoveToIndicesLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeMouseListToFit"
+													 MethodParameter="MoveToIndices"
+													 IsEnabled="{Binding IsMouseOfMoveToIndicesLarger}"
+													 Margin="0" />
+						</Grid>
+						<Border Height="16" />
+
+						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_MoveWindowToSpecifiedDesktopAndSwitch}"
+								   Style="{DynamicResource HeaderStyleKey}"
+								   Margin="0,0,0,8" />
 						<Grid Margin="8,0,0,0">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto"
@@ -1937,6 +2068,79 @@
 										 Columns="1">
 								<controls:MouseShortcutBox Current="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToPreviousAndSwitch.Value, Mode=TwoWay}" />
 							</UniformGrid>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"
+												  SharedSizeGroup="KeyHeader" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+										  Grid.Column="0"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock VerticalAlignment="Center"
+												   Foreground="{DynamicResource ForegroundBrushKey}">
+											<TextBlock.Text>
+												<MultiBinding StringFormat="{}{0} {1}:">
+													<Binding Source="{x:Static services:ResourceService.Current}" Path="Resources.Settings_Desktop" />
+													<Binding Path="NumberText" />
+												</MultiBinding>
+											</TextBlock.Text>
+										</TextBlock>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+							<ItemsControl ItemsSource="{Binding Source={x:Static serialization:Settings.MouseShortcut}, Path=MoveToIndicesAndSwitch.Value, Mode=TwoWay}"
+										  Grid.Column="2"
+										  Visibility="Visible">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<UniformGrid Columns="1" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<controls:MouseShortcutBox Current="{Binding Path='Value', Mode=TwoWay}" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddMouseList"
+													 MethodParameter="MoveToIndicesAndSwitch"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastMouseList"
+													 MethodParameter="MoveToIndicesAndSwitch"
+													 IsEnabled="{Binding IsMouseOfMoveToIndicesAndSwitchLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeMouseListToFit"
+													 MethodParameter="MoveToIndicesAndSwitch"
+													 IsEnabled="{Binding IsMouseOfMoveToIndicesAndSwitchLarger}"
+													 Margin="0" />
 						</Grid>
 					</StackPanel>
 				</ScrollViewer>
@@ -2026,6 +2230,36 @@
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
+						</Grid>
+						<Grid Margin="8,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="8" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<metro2:CallMethodButton Grid.Column="0"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_Add}"
+													 MethodTarget="{Binding}"
+													 MethodName="AddMouseList"
+													 MethodParameter="SwapDesktopIndices"
+													 IsEnabled="{Binding IsReorderingSupport}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="2"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_RemoveLast}"
+													 MethodTarget="{Binding}"
+													 MethodName="RemoveLastMouseList"
+													 MethodParameter="SwapDesktopIndices"
+													 IsEnabled="{Binding IsMouseOfSwapDesktopIndicesLarger}"
+													 Margin="0" />
+							<metro2:CallMethodButton Grid.Column="4"
+													 Content="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_SwitchSpecifiedDesktop_ResizeToFit}"
+													 MethodTarget="{Binding}"
+													 MethodName="ResizeMouseListToFit"
+													 MethodParameter="SwapDesktopIndices"
+													 IsEnabled="{Binding IsMouseOfSwapDesktopIndicesLarger}"
+													 Margin="0" />
 						</Grid>
 					</StackPanel>
 				</ScrollViewer>

@@ -516,8 +516,17 @@
   <data name="Settings_SwitchSpecifiedDesktop" xml:space="preserve">
     <value>指定の仮想デスクトップへ切り替え</value>
   </data>
+  <data name="Settings_SwitchSpecifiedDesktop_Add" xml:space="preserve">
+    <value>追加</value>
+  </data>
   <data name="Settings_SwitchSpecifiedDesktop_Previous" xml:space="preserve">
     <value>直前へ切り替え:</value>
+  </data>
+  <data name="Settings_SwitchSpecifiedDesktop_RemoveLast" xml:space="preserve">
+    <value>最後を削除</value>
+  </data>
+  <data name="Settings_SwitchSpecifiedDesktop_ResizeToFit" xml:space="preserve">
+    <value>デスクトップの数に合わせる</value>
   </data>
   <data name="Settings_TaskView" xml:space="preserve">
     <value>タスク ビュー</value>

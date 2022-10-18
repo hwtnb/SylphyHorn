@@ -22,17 +22,17 @@ namespace SylphyHorn.Services
 					FitWindowsDesktopsWithList();
 					UpdateWindowsDesktopsByList();
 					ResumeResizing();
-					ResizeShortcutList();
+					StretchShortcutListTo(VirtualDesktopService.Count);
 				}
 				else
 				{
-					ResizeList();
+					ResizeListIfNeeded();
 					SynchronizeWithWindows();
 				}
 			}
 			else
 			{
-				ResizeList();
+				ResizeListIfNeeded();
 			}
 
 			WallpaperService.SetPosition(VirtualDesktop.Current);
@@ -55,6 +55,7 @@ namespace SylphyHorn.Services
 
 		#region Resize
 
+		[Obsolete]
 		public static void ResizeList()
 		{
 			if (!_allowResize) return;
@@ -65,6 +66,17 @@ namespace SylphyHorn.Services
 			ResizeShortcutListCore(desktopCount);
 		}
 
+		public static void ResizeListIfNeeded()
+		{
+			if (!_allowResize) return;
+
+			var desktopCount = VirtualDesktopService.Count;
+
+			ResizeDesktopListCore(desktopCount);
+			ResizeShortcutListIfEmptyCore(desktopCount);
+		}
+
+		[Obsolete]
 		public static void ResizeShortcutList()
 		{
 			if (!_allowResize) return;
@@ -72,6 +84,13 @@ namespace SylphyHorn.Services
 			var desktopCount = VirtualDesktopService.Count;
 
 			ResizeShortcutListCore(desktopCount);
+		}
+
+		public static void StretchShortcutListTo(int count)
+		{
+			if (!_allowResize) return;
+
+			StretchShortcutListCore(count);
 		}
 
 		#endregion
@@ -102,6 +121,41 @@ namespace SylphyHorn.Services
 			Settings.MouseShortcut.MoveToIndices.Resize(desktopCount);
 			Settings.MouseShortcut.MoveToIndicesAndSwitch.Resize(desktopCount);
 			Settings.MouseShortcut.SwapDesktopIndices.Resize(desktopCount);
+		}
+
+		private static void ResizeShortcutListIfEmptyCore(int desktopCount)
+		{
+			Settings.ShortcutKey.SwitchToIndices.ResizeIfEmpty(desktopCount);
+			Settings.ShortcutKey.MoveToIndices.ResizeIfEmpty(desktopCount);
+			Settings.ShortcutKey.MoveToIndicesAndSwitch.ResizeIfEmpty(desktopCount);
+			Settings.ShortcutKey.SwapDesktopIndices.ResizeIfEmpty(desktopCount);
+
+			Settings.MouseShortcut.SwitchToIndices.ResizeIfEmpty(desktopCount);
+			Settings.MouseShortcut.MoveToIndices.ResizeIfEmpty(desktopCount);
+			Settings.MouseShortcut.MoveToIndicesAndSwitch.ResizeIfEmpty(desktopCount);
+			Settings.MouseShortcut.SwapDesktopIndices.ResizeIfEmpty(desktopCount);
+		}
+
+		private static void StretchShortcutListCore(int count)
+		{
+			Settings.ShortcutKey.SwitchToIndices.StretchTo(count);
+			Settings.ShortcutKey.MoveToIndices.StretchTo(count);
+			Settings.ShortcutKey.MoveToIndicesAndSwitch.StretchTo(count);
+
+			Settings.MouseShortcut.SwitchToIndices.StretchTo(count);
+			Settings.MouseShortcut.MoveToIndices.StretchTo(count);
+			Settings.MouseShortcut.MoveToIndicesAndSwitch.StretchTo(count);
+
+			if (ProductInfo.IsReorderingSupportBuild)
+			{
+				Settings.ShortcutKey.SwapDesktopIndices.StretchTo(count);
+				Settings.MouseShortcut.SwapDesktopIndices.StretchTo(count);
+			}
+			else
+			{
+				Settings.ShortcutKey.SwapDesktopIndices.Resize(count);
+				Settings.MouseShortcut.SwapDesktopIndices.Resize(count);
+			}
 		}
 
 		private static Action<VirtualDesktop[]> _synchronizeWithWindowsAction = new Func<Action<VirtualDesktop[]>>(() =>

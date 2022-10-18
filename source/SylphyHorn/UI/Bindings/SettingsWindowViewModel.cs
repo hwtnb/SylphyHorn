@@ -179,6 +179,14 @@ namespace SylphyHorn.UI.Bindings
 				{
 					this._Desktops = value;
 					this.RaisePropertyChanged();
+					this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfSwitchToIndicesLarger));
+					this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfMoveToIndicesLarger));
+					this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfMoveToIndicesAndSwitchLarger));
+					this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfSwapDesktopIndicesLarger));
+					this.RaisePropertyChanged(nameof(this.IsMouseOfSwitchToIndicesLarger));
+					this.RaisePropertyChanged(nameof(this.IsMouseOfMoveToIndicesLarger));
+					this.RaisePropertyChanged(nameof(this.IsMouseOfMoveToIndicesAndSwitchLarger));
+					this.RaisePropertyChanged(nameof(this.IsMouseOfSwapDesktopIndicesLarger));
 				}
 			}
 		}
@@ -608,6 +616,22 @@ namespace SylphyHorn.UI.Bindings
 			: ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.DarkChromeMedium))
 		{ Opacity = WindowsTheme.Transparency.Current ? 0.8 : 1.0 };
 
+		public bool IsShortcutKeyOfSwitchToIndicesLarger => Settings.ShortcutKey.SwitchToIndices.Count > Desktops.Length;
+
+		public bool IsShortcutKeyOfMoveToIndicesLarger => Settings.ShortcutKey.MoveToIndices.Count > Desktops.Length;
+
+		public bool IsShortcutKeyOfMoveToIndicesAndSwitchLarger => Settings.ShortcutKey.MoveToIndicesAndSwitch.Count > Desktops.Length;
+
+		public bool IsShortcutKeyOfSwapDesktopIndicesLarger => Settings.ShortcutKey.SwapDesktopIndices.Count > Desktops.Length;
+
+		public bool IsMouseOfSwitchToIndicesLarger => Settings.MouseShortcut.SwitchToIndices.Count > Desktops.Length;
+
+		public bool IsMouseOfMoveToIndicesLarger => Settings.MouseShortcut.MoveToIndices.Count > Desktops.Length;
+
+		public bool IsMouseOfMoveToIndicesAndSwitchLarger => Settings.MouseShortcut.MoveToIndicesAndSwitch.Count > Desktops.Length;
+
+		public bool IsMouseOfSwapDesktopIndicesLarger => Settings.MouseShortcut.SwapDesktopIndices.Count > Desktops.Length;
+
 		public ReadOnlyDispatcherCollection<LogViewModel> Logs { get; }
 
 		public SettingsWindowViewModel(HookService hookService)
@@ -749,6 +773,31 @@ namespace SylphyHorn.UI.Bindings
 				.Subscribe(mode => this.UpdateNotificationColor((BlurWindowThemeMode)mode))
 				.AddTo(this);
 
+			Settings.ShortcutKey.SwitchToIndices
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfSwitchToIndicesLarger)))
+				.AddTo(this);
+			Settings.ShortcutKey.MoveToIndices
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfMoveToIndicesLarger)))
+				.AddTo(this);
+			Settings.ShortcutKey.MoveToIndicesAndSwitch
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfMoveToIndicesAndSwitchLarger)))
+				.AddTo(this);
+			Settings.ShortcutKey.SwapDesktopIndices
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsShortcutKeyOfSwapDesktopIndicesLarger)))
+				.AddTo(this);
+			Settings.MouseShortcut.SwitchToIndices
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsMouseOfSwitchToIndicesLarger)))
+				.AddTo(this);
+			Settings.MouseShortcut.MoveToIndices
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsMouseOfMoveToIndicesLarger)))
+				.AddTo(this);
+			Settings.MouseShortcut.MoveToIndicesAndSwitch
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsMouseOfMoveToIndicesAndSwitchLarger)))
+				.AddTo(this);
+			Settings.MouseShortcut.SwapDesktopIndices
+				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.IsMouseOfSwapDesktopIndicesLarger)))
+				.AddTo(this);
+
 			WindowsTheme.ColorPrevalence
 				.RegisterListener(_ => this.UpdateNotificationColor(this.NotificationWindowStyle))
 				.AddTo(this);
@@ -887,6 +936,74 @@ namespace SylphyHorn.UI.Bindings
 		public void CreateDesktop()
 		{
 			VirtualDesktop.Create();
+		}
+
+		[UsedImplicitly]
+		public void AddShortcutList(string propName)
+		{
+			var propList = this.GetShortcutListFromSettings(Settings.ShortcutKey, propName);
+
+			if (propList == null) return;
+
+			propList.Resize(propList.Count + 1);
+		}
+
+		[UsedImplicitly]
+		public void RemoveLastShortcutList(string propName)
+		{
+			var propList = this.GetShortcutListFromSettings(Settings.ShortcutKey, propName);
+
+			if (propList == null || propList.Count == 0) return;
+
+			propList.Resize(propList.Count - 1);
+		}
+
+		[UsedImplicitly]
+		public void ResizeShortcutListToFit(string propName)
+		{
+			var propList = this.GetShortcutListFromSettings(Settings.ShortcutKey, propName);
+			
+			if (propList == null) return;
+
+			var count = VirtualDesktopService.Count;
+			propList.Resize(count);
+		}
+
+		[UsedImplicitly]
+		public void AddMouseList(string propName)
+		{
+			var propList = this.GetShortcutListFromSettings(Settings.MouseShortcut, propName);
+
+			if (propList == null) return;
+
+			propList.Resize(propList.Count + 1);
+		}
+
+		[UsedImplicitly]
+		public void RemoveLastMouseList(string propName)
+		{
+			var propList = this.GetShortcutListFromSettings(Settings.MouseShortcut, propName);
+
+			if (propList == null || propList.Count == 0) return;
+
+			propList.Resize(propList.Count - 1);
+		}
+
+		[UsedImplicitly]
+		public void ResizeMouseListToFit(string propName)
+		{
+			var propList = this.GetShortcutListFromSettings(Settings.MouseShortcut, propName);
+			
+			if (propList == null) return;
+
+			var count = VirtualDesktopService.Count;
+			propList.Resize(count);
+		}
+
+		private ShortcutkeyPropertyList GetShortcutListFromSettings(ShortcutKeySettings settings, string propName)
+		{
+			var type = settings.GetType();
+			return type.GetProperty(propName).GetValue(settings, null) as ShortcutkeyPropertyList;
 		}
 
 		private void SynchronizeDesktopsWithSettingsIfRequired()

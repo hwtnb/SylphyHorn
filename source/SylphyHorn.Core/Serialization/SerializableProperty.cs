@@ -93,6 +93,8 @@ namespace SylphyHorn.Serialization
 	{
 		private IReadOnlyList<T> _value;
 
+		private SerializableProperty<int> _serializableCount;
+
 		public string Key { get; }
 
 		public ISerializationProvider Provider { get; }
@@ -113,7 +115,11 @@ namespace SylphyHorn.Serialization
 				var isValueChanged = this._value?.Count != value?.Count && (!this._value?.SequenceEqual(value) ?? value != null);
 				this._value = value;
 
-				if (isValueChanged) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Value)));
+				if (isValueChanged)
+				{
+					this._serializableCount.Value = value.Count;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Value)));
+				}
 			}
 		}
 
@@ -126,6 +132,7 @@ namespace SylphyHorn.Serialization
 			this.Key = key ?? throw new ArgumentNullException(nameof(key));
 			this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
+			this.LoadMetaProperty();
 			this.LoadProperties();
 
 			this.Provider.Reloaded += this.ProviderOnReloaded;
@@ -136,6 +143,7 @@ namespace SylphyHorn.Serialization
 			this.Key = key ?? throw new ArgumentNullException(nameof(key));
 			this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
+			this.LoadMetaProperty();
 			this.AddNewProperties(size);
 
 			this.Provider.Reloaded += this.ProviderOnReloaded;
@@ -148,6 +156,7 @@ namespace SylphyHorn.Serialization
 			this.Key = key ?? throw new ArgumentNullException(nameof(key));
 			this.Provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
+			this.LoadMetaProperty();
 			this.FillNewPropertiesWithDefaultValues(defaultValues);
 
 			this.Provider.Reloaded += this.ProviderOnReloaded;
@@ -168,6 +177,36 @@ namespace SylphyHorn.Serialization
 				}
 			}
 			else if (oldCount < size)
+			{
+				this.AddNewProperties(size);
+			}
+		}
+
+		public void ResizeIfEmpty(int size)
+		{
+			var oldValue = this.Value;
+			var oldCount = oldValue.Count;
+			if (oldCount > size)
+			{
+				var newSize = 0;
+				for (var i = oldCount - 1; i >= 0; --i)
+				{
+					if (!this.IsEmptyValue(oldValue[i]))
+					{
+						newSize = i + 1;
+						break;
+					}
+				}
+				if (newSize > size) size = newSize;
+			}
+			this.Resize(size);
+		}
+
+		public void StretchTo(int size)
+		{
+			var oldValue = this.Value;
+			var oldCount = oldValue.Count;
+			if (oldCount < size)
 			{
 				this.AddNewProperties(size);
 			}
@@ -207,14 +246,16 @@ namespace SylphyHorn.Serialization
 		protected abstract void LoadProperties();
 		protected abstract T CreateProperty(int index);
 		protected abstract T CreatePropertyWithDefault(int index, T defaultValue);
+		protected abstract bool IsEmptyValue(T value);
 
 		protected void LoadPropertiesCore<U>()
 		{
 			var newValue = new List<T>();
 			var provider = this.Provider;
 			var index = 0;
+			var maxCount = this._serializableCount?.Value ?? 0;
 			var key = this.CreateItemName(index);
-			while (provider.TryGetValue<U>(key, out _))
+			while (provider.TryGetValue<U>(key, out _) || index < maxCount)
 			{
 				newValue.Add(this.CreateProperty(index));
 				key = this.CreateItemName(++index);
@@ -222,9 +263,25 @@ namespace SylphyHorn.Serialization
 			this.Value = newValue;
 		}
 
+		protected void LoadMetaProperty()
+		{
+			var provider = this.Provider;
+			var key = this.CreateCountKey();
+			this._serializableCount = new SerializableProperty<int>(key, provider, 0);
+			if (provider.TryGetValue<int>(key, out var value))
+			{
+				this._serializableCount.Value = value;
+			}
+		}
+
 		protected string CreateItemName(int index)
 		{
 			return $"{this.Key}[{index}]";
+		}
+
+		protected string CreateCountKey()
+		{
+			return $"{this.Key}#Count";
 		}
 
 		protected void ProviderOnReloaded(object sender, EventArgs args)
@@ -268,7 +325,7 @@ namespace SylphyHorn.Serialization
 
 		protected override void LoadProperties()
 		{
-			this.LoadPropertiesCore<IList<int>>();
+			this.LoadPropertiesCore<string>();
 		}
 
 		protected override ShortcutkeyProperty CreateProperty(int index)
@@ -279,6 +336,11 @@ namespace SylphyHorn.Serialization
 		protected override ShortcutkeyProperty CreatePropertyWithDefault(int index, ShortcutkeyProperty defaultValue)
 		{
 			return new ShortcutkeyProperty(this.CreateItemName(index), index, this.Provider, defaultValue.Value.ToArray());
+		}
+
+		protected override bool IsEmptyValue(ShortcutkeyProperty value)
+		{
+			return value == null || value.Value == null || value.Value.Count == 0;
 		}
 	}
 
@@ -329,6 +391,11 @@ namespace SylphyHorn.Serialization
 		{
 			return new DesktopNameProperty(this.CreateItemName(index), index, this.Provider, defaultValue.Value);
 		}
+
+		protected override bool IsEmptyValue(DesktopNameProperty value)
+		{
+			return value == null || string.IsNullOrEmpty(value.Value);
+		}
 	}
 
 
@@ -378,6 +445,11 @@ namespace SylphyHorn.Serialization
 		{
 			return new WallpaperPathProperty(this.CreateItemName(index), index, this.Provider, defaultValue.Value);
 		}
+
+		protected override bool IsEmptyValue(WallpaperPathProperty value)
+		{
+			return value == null || string.IsNullOrEmpty(value.Value);
+		}
 	}
 
 
@@ -426,6 +498,11 @@ namespace SylphyHorn.Serialization
 		protected override WallpaperPositionsProperty CreatePropertyWithDefault(int index, WallpaperPositionsProperty defaultValue)
 		{
 			return new WallpaperPositionsProperty(this.CreateItemName(index), index, this.Provider, defaultValue.Value);
+		}
+
+		protected override bool IsEmptyValue(WallpaperPositionsProperty value)
+		{
+			return value == null;
 		}
 	}
 }
