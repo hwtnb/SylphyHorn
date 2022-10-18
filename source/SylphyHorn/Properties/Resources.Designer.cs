@@ -1132,6 +1132,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Show only current desktop number (simple mode) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_ShowOnlyCurrentNumberInTray {
+            get {
+                return ResourceManager.GetString("Settings_ShowOnlyCurrentNumberInTray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show settings: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_ShowSettings {

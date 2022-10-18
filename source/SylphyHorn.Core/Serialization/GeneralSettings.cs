@@ -65,6 +65,8 @@ namespace SylphyHorn.Serialization
 
 		public SerializableProperty<bool> TrayShowDesktop => this.Cache(key => new SerializableProperty<bool>(key, this._provider, TrayShowDesktopDefaultValue));
 
+		public SerializableProperty<bool> TrayShowOnlyCurrentNumber => this.Cache(key => new SerializableProperty<bool>(key, this._provider, TrayShowOnlyCurrentNumberDefaultValue));
+
 		public SerializableProperty<bool> UseDesktopName => this.Cache(key => new SerializableProperty<bool>(key, this._provider));
 
 		public SerializableProperty<bool> OverrideDesktopsOnStartup => this.Cache(key => new SerializableProperty<bool>(key, this._provider, OverrideDesktopsOnStartupDefaultValue));
@@ -110,6 +112,8 @@ namespace SylphyHorn.Serialization
 		public static string NotificationFontFamilyDefaultValue { get; } = "Segoe UI Light, Yu Gothic UI Light, Meiryo UI";
 
 		public static bool TrayShowDesktopDefaultValue { get; } = false;
+
+		public static bool TrayShowOnlyCurrentNumberDefaultValue { get; } = false;
 
 		public static bool OverrideDesktopsOnStartupDefaultValue { get; } = false;
 

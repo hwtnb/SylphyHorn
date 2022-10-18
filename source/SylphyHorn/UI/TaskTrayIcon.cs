@@ -104,7 +104,7 @@ namespace SylphyHorn.UI
 					WindowsTheme.ColorPrevalence.Current);
 			}
 
-			this.ChangeIcon(this._infoIcon.GetDesktopInfoIcon(currentDesktopIndex, totalDesktopCount));
+			this.ChangeIcon(this._infoIcon.GetDesktopInfoIcon(currentDesktopIndex, Settings.General.TrayShowOnlyCurrentNumber ? 0 : totalDesktopCount));
 		}
 
 		private void OnCurrentDesktopChanged(object sender, VirtualDesktopChangedEventArgs e)

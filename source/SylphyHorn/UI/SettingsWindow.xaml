@@ -229,6 +229,12 @@
 								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ToggleTrayIconInfo}" />
 							</CheckBox>
 						</StackPanel>
+						<StackPanel Margin="8,0,0,0">
+							<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=TrayShowOnlyCurrentNumber.Value, Mode=TwoWay}"
+									  IsEnabled="{Binding Source={x:Static serialization:Settings.General}, Path=TrayShowDesktop.Value, Mode=OneWay}">
+								<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_ShowOnlyCurrentNumberInTray}" />
+							</CheckBox>
+						</StackPanel>
 						<Border Height="8" />
 
 						<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Startup}"

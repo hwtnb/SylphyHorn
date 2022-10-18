@@ -17,6 +17,7 @@ namespace SylphyHorn.UI
 		private const double _verticalSpacing = -0.5;
 		private const double _triggerFontSizeInEffectivePixels = 14.0;
 		private const double _minFontSize = 4.0;
+		private const double _simpleFontSize = 16;
 
 		private static readonly SolidColorBrush _lightForegroundBrush = new SolidColorBrush(ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextLightTheme));
 		private static readonly SolidColorBrush _lightBackgroundBrush = new SolidColorBrush(ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemBackgroundLightTheme));
@@ -24,6 +25,7 @@ namespace SylphyHorn.UI
 		private static readonly SolidColorBrush _darkBackgroundBrush = new SolidColorBrush(ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemBackgroundDarkTheme));
 
 		private static readonly Typeface _defaultFont = new Typeface(new FontFamily(_defaultFontFamilyName), FontStyles.Normal, FontWeights.Bold, FontStretches.Normal);
+		private static readonly Typeface _simpleFont = new Typeface(new FontFamily(_defaultFontFamilyName), FontStyles.Normal, FontWeights.SemiBold, FontStretches.Normal);
 
 		private SolidColorBrush _foregroundBrush;
 		private SolidColorBrush _backgroundBrush;
@@ -61,7 +63,11 @@ namespace SylphyHorn.UI
 				context.DrawRectangle(this._backgroundBrush, null, new Rect(0.0, 0.0, iconSize.Width, iconSize.Height));
 
 				var currentOrientation = GetOrientation(totalDesktopCount);
-				if (currentOrientation == Orientation.Horizontal)
+				if (totalDesktopCount <= 0)
+				{
+					this.DrawSimpleInfo(context, iconSize, scale, currentDesktop);
+				}
+				else if (currentOrientation == Orientation.Horizontal)
 				{
 					this.DrawHorizontalInfo(context, iconSize, scale, currentDesktop, totalDesktopCount);
 				}
@@ -118,13 +124,25 @@ namespace SylphyHorn.UI
 			context.DrawText(secondFormattedText, new Point(0, offsetY2));
 		}
 
-		private FormattedText GetFormattedTextFromText(string text, double fontSize, System.Drawing.Size size, double scale = 1)
+		private void DrawSimpleInfo(DrawingContext context, System.Drawing.Size size, double scale, int currentDesktop)
+		{
+			var stringToDraw = $"{currentDesktop}";
+			var digit = (int)Math.Floor(Math.Log10(currentDesktop));
+			var fontSize = _simpleFontSize * Math.Pow(0.84, digit) * Math.Pow(0.84, digit > 0 ? digit - 1 : 0);
+			var formattedText = this.GetFormattedTextFromText(stringToDraw, fontSize, size, scale, _simpleFont);
+			formattedText.LineHeight = Math.Min(fontSize, size.Height);
+
+			var offsetY = Math.Floor(0.5 * (size.Height - formattedText.Extent));
+			context.DrawText(formattedText, new Point(0, offsetY));
+		}
+
+		private FormattedText GetFormattedTextFromText(string text, double fontSize, System.Drawing.Size size, double scale = 1, Typeface font = null)
 		{
 			var formattedText = new FormattedText(
 				text,
 				CultureInfo.CurrentUICulture,
 				FlowDirection.LeftToRight,
-				_defaultFont,
+				font ?? _defaultFont,
 				fontSize,
 				this._foregroundBrush,
 				null,

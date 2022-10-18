@@ -474,6 +474,9 @@
   <data name="Settings_ShortcutKey" xml:space="preserve">
     <value>キー設定</value>
   </data>
+  <data name="Settings_ShowOnlyCurrentNumberInTray" xml:space="preserve">
+    <value>現在のデスクトップ番号のみ表示する (シンプルモード)</value>
+  </data>
   <data name="Settings_ShowSettings" xml:space="preserve">
     <value>設定を表示:</value>
   </data>

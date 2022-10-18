@@ -474,6 +474,9 @@
   <data name="Settings_ShortcutKey" xml:space="preserve">
     <value>Shortcut key</value>
   </data>
+  <data name="Settings_ShowOnlyCurrentNumberInTray" xml:space="preserve">
+    <value>Show only current desktop number (simple mode)</value>
+  </data>
   <data name="Settings_ShowSettings" xml:space="preserve">
     <value>Show settings:</value>
   </data>
