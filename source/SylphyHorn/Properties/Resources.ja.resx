@@ -201,6 +201,9 @@
   <data name="Settings_DesktopSwitching_OverrideOS" xml:space="preserve">
     <value>OS 既定のキー コンビネーションを上書きする (Ctrl+Win+Left および Right)</value>
   </data>
+  <data name="Settings_Desktop_ClickToSwitchDesktop" xml:space="preserve">
+    <value>クリックしてこのデスクトップへ切り替えます</value>
+  </data>
   <data name="Settings_Desktop_CloseDesktop" xml:space="preserve">
     <value>削除</value>
   </data>

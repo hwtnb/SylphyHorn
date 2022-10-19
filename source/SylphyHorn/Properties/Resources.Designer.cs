@@ -268,6 +268,15 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Click to switch to this desktop に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Desktop_ClickToSwitchDesktop {
+            get {
+                return ResourceManager.GetString("Settings_Desktop_ClickToSwitchDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Close に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_Desktop_CloseDesktop {

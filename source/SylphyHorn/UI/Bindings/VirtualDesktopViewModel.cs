@@ -192,6 +192,11 @@ namespace SylphyHorn.UI.Bindings
 			this._desktop?.MoveToLast();
 		}
 
+		public void Switch()
+		{
+			this._desktop?.Switch();
+		}
+
 		public void Close()
 		{
 			this._desktop?.Remove();

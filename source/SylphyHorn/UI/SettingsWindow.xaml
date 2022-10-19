@@ -560,13 +560,41 @@
 																		   Foreground="{Binding Path=DataContext.NotificationForeground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
 																		   FontFamily="Segoe UI, Meiryo UI"
 																		   FontSize="12"
-																		   FontWeight="Bold"
+																		   FontWeight="Normal"
 																		   Margin="-1,-1,0,0" />
 															</DockPanel>
-															<Border BorderBrush="#AAAAAA"
+															<Border BorderBrush="{DynamicResource AccentBrushKey}"
 																	SnapsToDevicePixels="True"
-																	BorderThickness="0,0,1,1" />
+																	BorderThickness="0,0,1,1"
+																	Opacity="0.5" />
 														</Grid>
+														<metro2:CallMethodButton ToolTip="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Desktop_ClickToSwitchDesktop}"
+																				 ToolTipService.HorizontalOffset="30"
+																				 ToolTipService.InitialShowDelay="2000"
+																				 ToolTipService.ShowDuration="2000"
+																				 MethodTarget="{Binding}"
+																				 MethodName="Switch"
+																				 HorizontalAlignment="Center"
+																				 VerticalAlignment="Center"
+																				 Width="120"
+																				 Height="78"
+																				 Margin="0">
+															<metro2:CallMethodButton.Style>
+																<Style TargetType="{x:Type Button}">
+																	<Style.Setters>
+																		<Setter Property="Background" Value="Transparent" />
+																		<Setter Property="Foreground" Value="Transparent" />
+																		<Setter Property="BorderThickness" Value="0" />
+																	</Style.Setters>
+																	<Style.Triggers>
+																		<Trigger Property="IsMouseOver" Value="True">
+																			<Setter Property="BorderBrush" Value="{DynamicResource AccentBrushKey}" />
+																			<Setter Property="BorderThickness" Value="2" />
+																		</Trigger>
+																	</Style.Triggers>
+																</Style>
+															</metro2:CallMethodButton.Style>
+														</metro2:CallMethodButton>
 													</Canvas>
 												</Grid>
 											</DataTemplate>

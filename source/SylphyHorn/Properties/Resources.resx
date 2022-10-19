@@ -201,6 +201,9 @@
   <data name="Settings_DesktopSwitching_OverrideOS" xml:space="preserve">
     <value>Override OS default key combination (Ctrl+Win+Left and Right)</value>
   </data>
+  <data name="Settings_Desktop_ClickToSwitchDesktop" xml:space="preserve">
+    <value>Click to switch to this desktop</value>
+  </data>
   <data name="Settings_Desktop_CloseDesktop" xml:space="preserve">
     <value>Close</value>
   </data>
