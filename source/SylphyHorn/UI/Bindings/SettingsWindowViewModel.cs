@@ -760,6 +760,13 @@ namespace SylphyHorn.UI.Bindings
 				})
 				.AddTo(this);
 
+			Settings.General.OverrideWindowsDefaultKeyCombination
+				.Subscribe(_ => this._hookService.Reload())
+				.AddTo(this);
+			Settings.General.LoopDesktop
+				.Subscribe(_ => this._hookService.Reload())
+				.AddTo(this);
+
 			Settings.General.SimpleNotification
 				.Subscribe(_ => this.RaisePropertyChanged(nameof(this.PreviewNotificationText)))
 				.AddTo(this);
