@@ -204,7 +204,7 @@ namespace SylphyHorn.UI.Bindings
 
 		public static VirtualDesktopViewModel[] CreateAll()
 		{
-			var desktops = VirtualDesktop.GetDesktops();
+			var desktops = VirtualDesktop.AllDesktops;
 			return desktops.Select((d, i) => new VirtualDesktopViewModel(i, d)).ToArray();
 		}
 
@@ -216,7 +216,7 @@ namespace SylphyHorn.UI.Bindings
 
 		public static void UpdateModel(VirtualDesktopViewModel[] viewModels)
 		{
-			var desktops = VirtualDesktop.GetDesktops();
+			var desktops = VirtualDesktop.AllDesktops;
 
 			if (desktops.Length != viewModels.Length) throw new ArgumentException("ViewModel count does not match virtual desktop count.");
 

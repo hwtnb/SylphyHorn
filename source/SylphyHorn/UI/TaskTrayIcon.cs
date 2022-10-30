@@ -87,7 +87,7 @@ namespace SylphyHorn.UI
 
 		private void UpdateWithDesktopInfo(VirtualDesktop currentDesktop)
 		{
-			var desktops = VirtualDesktop.GetDesktops();
+			var desktops = VirtualDesktop.AllDesktops;
 			var currentDesktopIndex = Array.IndexOf(desktops, currentDesktop) + 1;
 			var totalDesktopCount = desktops.Length;
 

@@ -153,13 +153,13 @@ namespace SylphyHorn
 				};
 			}
 
-			var idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+			var idCaches = VirtualDesktop.AllDesktops.Select(d => d.Id).ToArray();
 			VirtualDesktop.Created += (sender, args) =>
 			{
 				SettingsService.ResizeListIfNeeded();
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
-				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+				idCaches = VirtualDesktop.AllDesktops.Select(d => d.Id).ToArray();
 			};
 			if (ProductInfo.IsWallpaperSupportBuild)
 			{
@@ -180,7 +180,7 @@ namespace SylphyHorn
 					SettingsService.ResizeListIfNeeded();
 
 					LocalSettingsProvider.Instance.SaveAsync().Wait();
-					idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+					idCaches = VirtualDesktop.AllDesktops.Select(d => d.Id).ToArray();
 				};
 			}
 			else
@@ -207,7 +207,7 @@ namespace SylphyHorn
 					SettingsService.ResizeListIfNeeded();
 
 					LocalSettingsProvider.Instance.SaveAsync().Wait();
-					idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+					idCaches = VirtualDesktop.AllDesktops.Select(d => d.Id).ToArray();
 				};
 				return;
 			}
@@ -218,7 +218,7 @@ namespace SylphyHorn
 				Settings.General.DesktopBackgroundPositions.Move(args.OldIndex, args.NewIndex);
 
 				LocalSettingsProvider.Instance.SaveAsync().Wait();
-				idCaches = VirtualDesktop.GetDesktops().Select(d => d.Id).ToArray();
+				idCaches = VirtualDesktop.AllDesktops.Select(d => d.Id).ToArray();
 			};
 			VirtualDesktop.WallpaperChanged += (sender, args) =>
 			{

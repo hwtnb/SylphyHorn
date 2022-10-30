@@ -70,8 +70,7 @@ namespace SylphyHorn.Services
 
 			VisualHelper.InvokeOnUIDispatcher(() =>
 			{
-				var desktops = VirtualDesktop.GetDesktops();
-				var newIndex = Array.IndexOf(desktops, e.NewDesktop) + 1;
+				var newIndex = e.NewDesktop.Index + 1;
 
 				this._notificationWindow.Disposable = ShowSwitchedDesktopWindow(newIndex);
 			});

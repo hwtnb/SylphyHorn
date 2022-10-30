@@ -12,7 +12,7 @@ namespace SylphyHorn.Services
 	{
 		#region Count
 
-		public static int Count => VirtualDesktop.GetDesktops().Length;
+		public static int Count => VirtualDesktop.Count;
 
 		#endregion
 
@@ -21,21 +21,29 @@ namespace SylphyHorn.Services
 		public static VirtualDesktop GetLeft()
 		{
 			var current = VirtualDesktop.Current;
-			var desktops = VirtualDesktop.GetDesktops();
+			var left = current.GetLeft();
 
-			return desktops.Length >= 2 && current.Id == desktops.First().Id
-				? Settings.General.LoopDesktop ? desktops.Last() : null
-				: current.GetLeft();
+			if (left == null && Count >= 2 && Settings.General.LoopDesktop)
+			{
+				var desktops = VirtualDesktop.AllDesktops;
+				return desktops.Last();
+			}
+
+			return left;
 		}
 
 		public static VirtualDesktop GetRight()
 		{
 			var current = VirtualDesktop.Current;
-			var desktops = VirtualDesktop.GetDesktops();
+			var right = current.GetRight();
 
-			return desktops.Length >= 2 && current.Id == desktops.Last().Id
-				? Settings.General.LoopDesktop ? desktops.First() : null
-				: current.GetRight();
+			if (right == null && Count >= 2 && Settings.General.LoopDesktop)
+			{
+				var desktops = VirtualDesktop.AllDesktops;
+				return desktops.First();
+			}
+
+			return right;
 		}
 
 		public static VirtualDesktop GetPrevious()
@@ -45,7 +53,7 @@ namespace SylphyHorn.Services
 
 		public static VirtualDesktop GetByIndex(int index)
 		{
-			var desktops = VirtualDesktop.GetDesktops();
+			var desktops = VirtualDesktop.AllDesktops;
 
 			return (index >= 0) && (index < desktops.Length) ? desktops[index] : null;
 		}
@@ -64,7 +72,7 @@ namespace SylphyHorn.Services
 				{
 					if (Settings.General.LoopDesktop)
 					{
-						var desktops = VirtualDesktop.GetDesktops();
+						var desktops = VirtualDesktop.AllDesktops;
 						if (desktops.Length >= 2) left = desktops.Last();
 					}
 				}
@@ -89,7 +97,7 @@ namespace SylphyHorn.Services
 				{
 					if (Settings.General.LoopDesktop)
 					{
-						var desktops = VirtualDesktop.GetDesktops();
+						var desktops = VirtualDesktop.AllDesktops;
 						if (desktops.Length >= 2) right = desktops.First();
 					}
 				}
@@ -164,7 +172,7 @@ namespace SylphyHorn.Services
 				{
 					if (Settings.General.LoopDesktop)
 					{
-						var desktops = VirtualDesktop.GetDesktops();
+						var desktops = VirtualDesktop.AllDesktops;
 						if (desktops.Length >= 2) current.Move(desktops.Length - 1);
 					}
 				}
@@ -188,7 +196,7 @@ namespace SylphyHorn.Services
 				{
 					if (Settings.General.LoopDesktop)
 					{
-						var desktops = VirtualDesktop.GetDesktops();
+						var desktops = VirtualDesktop.AllDesktops;
 						if (desktops.Length >= 2) current.Move(0);
 					}
 				}
@@ -283,11 +291,11 @@ namespace SylphyHorn.Services
 		{
 			if (index1 >= 0 && index2 >= 0)
 			{
-				var desktops = VirtualDesktop.GetDesktops();
-				var desktopCount = desktops.Length;
+				var desktopCount = Count;
 			
 				if (index1 < desktopCount && index2 < desktopCount)
 				{
+					var desktops = VirtualDesktop.AllDesktops;
 					var desktop1 = desktops[index1];
 					var desktop2 = desktops[index2];
 					desktop1.Move(index2);
@@ -315,9 +323,8 @@ namespace SylphyHorn.Services
 		public static void CloseAndSwitchLeft()
 		{
 			var current = VirtualDesktop.Current;
-			var desktops = VirtualDesktop.GetDesktops();
 			
-			if (desktops.Length > 1)
+			if (Count > 1)
 			{
 				GetLeft()?.Switch();
 				current.Remove();
@@ -327,9 +334,8 @@ namespace SylphyHorn.Services
 		public static void CloseAndSwitchRight()
 		{
 			var current = VirtualDesktop.Current;
-			var desktops = VirtualDesktop.GetDesktops();
 
-			if (desktops.Length > 1)
+			if (Count > 1)
 			{
 				GetRight()?.Switch();
 				current.Remove();

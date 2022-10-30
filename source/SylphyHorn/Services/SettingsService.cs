@@ -46,7 +46,7 @@ namespace SylphyHorn.Services
 		public static void SynchronizeWithWindows()
 		{
 			// for OS Build 18975 or later
-			var desktops = VirtualDesktop.GetDesktops();
+			var desktops = VirtualDesktop.AllDesktops;
 
 			_synchronizeWithWindowsAction(desktops);
 		}
@@ -223,7 +223,7 @@ namespace SylphyHorn.Services
 		private static void UpdateWindowsDesktopsByList()
 		{
 			// for OS Build 18975 or later
-			var desktops = VirtualDesktop.GetDesktops();
+			var desktops = VirtualDesktop.AllDesktops;
 			_updateByListAction(desktops);
 		}
 
@@ -279,7 +279,7 @@ namespace SylphyHorn.Services
 				generalSettings.DesktopBackgroundPositions.Resize(settingsCount);
 			}
 
-			var desktops = VirtualDesktop.GetDesktops();
+			var desktops = VirtualDesktop.AllDesktops;
 			var currentCount = desktops.Length;
 
 			if (settingsCount > currentCount)
