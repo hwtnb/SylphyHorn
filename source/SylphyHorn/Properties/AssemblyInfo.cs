@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
 [assembly: AssemblyVersion("4.0.0.0")]
-[assembly: AssemblyMetadata("ExtraVersion", "beta.6")]
+[assembly: AssemblyMetadata("ExtraVersion", "beta.7")]
 [assembly: AssemblyMetadata("OriginalCompany", "grabacr.net")]
 [assembly: AssemblyMetadata("OriginalProduct", "SylphyHorn")]
 [assembly: ComVisible(false)]
