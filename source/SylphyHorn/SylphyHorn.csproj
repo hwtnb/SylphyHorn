@@ -1,367 +1,148 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B1F3C87-DE54-4BFD-86C9-87181F7FDC2D}</ProjectGuid>
+    <TargetFrameworks>net472;net48</TargetFrameworks>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SylphyHorn</RootNamespace>
-    <AssemblyName>SylphyHorn</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <Title>SylphyHornPlus</Title>
+    <Product>SylphyHornPlus</Product>
+    <Version>4.0.0</Version>
+    <Authors>hwtnb</Authors>
+    <Company>hwtnb.net</Company>
+    <Copyright>Copyright © 2015 - 2018 Manato KAMEYA, 2021 - 2022 hwtnb</Copyright>
+    <Description>Virtual Desktop Tools for Windows 11 and 10</Description>
+    <AssemblyTitle>SylphyHornPlus</AssemblyTitle>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>.assets\app.green.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
+
+  <ItemGroup>
+    <AssemblyMetadata Include="ExtraVersion" Value="beta.7" />
+    <AssemblyMetadata Include="OriginalCompany" Value="grabacr.net" />
+    <AssemblyMetadata Include="OriginalProduct" Value="SylphyHorn" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>.assets\app.green.ico</ApplicationIcon>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28AppX%29|AnyCPU'">
-    <OutputPath>bin\Release %28AppX%29\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DefineConstants>TRACE;APPX</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28AppX%29|x64'">
-    <OutputPath>bin\x64\Release %28AppX%29\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>TRACE;APPX</DefineConstants>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28AppX%29|x86'">
-    <OutputPath>bin\x86\Release %28AppX%29\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
     <PlatformTarget>x86</PlatformTarget>
+    <DefineConstants>TRACE;APPX</DefineConstants>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28AppX%29|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug %28AppX%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;APPX</DefineConstants>
-    <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DefineConstants>TRACE;DEBUG;APPX</DefineConstants>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28AppX%29|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug %28AppX%29\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>TRACE;DEBUG;APPX</DefineConstants>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28AppX%29|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug %28AppX%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>TRACE;DEBUG;APPX</DefineConstants>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="MetroRadiance">
-      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFrameworkVersion)\MetroRadiance.dll</HintPath>
+      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFramework)\MetroRadiance.dll</HintPath>
     </Reference>
     <Reference Include="MetroRadiance.Chrome">
-      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFrameworkVersion)\MetroRadiance.Chrome.dll</HintPath>
+      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFramework)\MetroRadiance.Chrome.dll</HintPath>
     </Reference>
     <Reference Include="MetroRadiance.Core">
-      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFrameworkVersion)\MetroRadiance.Core.dll</HintPath>
+      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFramework)\MetroRadiance.Core.dll</HintPath>
     </Reference>
     <Reference Include="MetroTrilithon">
-      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFrameworkVersion)\MetroTrilithon.dll</HintPath>
+      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFramework)\MetroTrilithon.dll</HintPath>
     </Reference>
     <Reference Include="MetroTrilithon.Desktop">
-      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFrameworkVersion)\MetroTrilithon.Desktop.dll</HintPath>
+      <HintPath>..\libraries\MetroTrilithon.Desktop\$(TargetFramework)\MetroTrilithon.Desktop.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Runtime" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
   </ItemGroup>
+
   <ItemGroup>
-    <ApplicationDefinition Include="Application.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Annotations\DarkAttribute.cs" />
-    <Compile Include="Annotations\ElementalAttribute.cs" />
-    <Compile Include="Annotations\LightAttribute.cs" />
-    <Compile Include="ApplicationPreparation.cs" />
-    <Compile Include="CommandLineArgs.cs" />
-    <Compile Include="Interop\ColorHelper.cs" />
-    <Compile Include="Interop\DotnetVersion.cs" />
-    <Compile Include="Interop\IconHelper.cs" />
-    <Compile Include="Interop\IDesktopWallpaper.cs" />
-    <Compile Include="Interop\LayeredWindowAttributes.cs" />
-    <Compile Include="Interop\MonitorInfoEx.cs" />
-    <Compile Include="Interop\MsLLHookStruct.cs" />
-    <Compile Include="Interop\PhysicalMonitor.cs" />
-    <Compile Include="Interop\Platform.cs" />
-    <Compile Include="Interop\SystemEnvironment.cs" />
-    <Compile Include="Services\ImageFormatSupportDetector.cs" />
-    <Compile Include="Services\IMouseInterceptor.cs" />
-    <Compile Include="Services\LoggingService.cs" />
-    <Compile Include="Services\MonitorService.cs" />
-    <Compile Include="Services\MouseInterceptor.cs" />
-    <Compile Include="Services\ResourceService.cs" />
-    <Compile Include="Services\Helpers.cs" />
-    <Compile Include="Services\HookService.cs" />
-    <Compile Include="Services\KeyHelper.cs" />
-    <Compile Include="Services\NotificationService.cs" />
-    <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Services\ShortcutKey.cs" />
-    <Compile Include="Services\ShortcutKeyDetector.cs" />
-    <Compile Include="Services\ShortcutKeyPressedEventArgs.cs" />
-    <Compile Include="Services\VirtualDesktopService.cs" />
-    <Compile Include="Services\WallpaperService.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="StartupScheduler.cs" />
-    <Compile Include="UI\Bindings\BindableTextViewModel.cs" />
-    <Compile Include="UI\Bindings\HeaderContentViewModel.cs" />
-    <Compile Include="UI\Bindings\NotificationWindowViewModel.cs" />
-    <Compile Include="UI\Bindings\SettingsWindowViewModel.cs" />
-    <Compile Include="UI\Bindings\VirtualDesktopViewModel.cs" />
-    <Compile Include="UI\Bindings\WindowPlacement.cs" />
-    <Compile Include="UI\Controls\ArrayToStringConverter.cs" />
-    <Compile Include="UI\Controls\ClosingStoryboardBehavior.cs" />
-    <Compile Include="UI\Controls\Keytop.cs" />
-    <Compile Include="UI\Controls\MouseShortcutBox.cs" />
-    <Compile Include="UI\Controls\NullableIntToStringConverter.cs" />
-    <Compile Include="UI\Controls\ShortcutKeyBox.cs" />
-    <Compile Include="UI\Controls\UnlockImageConverter.cs" />
-    <Compile Include="UI\DynamicInfoTrayIcon.cs" />
-    <Compile Include="UI\NotificationWindow.cs" />
-    <Compile Include="UI\PinWindow.xaml.cs">
-      <DependentUpon>PinWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SwitchWindow.xaml.cs">
-      <DependentUpon>SwitchWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TaskTrayIcon.cs" />
-    <Compile Include="UI\TaskTrayTestWindow.xaml.cs" Condition="'$(Configuration)' == 'Debug'">
-      <DependentUpon>TaskTrayTestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Serialization\LocalSettingsProperty.cs" />
-    <Compile Include="Serialization\LocalSettingsProvider.cs" />
-    <Compile Include="Serialization\SerializableDictionary.cs" />
-    <Compile Include="Serialization\SerializationExtensions.cs" />
-    <Compile Include="Serialization\Settings.cs" />
-    <Compile Include="Interop\UwpBridge.cs" />
-    <Page Include="Styles\Controls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.Keytop.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Generic.xaml</DependentUpon>
-    </Page>
-    <Page Include="Themes\Generic.ShortcutKeyBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Generic.xaml</DependentUpon>
-    </Page>
-    <Page Include="Themes\Generic.MouseShortcutBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Generic.xaml</DependentUpon>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Application.xaml.cs">
-      <DependentUpon>Application.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Application.iKey.cs">
-      <DependentUpon>Application.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Application.Static.cs">
-      <DependentUpon>Application.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interop\NativeMethods.cs" />
-    <Page Include="UI\PinWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\SwitchWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\TaskTrayTestWindow.xaml" Condition="'$(Configuration)' == 'Debug'">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Directories.cs" />
-    <Compile Include="Properties\LicenseInfo.cs" />
-    <Compile Include="Properties\ProductInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include=".build\post-build.ps1" />
-    <None Include="app.manifest">
+    <None Update="app.manifest">
       <SubType>Designer</SubType>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\SylphyHorn.Core\SylphyHorn.Core.csproj" />
+    <ProjectReference Include="..\VirtualDesktop\source\VirtualDesktop.WPF\VirtualDesktop.WPF.csproj" />
+    <ProjectReference Include="..\VirtualDesktop\source\VirtualDesktop\VirtualDesktop.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SylphyHorn.Core\SylphyHorn.Core.csproj">
-      <Project>{9f0eb092-ddfc-492e-9266-ef208c8e4d83}</Project>
-      <Name>SylphyHorn.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VirtualDesktop\source\VirtualDesktop.WPF\VirtualDesktop.WPF.csproj">
-      <Project>{9dd597c6-065a-4764-a96c-1b18c4eded78}</Project>
-      <Name>VirtualDesktop.WPF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VirtualDesktop\source\VirtualDesktop\VirtualDesktop.csproj">
-      <Project>{ab848ecd-76aa-41c0-b63d-86a8591b25aa}</Project>
-      <Name>VirtualDesktop</Name>
-    </ProjectReference>
-  </ItemGroup>
+
   <ItemGroup>
     <Resource Include=".assets\tasktray.dark.ico" />
     <Resource Include=".assets\tasktray.light.ico" />
     <Resource Include=".assets\app.white.ico" />
     <Resource Include=".assets\app.green.ico" />
   </ItemGroup>
+
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="AppxManifest.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <EmbeddedResource Include=".licenses\InputSimulatorPlus.txt" />
     <EmbeddedResource Include=".licenses\MetroTrilithon.txt" />
     <EmbeddedResource Include=".licenses\MetroRadiance.txt" />
@@ -369,6 +150,7 @@
     <EmbeddedResource Include=".licenses\Open.WinKeyboardHook.txt" />
     <EmbeddedResource Include=".licenses\VirtualDesktop.txt" />
   </ItemGroup>
+
   <ItemGroup>
     <None Include=".assets\Square150x150Logo.scale-200.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -398,32 +180,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ja.resx">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 および x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="ElementalAnnotations-Dualism">
       <Version>1.0.2</Version>
@@ -443,6 +200,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights">
       <Version>2.21.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts">
       <Version>10.0.22621.755</Version>
     </PackageReference>
@@ -452,19 +210,41 @@
     <PackageReference Include="Open.WinKeyboardHook">
       <Version>1.0.14</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource">
       <Version>6.0.0</Version>
     </PackageReference>
+    <PackageReference Include="System.Management" Version="6.0.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>powershell -ExecutionPolicy RemoteSigned -File "$(ProjectDir).build\post-build.ps1" "$(TargetDir)</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+
+  <ItemGroup>
+    <ApplicationDefinition Include="Application.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+    <Compile Update="Application.xaml.cs">
+      <DependentUpon>Application.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Application.iKey.cs">
+      <DependentUpon>Application.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application.Static.cs">
+      <DependentUpon>Application.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Remove="UI\TaskTrayTestWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <Compile Update="UI\TaskTrayTestWindow.xaml.cs">
+      <DependentUpon>TaskTrayTestWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell -ExecutionPolicy RemoteSigned -File &quot;$(ProjectDir).build\post-build.ps1&quot; &quot;$(TargetDir)" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
