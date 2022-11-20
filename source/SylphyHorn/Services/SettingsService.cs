@@ -108,6 +108,15 @@ namespace SylphyHorn.Services
 			Settings.General.DesktopNames.Resize(desktopCount);
 			Settings.General.DesktopBackgroundImagePaths.Resize(desktopCount);
 			Settings.General.DesktopBackgroundPositions.Resize(desktopCount);
+
+			foreach (var name in Settings.General.DesktopNames.Value)
+			{
+				if (name.Value == null) name.Value = "";
+			}
+			foreach (var path in Settings.General.DesktopBackgroundImagePaths.Value)
+			{
+				if (path.Value == null) path.Value = "";
+			}
 		}
 
 		private static void ResizeShortcutListCore(int desktopCount)
@@ -232,10 +241,27 @@ namespace SylphyHorn.Services
 			// for OS Build 18975 or later
 			var generalSettings = Settings.General;
 
-			var desktopNames = generalSettings.DesktopNames.Value.Select(prop => prop.Value).ToArray();
-			for (int i = 0; i < desktopNames.Length; ++i)
+			var desktopNames = generalSettings.DesktopNames.Value;
+			for (int i = 0; i < desktopNames.Count; ++i)
 			{
-				desktops[i].Name = desktopNames[i];
+				var prop = desktopNames[i];
+				var desktop = i < desktops.Length ? desktops[i] : null;
+				if (desktop != null)
+				{
+					var name = prop.Value;
+					if (name != null)
+					{
+						desktop.Name = name;
+					}
+					else
+					{
+						prop.Value = desktop.Name;
+					}
+				}
+				else if (prop.Value == null)
+				{
+					prop.Value = "";
+				}
 			}
 		}
 
@@ -244,10 +270,27 @@ namespace SylphyHorn.Services
 			// for OS Build 21337 or later
 			var generalSettings = Settings.General;
 
-			var wallpaperPaths = generalSettings.DesktopBackgroundImagePaths.Value.Select(prop => prop.Value).ToArray();
-			for (int i = 0; i < wallpaperPaths.Length; ++i)
+			var wallpaperPaths = generalSettings.DesktopBackgroundImagePaths.Value;
+			for (int i = 0; i < wallpaperPaths.Count; ++i)
 			{
-				desktops[i].WallpaperPath = wallpaperPaths[i];
+				var prop = wallpaperPaths[i];
+				var desktop = i < desktops.Length ? desktops[i] : null;
+				if (desktop != null)
+				{
+					var path = prop.Value;
+					if (path != null)
+					{
+						desktop.WallpaperPath = path;
+					}
+					else
+					{
+						prop.Value = desktop.WallpaperPath;
+					}
+				}
+				else if (prop.Value == null)
+				{
+					prop.Value = "";
+				}
 			}
 		}
 
