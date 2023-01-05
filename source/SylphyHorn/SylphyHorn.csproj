@@ -149,6 +149,12 @@
     <EmbeddedResource Include=".licenses\Livet.txt" />
     <EmbeddedResource Include=".licenses\Open.WinKeyboardHook.txt" />
     <EmbeddedResource Include=".licenses\VirtualDesktop.txt" />
+    <EmbeddedResource Update="Properties\Resources.ja.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.zh-hans.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
