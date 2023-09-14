@@ -27,7 +27,7 @@ namespace SylphyHorn
 
 		public event Action VirtualDesktopInitializationCanceled;
 
-		public event Action<Exception> VirtualDesktopInitializationFailed;
+		public event Action<Exception, bool> VirtualDesktopInitializationFailed;
 
 		public ApplicationPreparation(HookService hookService, Action shutdownAction, IDisposableHolder disposable)
 		{
@@ -128,7 +128,8 @@ namespace SylphyHorn
 						break;
 
 					case TaskStatus.Faulted:
-						this.VirtualDesktopInitializationFailed?.Invoke(t.Exception);
+						var autoRestart = VirtualDesktop.Provider.TryDeleteAssembly();
+						this.VirtualDesktopInitializationFailed?.Invoke(t.Exception, autoRestart);
 						break;
 				}
 			}

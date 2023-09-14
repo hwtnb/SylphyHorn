@@ -88,10 +88,24 @@ namespace SylphyHorn
 						}
 					};
 					preparation.VirtualDesktopInitializationCanceled += () => this.Shutdown(); // ToDo
-					preparation.VirtualDesktopInitializationFailed += ex =>
+					preparation.VirtualDesktopInitializationFailed += (ex, autoRestart) =>
 					{
 						this.TaskTrayIcon.Show();
 						LoggingService.Instance.Register(ex);
+
+						if ((Args.Restarted == null || Args.Restarted == 0) && autoRestart)
+						{
+							try
+							{
+								Restart();
+								this.Shutdown();
+								return;
+							}
+							catch (Exception ex2)
+							{
+								LoggingService.Instance.Register(ex2);
+							}
+						}
 						this.RestartOrShutdown("Virtual desktop initialization is failed.", "Virtual Desktop Initialization Failed");
 					};
 					preparation.PrepareVirtualDesktop();
