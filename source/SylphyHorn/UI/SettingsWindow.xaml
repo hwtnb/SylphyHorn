@@ -713,6 +713,9 @@
 							<TextBlock Grid.Column="0"
 									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowPlacement}"
 									   Style="{DynamicResource HeaderStyleKey}" />
+							<TextBlock Grid.Column="2"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowOffset}"
+									   Style="{DynamicResource HeaderStyleKey}" />
 						</Grid>
 						<StackPanel Margin="8,0,0,0">
 							<Grid>
@@ -731,6 +734,45 @@
 													  MinWidth="200"
 													  Margin="1,0,0,0"
 													  HorizontalAlignment="Left" />
+								<TextBlock Grid.Column="2" VerticalAlignment="Top"
+										   Margin="1,0,0,0">
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowOffset_SwitchDesktop, Mode=OneWay}" />
+									<InlineUIContainer>
+										<Border Width="2" />
+									</InlineUIContainer>
+									<Run Text="X" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding NotificationOffsetX, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+									<Run Text="Y" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding NotificationOffsetY, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,10,-7" />
+									</InlineUIContainer>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowOffset_PinWindow, Mode=OneWay}" />
+									<InlineUIContainer>
+										<Border Width="2" />
+									</InlineUIContainer>
+									<Run Text="X" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding PinWindowOffsetX, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,2,-7" />
+									</InlineUIContainer>
+									<Run Text="Y" />
+									<InlineUIContainer>
+										<metro:PromptTextBox Text="{Binding PinWindowOffsetY, Mode=TwoWay, Converter={StaticResource NullableIntToStringConverter}}"
+															 Prompt=""
+															 Width="34"
+															 Margin="2,0,-2,-7" />
+									</InlineUIContainer>
+								</TextBlock>
 							</Grid>
 						</StackPanel>
 						<Border Height="8" />

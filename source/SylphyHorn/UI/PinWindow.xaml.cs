@@ -4,6 +4,7 @@ using System.Windows.Interop;
 using MetroRadiance.Interop;
 using MetroRadiance.Interop.Win32;
 using SylphyHorn.Interop;
+using SylphyHorn.Serialization;
 
 namespace SylphyHorn.UI
 {
@@ -31,8 +32,11 @@ namespace SylphyHorn.UI
 				var width = this.ActualWidth * dpi.ScaleX;
 				var height = this.ActualHeight * dpi.ScaleY;
 
-				this.Left = (rect.Left + (targetWidth - width) / 2) / dpi.ScaleX;
-				this.Top = (rect.Top + (targetHeight - height) / 2) / dpi.ScaleY;
+				var offsetLeft = Settings.General.NotificationOffsetX;
+				var offsetTop = -Settings.General.NotificationOffsetY;
+
+				this.Left = (rect.Left + (targetWidth - width) / 2) / dpi.ScaleX + offsetLeft;
+				this.Top = (rect.Top + (targetHeight - height) / 2) / dpi.ScaleY + offsetTop;
 			}
 		}
 	}

@@ -323,6 +323,86 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		#region NotificationOffsetX notification property
+
+		public int? NotificationOffsetX
+		{
+			get => Settings.General.NotificationOffsetX.Value;
+			set
+			{
+				var param = value ?? this.GetInitialNotificationOffsetX();
+
+				if (Settings.General.NotificationOffsetX.Value != param)
+				{
+					Settings.General.NotificationOffsetX.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region NotificationOffsetY notification property
+
+		public int? NotificationOffsetY
+		{
+			get => Settings.General.NotificationOffsetY.Value;
+			set
+			{
+				var param = value ?? this.GetInitialNotificationOffsetY();
+
+				if (Settings.General.NotificationOffsetY.Value != param)
+				{
+					Settings.General.NotificationOffsetY.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region PinWindowOffsetX notification property
+
+		public int? PinWindowOffsetX
+		{
+			get => Settings.General.PinWindowOffsetX.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.PinWindowOffsetXDefaultValue;
+
+				if (Settings.General.PinWindowOffsetX.Value != param)
+				{
+					Settings.General.PinWindowOffsetX.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region PinWindowOffsetY notification property
+
+		public int? PinWindowOffsetY
+		{
+			get => Settings.General.PinWindowOffsetY.Value;
+			set
+			{
+				var param = value ?? GeneralSettings.PinWindowOffsetYDefaultValue;
+
+				if (Settings.General.PinWindowOffsetY.Value != param)
+				{
+					Settings.General.PinWindowOffsetY.Value = param;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
 		#region NotificationMinWidth notification property
 
 		public int? NotificationMinWidth
@@ -1183,6 +1263,53 @@ namespace SylphyHorn.UI.Bindings
 						foreground = ImmersiveColor.GetColorByTypeName(ImmersiveColorNames.SystemTextLightTheme);
 					}
 					break;
+			}
+		}
+
+		private int GetInitialNotificationOffsetX()
+		{
+			if (this.NotificationCornerStyle < BlurWindowCornerMode.Rounded)
+			{
+				return GeneralSettings.NotificationOffsetXDefaultValue;
+			}
+
+			var placement = this.Placement;
+			switch (placement)
+			{
+				case WindowPlacement.Center:
+				case WindowPlacement.TopCenter:
+				case WindowPlacement.BottomCenter:
+					return GeneralSettings.NotificationOffsetXDefaultValue;
+
+				case WindowPlacement.TopLeft:
+				case WindowPlacement.BottomLeft:
+					return GeneralSettings.NotificationOffsetXWithRoundedDefaultValue;
+
+				default:
+					return -GeneralSettings.NotificationOffsetXWithRoundedDefaultValue;
+			}
+		}
+
+		private int GetInitialNotificationOffsetY()
+		{
+			if (this.NotificationCornerStyle < BlurWindowCornerMode.Rounded)
+			{
+				return GeneralSettings.NotificationOffsetYDefaultValue;
+			}
+
+			var placement = this.Placement;
+			switch (placement)
+			{
+				case WindowPlacement.Center:
+					return GeneralSettings.NotificationOffsetYDefaultValue;
+
+				case WindowPlacement.BottomLeft:
+				case WindowPlacement.BottomCenter:
+				case WindowPlacement.BottomRight:
+					return GeneralSettings.NotificationOffsetYWithRoundedDefaultValue;
+
+				default:
+					return -GeneralSettings.NotificationOffsetYWithRoundedDefaultValue;
 			}
 		}
 	}

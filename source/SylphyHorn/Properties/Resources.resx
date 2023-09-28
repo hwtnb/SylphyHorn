@@ -408,6 +408,15 @@
   <data name="Settings_NotificationWindowMinSize_Width_SimpleMode" xml:space="preserve">
     <value>Simple:</value>
   </data>
+  <data name="Settings_NotificationWindowOffset" xml:space="preserve">
+    <value>Notification offset</value>
+  </data>
+  <data name="Settings_NotificationWindowOffset_PinWindow" xml:space="preserve">
+    <value>Pin:</value>
+  </data>
+  <data name="Settings_NotificationWindowOffset_SwitchDesktop" xml:space="preserve">
+    <value>Desktop:</value>
+  </data>
   <data name="Settings_NotificationWindowPlacement" xml:space="preserve">
     <value>Notification placement</value>
   </data>

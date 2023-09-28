@@ -408,6 +408,15 @@
   <data name="Settings_NotificationWindowMinSize_Width_SimpleMode" xml:space="preserve">
     <value>シンプル:</value>
   </data>
+  <data name="Settings_NotificationWindowOffset" xml:space="preserve">
+    <value>通知ウィンドウのオフセット</value>
+  </data>
+  <data name="Settings_NotificationWindowOffset_PinWindow" xml:space="preserve">
+    <value>ピン留め:</value>
+  </data>
+  <data name="Settings_NotificationWindowOffset_SwitchDesktop" xml:space="preserve">
+    <value>デスクトップ:</value>
+  </data>
   <data name="Settings_NotificationWindowPlacement" xml:space="preserve">
     <value>通知ウィンドウの配置</value>
   </data>

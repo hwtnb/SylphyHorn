@@ -29,21 +29,24 @@ namespace SylphyHorn.UI
 			var height = this.ActualHeight * dpi.ScaleY;
 			var area = this._area;
 
+			var offsetLeft = Settings.General.NotificationOffsetX;
+			var offsetTop = -Settings.General.NotificationOffsetY;
+
 			switch ((WindowPlacement)Settings.General.Placement.Value)
 			{
 				case WindowPlacement.TopLeft:
 				case WindowPlacement.BottomLeft:
-					this.Left = area.Left / dpi.ScaleX;
+					this.Left = area.Left / dpi.ScaleX + offsetLeft;
 					break;
 
 				case WindowPlacement.TopRight:
 				case WindowPlacement.BottomRight:
-					this.Left = (area.Right - width) / dpi.ScaleX;
+					this.Left = (area.Right - width) / dpi.ScaleX + offsetLeft;
 					break;
 
 				case WindowPlacement.Center:
 				default:
-					this.Left = (area.Left + (area.Width - width) / 2) / dpi.ScaleX;
+					this.Left = (area.Left + (area.Width - width) / 2) / dpi.ScaleX + offsetLeft;
 					break;
 			}
 
@@ -52,18 +55,18 @@ namespace SylphyHorn.UI
 				case WindowPlacement.TopLeft:
 				case WindowPlacement.TopCenter:
 				case WindowPlacement.TopRight:
-					this.Top = area.Top / dpi.ScaleY;
+					this.Top = area.Top / dpi.ScaleY + offsetTop;
 					break;
 
 				case WindowPlacement.BottomLeft:
 				case WindowPlacement.BottomCenter:
 				case WindowPlacement.BottomRight:
-					this.Top = (area.Bottom - height) / dpi.ScaleY;
+					this.Top = (area.Bottom - height) / dpi.ScaleY + offsetTop;
 					break;
 
 				case WindowPlacement.Center:
 				default:
-					this.Top = (area.Top + (area.Height - height) / 2) / dpi.ScaleY;
+					this.Top = (area.Top + (area.Height - height) / 2) / dpi.ScaleY + offsetTop;
 					break;
 			}
 		}

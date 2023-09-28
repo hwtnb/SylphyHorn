@@ -988,6 +988,33 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Notification offset に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowOffset {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowOffset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Pin: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowOffset_PinWindow {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowOffset_PinWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Desktop: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowOffset_SwitchDesktop {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowOffset_SwitchDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Notification placement に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_NotificationWindowPlacement {

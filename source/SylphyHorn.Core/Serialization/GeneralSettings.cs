@@ -65,6 +65,14 @@ namespace SylphyHorn.Serialization
 
 		public SerializableProperty<int> NotificationMinHeight => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationMinHeightDefaultValue));
 
+		public SerializableProperty<int> NotificationOffsetX => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationOffsetXDefaultValue));
+
+		public SerializableProperty<int> NotificationOffsetY => this.Cache(key => new SerializableProperty<int>(key, this._provider, NotificationOffsetYDefaultValue));
+
+		public SerializableProperty<int> PinWindowOffsetX => this.Cache(key => new SerializableProperty<int>(key, this._provider, PinWindowOffsetXDefaultValue));
+
+		public SerializableProperty<int> PinWindowOffsetY => this.Cache(key => new SerializableProperty<int>(key, this._provider, PinWindowOffsetYDefaultValue));
+
 		public SerializableProperty<bool> TrayShowDesktop => this.Cache(key => new SerializableProperty<bool>(key, this._provider, TrayShowDesktopDefaultValue));
 
 		public SerializableProperty<bool> TrayShowOnlyCurrentNumber => this.Cache(key => new SerializableProperty<bool>(key, this._provider, TrayShowOnlyCurrentNumberDefaultValue));
@@ -112,6 +120,18 @@ namespace SylphyHorn.Serialization
 		public static int PinWindowMinWidthDefaultValue { get; } = 400 /* px */;
 
 		public static int NotificationMinHeightDefaultValue { get; } = 100 /* px */;
+
+		public static int NotificationOffsetXDefaultValue { get; } = 0 /* px */;
+
+		public static int NotificationOffsetYDefaultValue { get; } = 0 /* px */;
+
+		public static int NotificationOffsetXWithRoundedDefaultValue { get; } = 12 /* px */;
+
+		public static int NotificationOffsetYWithRoundedDefaultValue { get; } = 12 /* px */;
+
+		public static int PinWindowOffsetXDefaultValue { get; } = 0 /* px */;
+
+		public static int PinWindowOffsetYDefaultValue { get; } = 0 /* px */;
 
 		public static string NotificationFontFamilyDefaultValue { get; } = "Segoe UI Light, Yu Gothic UI Light, Meiryo UI";
 
