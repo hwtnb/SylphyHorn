@@ -808,6 +808,42 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Notification corner style に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationCornerStyle {
+            get {
+                return ResourceManager.GetString("Settings_NotificationCornerStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Not rounded (Windows 10 style) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationCornerStyle_NotRounded {
+            get {
+                return ResourceManager.GetString("Settings_NotificationCornerStyle_NotRounded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Rounded (Windows 11 style) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationCornerStyle_Rounded {
+            get {
+                return ResourceManager.GetString("Settings_NotificationCornerStyle_Rounded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Small rounded に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationCornerStyle_SmallRounded {
+            get {
+                return ResourceManager.GetString("Settings_NotificationCornerStyle_SmallRounded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Notification font family に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_NotificationFontFamily {

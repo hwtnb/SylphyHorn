@@ -10,6 +10,7 @@
 				   xmlns:root="clr-namespace:SylphyHorn"
 				   xmlns:properties="clr-namespace:SylphyHorn.Properties"
 				   xmlns:serialization="clr-namespace:SylphyHorn.Serialization"
+				   xmlns:ui="clr-namespace:SylphyHorn.UI"
 				   xmlns:bindings="clr-namespace:SylphyHorn.UI.Bindings"
 				   xmlns:controls="clr-namespace:SylphyHorn.UI.Controls"
 				   xmlns:services="clr-namespace:SylphyHorn.Services"
@@ -628,7 +629,7 @@
 
 			<TabItem>
 				<TabItem.Header>
-					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification}"
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification, StringFormat='{}{0} 1'}"
 							   Style="{DynamicResource TabitemStyleKey}" />
 				</TabItem.Header>
 
@@ -712,9 +713,6 @@
 							<TextBlock Grid.Column="0"
 									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowPlacement}"
 									   Style="{DynamicResource HeaderStyleKey}" />
-							<TextBlock Grid.Column="2"
-									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontSize}"
-									   Style="{DynamicResource HeaderStyleKey}" />
 						</Grid>
 						<StackPanel Margin="8,0,0,0">
 							<Grid>
@@ -733,6 +731,130 @@
 													  MinWidth="200"
 													  Margin="1,0,0,0"
 													  HorizontalAlignment="Left" />
+							</Grid>
+						</StackPanel>
+						<Border Height="8" />
+
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="210" />
+								<ColumnDefinition Width="32" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Column="0"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowStyle}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+							<TextBlock Grid.Column="2"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_Others}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+						</Grid>
+						<StackPanel Margin="8,0,0,0">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="210" />
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<StackPanel Grid.Column="0"
+											Margin="1,0,0,0"
+											VerticalAlignment="Top">
+									<metro:PromptComboBox ItemsSource="{Binding NotificationWindowStyles}"
+														  DisplayMemberPath="Display"
+														  SelectedValuePath="Value"
+														  SelectedValue="{Binding NotificationWindowStyle, Mode=TwoWay}"
+														  Prompt=""
+														  IsReadOnly="True"
+														  MinWidth="200"
+														  Margin="0"
+														  VerticalAlignment="Top"
+														  HorizontalAlignment="Left" />
+									<metro:PromptComboBox ItemsSource="{Binding NotificationCornerStyles}"
+														  DisplayMemberPath="Display"
+														  SelectedValuePath="Value"
+														  SelectedValue="{Binding NotificationCornerStyle, Mode=TwoWay}"
+														  Prompt=""
+														  IsReadOnly="True"
+														  MinWidth="200"
+														  Margin="0,4,0,0"
+														  VerticalAlignment="Top"
+														  HorizontalAlignment="Left" />
+								</StackPanel>
+								<StackPanel Grid.Column="2"
+											Margin="1,0,0,0"
+											VerticalAlignment="Top">
+									<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=SimpleNotification.Value, Mode=TwoWay}">
+										<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_SimpleMode}" />
+									</CheckBox>
+									<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
+										<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
+									</CheckBox>
+								</StackPanel>
+							</Grid>
+						</StackPanel>
+						<Border Height="32" />
+
+						<ui:NotificationPreview />
+					</StackPanel>
+				</ScrollViewer>
+			</TabItem>
+
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification, StringFormat='{}{0} 2'}"
+							   Style="{DynamicResource TabitemStyleKey}" />
+				</TabItem.Header>
+
+				<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+							  VerticalScrollBarVisibility="Auto">
+					<StackPanel Margin="16,0,16,16"
+								Focusable="True">
+						<Grid Margin="0,-8,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="210" />
+								<ColumnDefinition Width="32" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Column="0"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+							<TextBlock Grid.Column="2"
+									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontSize}"
+									   Style="{DynamicResource HeaderStyleKey}" />
+						</Grid>
+						<StackPanel Margin="8,0,0,0">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="210" />
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<TextBlock Grid.Column="0" VerticalAlignment="Top"
+										   Margin="1,0,0,0">
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment_Header, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptComboBox ItemsSource="{Binding NotificationTextAlignments}"
+															  DisplayMemberPath="Display"
+															  SelectedValuePath="Value"
+															  SelectedValue="{Binding NotificationHeaderAlignment, Mode=TwoWay}"
+															  Prompt=""
+															  IsReadOnly="True"
+															  MinWidth="60"
+															  Margin="2,0,2,-7"
+															  HorizontalAlignment="Left" />
+									</InlineUIContainer>
+									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment_Body, Mode=OneWay}" />
+									<InlineUIContainer>
+										<metro:PromptComboBox ItemsSource="{Binding NotificationTextAlignments}"
+															  DisplayMemberPath="Display"
+															  SelectedValuePath="Value"
+															  SelectedValue="{Binding NotificationBodyAlignment, Mode=TwoWay}"
+															  Prompt=""
+															  IsReadOnly="True"
+															  MinWidth="60"
+															  Margin="2,0,2,-7"
+															  HorizontalAlignment="Left" />
+									</InlineUIContainer>
+								</TextBlock>
 								<TextBlock Grid.Column="2" VerticalAlignment="Top"
 										   Margin="1,0,0,0">
 									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontSize_Header, Mode=OneWay}" />
@@ -768,33 +890,13 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock Grid.Column="0"
-									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationWindowStyle}"
-									   Style="{DynamicResource HeaderStyleKey}" />
-							<TextBlock Grid.Column="2"
 									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationFontFamily}"
 									   Style="{DynamicResource HeaderStyleKey}" />
 						</Grid>
 						<StackPanel Margin="8,0,0,0">
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="210" />
-									<ColumnDefinition Width="32" />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<metro:PromptComboBox Grid.Column="0"
-													  ItemsSource="{Binding NotificationWindowStyles}"
-													  DisplayMemberPath="Display"
-													  SelectedValuePath="Value"
-													  SelectedValue="{Binding NotificationWindowStyle, Mode=TwoWay}"
-													  Prompt=""
-													  IsReadOnly="True"
-													  MinWidth="200"
-													  Margin="1,0,0,0"
-													  HorizontalAlignment="Left" />
-								<metro:PromptTextBox Grid.Column="2"
-													 Text="{Binding NotificationFontFamily, Mode=TwoWay}"
-													 MinWidth="313"
-													 MaxWidth="360"
+								<metro:PromptTextBox Text="{Binding NotificationFontFamily, Mode=TwoWay}"
+													 MinWidth="462"
+													 MaxWidth="640"
 													 Margin="1,0,0,0"
 													 HorizontalAlignment="Left"
 													 VerticalAlignment="Top">
@@ -805,268 +907,10 @@
 										</MultiBinding>
 									</metro:PromptTextBox.Prompt>
 								</metro:PromptTextBox>
-							</Grid>
 						</StackPanel>
-						<Border Height="8" />
+						<Border Height="128" />
 
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="210" />
-								<ColumnDefinition Width="32" />
-								<ColumnDefinition Width="Auto" />
-							</Grid.ColumnDefinitions>
-							<TextBlock Grid.Column="0"
-									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment}"
-									   Style="{DynamicResource HeaderStyleKey}" />
-							<TextBlock Grid.Column="2"
-									   Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_Others}"
-									   Style="{DynamicResource HeaderStyleKey}" />
-						</Grid>
-						<StackPanel Margin="8,0,0,0">
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="210" />
-									<ColumnDefinition Width="32" />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<TextBlock Grid.Column="0"
-										   Margin="1,0,0,0"
-										   VerticalAlignment="Top">
-									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment_Header, Mode=OneWay}" />
-									<InlineUIContainer>
-										<metro:PromptComboBox ItemsSource="{Binding NotificationTextAlignments}"
-															  DisplayMemberPath="Display"
-															  SelectedValuePath="Value"
-															  SelectedValue="{Binding NotificationHeaderAlignment, Mode=TwoWay}"
-															  Prompt=""
-															  IsReadOnly="True"
-															  MinWidth="60"
-															  Margin="2,0,2,-7"
-															  HorizontalAlignment="Left" />
-									</InlineUIContainer>
-									<Run Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_NotificationTextAlignment_Body, Mode=OneWay}" />
-									<InlineUIContainer>
-										<metro:PromptComboBox ItemsSource="{Binding NotificationTextAlignments}"
-															  DisplayMemberPath="Display"
-															  SelectedValuePath="Value"
-															  SelectedValue="{Binding NotificationBodyAlignment, Mode=TwoWay}"
-															  Prompt=""
-															  IsReadOnly="True"
-															  MinWidth="60"
-															  Margin="2,0,2,-7"
-															  HorizontalAlignment="Left" />
-									</InlineUIContainer>
-								</TextBlock>
-								<StackPanel Grid.Column="2"
-											Margin="1,0,0,0"
-											VerticalAlignment="Top">
-									<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=SimpleNotification.Value, Mode=TwoWay}">
-										<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_Notification_SimpleMode}" />
-									</CheckBox>
-									<CheckBox IsChecked="{Binding Source={x:Static serialization:Settings.General}, Path=UseDesktopName.Value, Mode=TwoWay}">
-										<TextBlock Text="{Binding Source={x:Static services:ResourceService.Current}, Path=Resources.Settings_DesktopNames_UseDesktopName}" />
-									</CheckBox>
-								</StackPanel>
-							</Grid>
-						</StackPanel>
-						<Border Height="12" />
-
-						<Canvas>
-							<Canvas.Resources>
-								<Style x:Key="PreviewGridStyle"
-									   TargetType="Grid">
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopLeft}">
-											<Setter Property="Canvas.Left"
-													Value="0" />
-											<Setter Property="Canvas.Top"
-													Value="0" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopCenter}">
-											<Setter Property="Canvas.Left"
-													Value="90" />
-											<Setter Property="Canvas.Top"
-													Value="0" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopRight}">
-											<Setter Property="Canvas.Left"
-													Value="180" />
-											<Setter Property="Canvas.Top"
-													Value="0" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.Center}">
-											<Setter Property="Canvas.Left"
-													Value="90" />
-											<Setter Property="Canvas.Top"
-													Value="88" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomLeft}">
-											<Setter Property="Canvas.Left"
-													Value="0" />
-											<Setter Property="Canvas.Top"
-													Value="184" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomCenter}">
-											<Setter Property="Canvas.Left"
-													Value="90" />
-											<Setter Property="Canvas.Top"
-													Value="184" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomRight}">
-											<Setter Property="Canvas.Left"
-													Value="180" />
-											<Setter Property="Canvas.Top"
-													Value="184" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-								<Style x:Key="PreviewBlurImageStyle"
-									   TargetType="Rectangle">
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopLeft}">
-											<Setter Property="Margin"
-													Value="0,0,-140,-198" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopCenter}">
-											<Setter Property="Margin"
-													Value="-70,0,-70,-198" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopRight}">
-											<Setter Property="Margin"
-													Value="-140,0,0,-198" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.Center}">
-											<Setter Property="Margin"
-													Value="-70,-99,-70,-99" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomLeft}">
-											<Setter Property="Margin"
-													Value="0,-183,-140,-15" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomCenter}">
-											<Setter Property="Margin"
-													Value="-70,-183,-70,-15" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomRight}">
-											<Setter Property="Margin"
-													Value="-140,-183,0,-15" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-								<Style x:Key="PreviewBorderStyle"
-									   TargetType="Border">
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopLeft}">
-											<Setter Property="BorderThickness"
-													Value="0,0,1,1" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopCenter}">
-											<Setter Property="BorderThickness"
-													Value="1,0,1,1" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.TopRight}">
-											<Setter Property="BorderThickness"
-													Value="1,0,0,1" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.Center}">
-											<Setter Property="BorderThickness"
-													Value="1" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomLeft}">
-											<Setter Property="BorderThickness"
-													Value="0,1,1,0" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomCenter}">
-											<Setter Property="BorderThickness"
-													Value="1,1,1,0" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Placement}"
-													 Value="{x:Static bindings:WindowPlacement.BottomRight}">
-											<Setter Property="BorderThickness"
-													Value="1,1,0,0" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</Canvas.Resources>
-							<Rectangle Fill="{Binding PreviewBackgroundBrush}"
-									   Width="440"
-									   Height="248" />
-							<Image Source="{Binding PreviewBackgroundPath, Converter={StaticResource UnlockImageConverter}, IsAsync=True}"
-								   Stretch="Uniform"
-								   VerticalAlignment="Top"
-								   Width="440"
-								   Height="248" />
-
-							<Grid x:Name="PreviewRoot"
-								  Width="260"
-								  Height="50"
-								  Style="{StaticResource PreviewGridStyle}">
-								<ContentControl Width="260"
-												Height="50"
-												ClipToBounds="True">
-									<ContentControl.CacheMode>
-										<BitmapCache RenderAtScale="0.2" />
-									</ContentControl.CacheMode>
-									<Rectangle x:Name="PreviewBlurImage"
-											   Fill="{Binding NotificationBackground}"
-											   VerticalAlignment="Top"
-											   Width="440"
-											   Height="248"
-											   Visibility="{Binding HasPreviewWallpaper, Converter={StaticResource BooleanToVisibilityConverter}}"
-											   Style="{StaticResource PreviewBlurImageStyle}">
-										<Rectangle.Effect>
-											<BlurEffect Radius="20" />
-										</Rectangle.Effect>
-									</Rectangle>
-								</ContentControl>
-								<Border Background="{Binding NotificationBackground}" />
-								<DockPanel VerticalAlignment="Center"
-										   Margin="8,6">
-									<TextBlock DockPanel.Dock="Top"
-											   Text="Virtual Desktop Switched"
-											   Foreground="{Binding NotificationForeground}"
-											   FontFamily="{Binding NotificationFontFamilyOrDefault}"
-											   FontSize="11"
-											   Margin="1,0,1,-4"
-											   HorizontalAlignment="{Binding NotificationHeaderAlignment}"
-											   Visibility="{Binding PreviewNotificationHeaderVisibility}" />
-									<TextBlock DockPanel.Dock="Top"
-											   Text="{Binding PreviewNotificationText}"
-											   Foreground="{Binding NotificationForeground}"
-											   FontFamily="{Binding NotificationFontFamilyOrDefault}"
-											   FontSize="21"
-											   HorizontalAlignment="{Binding NotificationBodyAlignment}" />
-								</DockPanel>
-								<Border BorderBrush="#AAAAAA"
-										SnapsToDevicePixels="True"
-										Style="{StaticResource PreviewBorderStyle}" />
-							</Grid>
-
-							<Rectangle Fill="{Binding TaskbarBackground}"
-									   Width="440"
-									   Height="15"
-									   Canvas.Top="233" />
-						</Canvas>
+						<ui:NotificationPreview />
 					</StackPanel>
 				</ScrollViewer>
 			</TabItem>

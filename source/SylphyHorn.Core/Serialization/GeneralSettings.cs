@@ -43,6 +43,8 @@ namespace SylphyHorn.Serialization
 
 		public SerializableProperty<uint> NotificationWindowStyle => this.Cache(key => new SerializableProperty<uint>(key, this._provider, NotificationWindowStyleDefaultValue));
 
+		public SerializableProperty<uint> NotificationCornerStyle => this.Cache(key => new SerializableProperty<uint>(key, this._provider, NotificationCornerStyleDefaultValue));
+
 		public SerializableProperty<uint> NotificationHeaderAlignment => this.Cache(key => new SerializableProperty<uint>(key, this._provider, NotificationHeaderAlignmentDefaultValue));
 
 		public SerializableProperty<uint> NotificationBodyAlignment => this.Cache(key => new SerializableProperty<uint>(key, this._provider, NotificationBodyAlignmentDefaultValue));
@@ -90,6 +92,8 @@ namespace SylphyHorn.Serialization
 		public static uint PlacementDefaultValue { get; } = 5 /* Center */;
 
 		public static uint NotificationWindowStyleDefaultValue { get; } = 4 /* BlurWindowThemeMode.System */;
+
+		public static uint NotificationCornerStyleDefaultValue { get; } = 1 /* BlurWindowCornerMode.NotRounded */;
 
 		public static uint NotificationHeaderAlignmentDefaultValue { get; } = 0 /* Left */;
 

@@ -348,11 +348,23 @@
   <data name="Settings_Notification" xml:space="preserve">
     <value>通知</value>
   </data>
+  <data name="Settings_NotificationCornerStyle" xml:space="preserve">
+    <value>通知ウィンドウの角</value>
+  </data>
+  <data name="Settings_NotificationCornerStyle_NotRounded" xml:space="preserve">
+    <value>角丸なし (Windows 10 形式)</value>
+  </data>
+  <data name="Settings_NotificationCornerStyle_Rounded" xml:space="preserve">
+    <value>角丸あり (Windows 11 形式)</value>
+  </data>
+  <data name="Settings_NotificationCornerStyle_SmallRounded" xml:space="preserve">
+    <value>小さな角丸</value>
+  </data>
   <data name="Settings_NotificationFontFamily" xml:space="preserve">
-    <value>通知ウィンドウのフォントファミリ</value>
+    <value>通知テキストのフォントファミリ</value>
   </data>
   <data name="Settings_NotificationFontSize" xml:space="preserve">
-    <value>通知ウィンドウのフォントサイズ</value>
+    <value>通知テキストのフォントサイズ</value>
   </data>
   <data name="Settings_NotificationFontSize_Body" xml:space="preserve">
     <value>本文:</value>

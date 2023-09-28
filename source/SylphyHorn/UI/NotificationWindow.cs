@@ -43,6 +43,8 @@ namespace SylphyHorn.UI
 			var style = User32.GetWindowLongEx(source.Handle);
 			style |= WindowExStyles.WS_EX_TOOLWINDOW | WindowExStyles.WS_EX_NOACTIVATE;
 			User32.SetWindowLongEx(source.Handle, style);
+
+			CornerMode = (BlurWindowCornerMode)Settings.General.NotificationCornerStyle.Value;
 		}
 
 		protected override void OnThemeModeChanged(DependencyPropertyChangedEventArgs e)

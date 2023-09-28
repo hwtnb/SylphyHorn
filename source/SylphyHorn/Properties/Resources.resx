@@ -348,6 +348,18 @@
   <data name="Settings_Notification" xml:space="preserve">
     <value>Notification</value>
   </data>
+  <data name="Settings_NotificationCornerStyle" xml:space="preserve">
+    <value>Notification corner style</value>
+  </data>
+  <data name="Settings_NotificationCornerStyle_NotRounded" xml:space="preserve">
+    <value>Not rounded (Windows 10 style)</value>
+  </data>
+  <data name="Settings_NotificationCornerStyle_Rounded" xml:space="preserve">
+    <value>Rounded (Windows 11 style)</value>
+  </data>
+  <data name="Settings_NotificationCornerStyle_SmallRounded" xml:space="preserve">
+    <value>Small rounded</value>
+  </data>
   <data name="Settings_NotificationFontFamily" xml:space="preserve">
     <value>Notification font family</value>
   </data>

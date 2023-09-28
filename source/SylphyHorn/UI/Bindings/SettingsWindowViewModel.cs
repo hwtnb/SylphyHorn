@@ -40,6 +40,8 @@ namespace SylphyHorn.UI.Bindings
 
 		public IReadOnlyCollection<DisplayViewModel<BlurWindowThemeMode>> NotificationWindowStyles { get; }
 
+		public IReadOnlyCollection<DisplayViewModel<BlurWindowCornerMode>> NotificationCornerStyles { get; }
+
 		public IReadOnlyCollection<DisplayViewModel<HorizontalAlignment>> NotificationTextAlignments { get; }
 
 		public bool IsDisplayEnabled { get; }
@@ -259,6 +261,24 @@ namespace SylphyHorn.UI.Bindings
 				if ((BlurWindowThemeMode)Settings.General.NotificationWindowStyle.Value != value)
 				{
 					Settings.General.NotificationWindowStyle.Value = (uint)value;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region NotificationCornerStyle notification property
+
+		public BlurWindowCornerMode NotificationCornerStyle
+		{
+			get => (BlurWindowCornerMode)Settings.General.NotificationCornerStyle.Value;
+			set
+			{
+				if ((BlurWindowCornerMode)Settings.General.NotificationCornerStyle.Value != value)
+				{
+					Settings.General.NotificationCornerStyle.Value = (uint)value;
 
 					this.RaisePropertyChanged();
 				}
@@ -540,6 +560,26 @@ namespace SylphyHorn.UI.Bindings
 
 		#endregion
 
+		#region PreviewCornerRadius notification property
+
+		private int _PreviewCornerRadius;
+
+		public int PreviewCornerRadius
+		{
+			get => this._PreviewCornerRadius;
+			set
+			{
+				if (this._PreviewCornerRadius != value)
+				{
+					this._PreviewCornerRadius = value;
+
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
 		public Visibility PreviewNotificationHeaderVisibility => Settings.General.SimpleNotification
 			? Visibility.Collapsed
 			: Visibility.Visible;
@@ -586,7 +626,7 @@ namespace SylphyHorn.UI.Bindings
 		#endregion
 
 		public Brush NotificationBackground => new SolidColorBrush(this.NotificationBackgroundColor)
-		{ Opacity = WindowsTheme.Transparency.Current ? 0.6 : 1.0 };
+		{ Opacity = WindowsTheme.Transparency.Current ? 0.8 : 1.0 };
 
 		#region NotificationForegroundColor notification property
 
@@ -679,6 +719,13 @@ namespace SylphyHorn.UI.Bindings
 				new DisplayViewModel<BlurWindowThemeMode> { Display = Resources.Settings_NotificationWindowStyle_System, Value = BlurWindowThemeMode.System, },
 			}.ToList();
 
+			this.NotificationCornerStyles = new[]
+			{
+				new DisplayViewModel<BlurWindowCornerMode> { Display = Resources.Settings_NotificationCornerStyle_NotRounded, Value = BlurWindowCornerMode.NotRounded, },
+				new DisplayViewModel<BlurWindowCornerMode> { Display = Resources.Settings_NotificationCornerStyle_Rounded, Value = BlurWindowCornerMode.Rounded, },
+				new DisplayViewModel<BlurWindowCornerMode> { Display = Resources.Settings_NotificationCornerStyle_SmallRounded, Value = BlurWindowCornerMode.SmallRounded, },
+			}.ToList();
+
 			this.NotificationTextAlignments = new[]
 			{
 				new DisplayViewModel<HorizontalAlignment> { Display = Resources.Settings_NotificationTextAlignment_Left, Value = HorizontalAlignment.Left, },
@@ -740,6 +787,7 @@ namespace SylphyHorn.UI.Bindings
 			this.PreviewBackgroundBrush = new SolidColorBrush(colAndWall.Item1);
 			this.PreviewBackgroundPath = colAndWall.Item2;
 			this.UpdateNotificationColor(this.NotificationWindowStyle);
+			this.UpdateNotificationCornerRadius(this.NotificationCornerStyle);
 
 			this.Logs = ViewModelHelper.CreateReadOnlyDispatcherCollection(
 				LoggingService.Instance.Logs,
@@ -778,6 +826,9 @@ namespace SylphyHorn.UI.Bindings
 				.AddTo(this);
 			Settings.General.NotificationWindowStyle
 				.Subscribe(mode => this.UpdateNotificationColor((BlurWindowThemeMode)mode))
+				.AddTo(this);
+			Settings.General.NotificationCornerStyle
+				.Subscribe(mode => this.UpdateNotificationCornerRadius((BlurWindowCornerMode)mode))
 				.AddTo(this);
 
 			Settings.ShortcutKey.SwitchToIndices
@@ -1064,6 +1115,22 @@ namespace SylphyHorn.UI.Bindings
 			this.GetColorByThemeMode(mode, out var background, out var foreground);
 			this.NotificationBackgroundColor = background;
 			this.NotificationForegroundColor = foreground;
+		}
+
+		private void UpdateNotificationCornerRadius(BlurWindowCornerMode mode)
+		{
+			if (mode == BlurWindowCornerMode.Rounded)
+			{
+				this.PreviewCornerRadius = 8;
+			}
+			else if (mode == BlurWindowCornerMode.SmallRounded)
+			{
+				this.PreviewCornerRadius = 4;
+			}
+			else
+			{
+				this.PreviewCornerRadius = 0;
+			}
 		}
 
 		private void GetColorByThemeMode(BlurWindowThemeMode themeMode, out Color background, out Color foreground)
