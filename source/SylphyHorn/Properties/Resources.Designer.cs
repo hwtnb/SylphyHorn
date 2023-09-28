@@ -1060,6 +1060,24 @@ namespace SylphyHorn.Properties {
         }
         
         /// <summary>
+        ///   Center left に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowPlacement_CenterLeft {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowPlacement_CenterLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Center right に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_NotificationWindowPlacement_CenterRight {
+            get {
+                return ResourceManager.GetString("Settings_NotificationWindowPlacement_CenterRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Top center に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_NotificationWindowPlacement_TopCenter {

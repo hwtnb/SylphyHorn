@@ -33,9 +33,23 @@
 								Value="0" />
 					</DataTrigger>
 					<DataTrigger Binding="{Binding Placement}"
+								 Value="{x:Static bindings:WindowPlacement.CenterLeft}">
+						<Setter Property="Canvas.Left"
+								Value="0" />
+						<Setter Property="Canvas.Top"
+								Value="110" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Placement}"
 								 Value="{x:Static bindings:WindowPlacement.Center}">
 						<Setter Property="Canvas.Left"
 								Value="90" />
+						<Setter Property="Canvas.Top"
+								Value="110" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Placement}"
+								 Value="{x:Static bindings:WindowPlacement.CenterRight}">
+						<Setter Property="Canvas.Left"
+								Value="180" />
 						<Setter Property="Canvas.Top"
 								Value="110" />
 					</DataTrigger>
@@ -81,9 +95,19 @@
 								Value="1,0,0,1" />
 					</DataTrigger>
 					<DataTrigger Binding="{Binding Placement}"
+								 Value="{x:Static bindings:WindowPlacement.CenterLeft}">
+						<Setter Property="BorderThickness"
+								Value="0,1,1,1" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Placement}"
 								 Value="{x:Static bindings:WindowPlacement.Center}">
 						<Setter Property="BorderThickness"
 								Value="1" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Placement}"
+								 Value="{x:Static bindings:WindowPlacement.CenterRight}">
+						<Setter Property="BorderThickness"
+								Value="1,1,0,1" />
 					</DataTrigger>
 					<DataTrigger Binding="{Binding Placement}"
 								 Value="{x:Static bindings:WindowPlacement.BottomLeft}">

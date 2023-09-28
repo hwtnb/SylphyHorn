@@ -432,6 +432,12 @@
   <data name="Settings_NotificationWindowPlacement_Center" xml:space="preserve">
     <value>中央</value>
   </data>
+  <data name="Settings_NotificationWindowPlacement_CenterLeft" xml:space="preserve">
+    <value>左中央</value>
+  </data>
+  <data name="Settings_NotificationWindowPlacement_CenterRight" xml:space="preserve">
+    <value>右中央</value>
+  </data>
   <data name="Settings_NotificationWindowPlacement_TopCenter" xml:space="preserve">
     <value>中央 上部</value>
   </data>

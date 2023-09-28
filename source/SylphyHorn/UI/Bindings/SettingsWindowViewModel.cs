@@ -784,7 +784,9 @@ namespace SylphyHorn.UI.Bindings
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_TopLeft, Value = WindowPlacement.TopLeft, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_TopCenter, Value = WindowPlacement.TopCenter, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_TopRight, Value = WindowPlacement.TopRight, },
+				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_CenterLeft, Value = WindowPlacement.CenterLeft, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_Center, Value = WindowPlacement.Center, },
+				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_CenterRight, Value = WindowPlacement.CenterRight, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_BottomLeft, Value = WindowPlacement.BottomLeft, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_BottomCenter, Value = WindowPlacement.BottomCenter, },
 				new DisplayViewModel<WindowPlacement> { Display = Resources.Settings_NotificationWindowPlacement_BottomRight, Value = WindowPlacement.BottomRight, },
@@ -1276,17 +1278,19 @@ namespace SylphyHorn.UI.Bindings
 			var placement = this.Placement;
 			switch (placement)
 			{
-				case WindowPlacement.Center:
-				case WindowPlacement.TopCenter:
-				case WindowPlacement.BottomCenter:
-					return GeneralSettings.NotificationOffsetXDefaultValue;
-
 				case WindowPlacement.TopLeft:
+				case WindowPlacement.CenterLeft:
 				case WindowPlacement.BottomLeft:
 					return GeneralSettings.NotificationOffsetXWithRoundedDefaultValue;
 
-				default:
+				case WindowPlacement.TopRight:
+				case WindowPlacement.CenterRight:
+				case WindowPlacement.BottomRight:
 					return -GeneralSettings.NotificationOffsetXWithRoundedDefaultValue;
+
+				case WindowPlacement.Center:
+				default:
+					return GeneralSettings.NotificationOffsetXDefaultValue;
 			}
 		}
 
@@ -1300,16 +1304,19 @@ namespace SylphyHorn.UI.Bindings
 			var placement = this.Placement;
 			switch (placement)
 			{
-				case WindowPlacement.Center:
-					return GeneralSettings.NotificationOffsetYDefaultValue;
+				case WindowPlacement.TopLeft:
+				case WindowPlacement.TopCenter:
+				case WindowPlacement.TopRight:
+					return -GeneralSettings.NotificationOffsetYWithRoundedDefaultValue;
 
 				case WindowPlacement.BottomLeft:
 				case WindowPlacement.BottomCenter:
 				case WindowPlacement.BottomRight:
 					return GeneralSettings.NotificationOffsetYWithRoundedDefaultValue;
 
+				case WindowPlacement.Center:
 				default:
-					return -GeneralSettings.NotificationOffsetYWithRoundedDefaultValue;
+					return GeneralSettings.NotificationOffsetYDefaultValue;
 			}
 		}
 	}

@@ -432,6 +432,12 @@
   <data name="Settings_NotificationWindowPlacement_Center" xml:space="preserve">
     <value>Center</value>
   </data>
+  <data name="Settings_NotificationWindowPlacement_CenterLeft" xml:space="preserve">
+    <value>Center left</value>
+  </data>
+  <data name="Settings_NotificationWindowPlacement_CenterRight" xml:space="preserve">
+    <value>Center right</value>
+  </data>
   <data name="Settings_NotificationWindowPlacement_TopCenter" xml:space="preserve">
     <value>Top center</value>
   </data>

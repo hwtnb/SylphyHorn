@@ -35,11 +35,13 @@ namespace SylphyHorn.UI
 			switch ((WindowPlacement)Settings.General.Placement.Value)
 			{
 				case WindowPlacement.TopLeft:
+				case WindowPlacement.CenterLeft:
 				case WindowPlacement.BottomLeft:
 					this.Left = area.Left / dpi.ScaleX + offsetLeft;
 					break;
 
 				case WindowPlacement.TopRight:
+				case WindowPlacement.CenterRight:
 				case WindowPlacement.BottomRight:
 					this.Left = (area.Right - width) / dpi.ScaleX + offsetLeft;
 					break;
