@@ -1,4 +1,4 @@
-﻿<metro:BlurWindow x:Class="SylphyHorn.UI.TaskTrayTestWindow"
+﻿<metro:AcrylicBlurWindow x:Class="SylphyHorn.UI.TaskTrayTestWindow"
 				  x:Name="TaskTrayTestWindowInstance"
 				  x:FieldModifier="private"
 				  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,12 +9,12 @@
 				  mc:Ignorable="d"
 				  Title="TaskTrayTestWindow"
 				  SizeToContent="WidthAndHeight">
-	<metro:BlurWindow.Resources>
+	<metro:AcrylicBlurWindow.Resources>
 		<Style TargetType="{x:Type RadioButton}">
 			<Setter Property="Foreground"
 					Value="{Binding ElementName=TaskTrayTestWindowInstance, Path=Foreground}" />
 		</Style>
-	</metro:BlurWindow.Resources>
+	</metro:AcrylicBlurWindow.Resources>
 	
 	<DockPanel>
 		<!-- #region Caption area -->
@@ -342,4 +342,4 @@
 		</StackPanel>
 		
 	</DockPanel>
-</metro:BlurWindow>
+</metro:AcrylicBlurWindow>

@@ -10,7 +10,7 @@ using SylphyHorn.Serialization;
 
 namespace SylphyHorn.UI
 {
-	public class NotificationWindow : BlurWindow
+	public class NotificationWindow : AcrylicBlurWindow
 	{
 		#region NativeOpacity dependency property
 
