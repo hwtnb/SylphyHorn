@@ -54,6 +54,8 @@ namespace SylphyHorn.UI.Bindings
 
 		public bool IsWindows10OrEarlier => !ProductInfo.IsWallpaperSupportBuild;
 
+		public bool IsWindows11OrLater => ProductInfo.IsWindows11OrLater;
+
 		public bool IsNameSupport => ProductInfo.IsNameSupportBuild;
 
 		public bool IsReorderingSupport => ProductInfo.IsReorderingSupportBuild;
@@ -649,6 +651,11 @@ namespace SylphyHorn.UI.Bindings
 			get => this._PreviewCornerRadius;
 			set
 			{
+				if (!this.IsWindows11OrLater)
+				{
+					value = 0;
+				}
+
 				if (this._PreviewCornerRadius != value)
 				{
 					this._PreviewCornerRadius = value;

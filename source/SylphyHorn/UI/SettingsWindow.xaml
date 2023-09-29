@@ -816,6 +816,7 @@
 														  SelectedValue="{Binding NotificationCornerStyle, Mode=TwoWay}"
 														  Prompt=""
 														  IsReadOnly="True"
+														  IsEnabled="{Binding IsWindows11OrLater}"
 														  MinWidth="200"
 														  Margin="0,4,0,0"
 														  VerticalAlignment="Top"
